@@ -1,4 +1,4 @@
-libtorchaudio
+libtorchffmpeg
 =============
 
 .. warning::
@@ -6,5 +6,5 @@ libtorchaudio
    API/ABI backward compatibility is not guaranteed.
 
 .. toctree::
-   libtorchaudio.stream_reader
-   libtorchaudio.stream_writer
+   libtorchffmpeg.stream_reader
+   libtorchffmpeg.stream_writer

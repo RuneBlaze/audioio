@@ -3,8 +3,8 @@ from typing import List
 
 import torch
 from parameterized import parameterized
-from torchaudio.models._hdemucs import _HDecLayer, _HEncLayer, HDemucs, hdemucs_high, hdemucs_low
-from torchaudio_unittest.common_utils import skipIfNoModule, TestBaseMixin, TorchaudioTestCase
+from torchffmpeg.models._hdemucs import _HDecLayer, _HEncLayer, HDemucs, hdemucs_high, hdemucs_low
+from torchffmpeg_unittest.common_utils import skipIfNoModule, TestBaseMixin, TorchaudioTestCase
 
 
 def _get_hdemucs_model(sources: List[str], n_fft: int = 4096, depth: int = 6):

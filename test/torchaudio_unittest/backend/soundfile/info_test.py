@@ -3,10 +3,10 @@ import warnings
 from unittest.mock import patch
 
 import torch
-from torchaudio._internal import module_utils as _mod_utils
-from torchaudio.backend import soundfile_backend
-from torchaudio_unittest.backend.common import get_bits_per_sample, get_encoding
-from torchaudio_unittest.common_utils import (
+from torchffmpeg._internal import module_utils as _mod_utils
+from torchffmpeg.backend import soundfile_backend
+from torchffmpeg_unittest.backend.common import get_bits_per_sample, get_encoding
+from torchffmpeg_unittest.common_utils import (
     get_wav_data,
     nested_params,
     PytorchTestCase,

@@ -1,9 +1,9 @@
-.. py:module:: torchaudio.prototype.datasets
+.. py:module:: torchffmpeg.prototype.datasets
 
-torchaudio.prototype.datasets
+torchffmpeg.prototype.datasets
 =============================
 
-.. currentmodule:: torchaudio.prototype.datasets
+.. currentmodule:: torchffmpeg.prototype.datasets
 
 .. autosummary::
     :toctree: generated

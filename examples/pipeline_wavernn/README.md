@@ -1,5 +1,5 @@
 This is an example vocoder pipeline using the WaveRNN model trained with LJSpeech. WaveRNN model is based on the implementation from [this repository](https://github.com/fatchord/WaveRNN). The original implementation was
-introduced in "Efficient Neural Audio Synthesis". WaveRNN and LJSpeech are available in torchaudio.
+introduced in "Efficient Neural Audio Synthesis". WaveRNN and LJSpeech are available in torchffmpeg.
 
 ### Usage
 

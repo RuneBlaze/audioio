@@ -2,9 +2,9 @@ import unittest
 from distutils.version import StrictVersion
 
 import torch
-import torchaudio.functional as F
+import torchffmpeg.functional as F
 from parameterized import param
-from torchaudio._internal.module_utils import is_module_available
+from torchffmpeg._internal.module_utils import is_module_available
 
 LIBROSA_AVAILABLE = is_module_available("librosa")
 
@@ -13,7 +13,7 @@ if LIBROSA_AVAILABLE:
     import numpy as np
 
 
-from torchaudio_unittest.common_utils import get_spectrogram, get_whitenoise, nested_params, TestBaseMixin
+from torchffmpeg_unittest.common_utils import get_spectrogram, get_whitenoise, nested_params, TestBaseMixin
 
 
 @unittest.skipIf(not LIBROSA_AVAILABLE, "Librosa not available")

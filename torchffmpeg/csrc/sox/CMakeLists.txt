@@ -1,0 +1,33 @@
+set(
+  sources
+  io.cpp
+  utils.cpp
+  effects.cpp
+  effects_chain.cpp
+  types.cpp
+  )
+torchffmpeg_library(
+  libtorchffmpeg_sox
+  "${sources}"
+  ""
+  "torch;libsox"
+  ""
+  )
+
+if (BUILD_TORCHFFMPEG_PYTHON_EXTENSION)
+  set(
+    ext_sources
+    pybind/pybind.cpp
+    pybind/effects.cpp
+    pybind/effects_chain.cpp
+    pybind/io.cpp
+    pybind/utils.cpp
+    )
+  torchffmpeg_extension(
+    _torchffmpeg_sox
+    "${ext_sources}"
+    ""
+    "libtorchffmpeg_sox"
+    ""
+    )
+endif()

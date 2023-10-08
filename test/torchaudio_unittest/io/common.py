@@ -1,4 +1,4 @@
-import torchaudio
+import torchffmpeg
 
 
 # If FFmpeg is 4.1 or older
@@ -7,7 +7,7 @@ import torchaudio
 # Probably this commit fixed it.
 # https://github.com/FFmpeg/FFmpeg/commit/18aea7bdd96b320a40573bccabea56afeccdd91c
 def lt42():
-    ver = torchaudio.utils.ffmpeg_utils.get_versions()["libavcodec"]
+    ver = torchffmpeg.utils.ffmpeg_utils.get_versions()["libavcodec"]
     # 5.1 libavcodec     59. 18.100
     # 4.4 libavcodec     58.134.100
     # 4.3 libavcodec     58. 91.100

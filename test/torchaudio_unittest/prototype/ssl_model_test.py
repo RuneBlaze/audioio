@@ -1,7 +1,7 @@
 import torch
 from parameterized import parameterized
-from torchaudio.prototype.models import conformer_wav2vec2_base, conformer_wav2vec2_pretrain_base, emformer_hubert_base
-from torchaudio_unittest.common_utils import nested_params, skipIfNoCuda, torch_script, TorchaudioTestCase
+from torchffmpeg.prototype.models import conformer_wav2vec2_base, conformer_wav2vec2_pretrain_base, emformer_hubert_base
+from torchffmpeg_unittest.common_utils import nested_params, skipIfNoCuda, torch_script, TorchaudioTestCase
 
 
 class TestSSLModel(TorchaudioTestCase):

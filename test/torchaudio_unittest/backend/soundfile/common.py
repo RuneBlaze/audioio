@@ -2,7 +2,7 @@ import itertools
 from unittest import skipIf
 
 from parameterized import parameterized
-from torchaudio._internal.module_utils import is_module_available
+from torchffmpeg._internal.module_utils import is_module_available
 
 
 def name_func(func, _, params):

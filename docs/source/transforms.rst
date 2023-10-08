@@ -1,14 +1,14 @@
-.. py:module:: torchaudio.transforms
+.. py:module:: torchffmpeg.transforms
 
-torchaudio.transforms
+torchffmpeg.transforms
 =====================
 
-.. currentmodule:: torchaudio.transforms
+.. currentmodule:: torchffmpeg.transforms
 
-``torchaudio.transforms`` module contains common audio processings and feature extractions. The following diagram shows the relationship between some of the available transforms.
+``torchffmpeg.transforms`` module contains common audio processings and feature extractions. The following diagram shows the relationship between some of the available transforms.
 
 
-.. image:: https://download.pytorch.org/torchaudio/tutorial-assets/torchaudio_feature_extractions.png
+.. image:: https://download.pytorch.org/torchffmpeg/tutorial-assets/torchffmpeg_feature_extractions.png
 
 Transforms are implemented using :class:`torch.nn.Module`. Common ways to build a processing pipeline are to define custom Module class or chain Modules together using :class:`torch.nn.Sequential`, then move it to a target device and data type.
 
@@ -73,7 +73,7 @@ Transforms are implemented using :class:`torch.nn.Module`. Common ways to build 
 
 Please check out tutorials that cover in-depth usage of trasforms.
 
-.. minigallery:: torchaudio.transforms
+.. minigallery:: torchffmpeg.transforms
 
 Utility
 -------

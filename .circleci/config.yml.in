@@ -91,7 +91,7 @@ binary_common: &binary_common
 smoke_test_common: &smoke_test_common
   <<: *binary_common
   docker:
-    - image: pytorch/torchaudio_unittest_base:smoke_test-20220425
+    - image: pytorch/torchffmpeg_unittest_base:smoke_test-20220425
   resource_class: large
 
 jobs:
@@ -127,7 +127,7 @@ jobs:
 
   download_third_parties:
     docker:
-      - image: "pytorch/torchaudio_unittest_base:manylinux"
+      - image: "pytorch/torchffmpeg_unittest_base:manylinux"
     resource_class: small
     steps:
       - checkout
@@ -456,7 +456,7 @@ jobs:
             set -x
             source /usr/local/etc/profile.d/conda.sh && conda activate python${PYTHON_VERSION}
             conda install -v -y -c pytorch-${UPLOAD_CHANNEL} pytorch cpuonly
-            conda install -v -y -c file://$HOME/workspace/conda-bld torchaudio
+            conda install -v -y -c file://$HOME/workspace/conda-bld torchffmpeg
       - checkout
       - run:
           name: smoke test
@@ -479,7 +479,7 @@ jobs:
             set -x
             source /usr/local/etc/profile.d/conda.sh && conda activate python${PYTHON_VERSION}
             conda install -v -y -c pytorch-${UPLOAD_CHANNEL} -c nvidia pytorch pytorch-cuda=${CU_VERSION:2:2}.${CU_VERSION:4}
-            conda install -v -y -c file://$HOME/workspace/conda-bld torchaudio
+            conda install -v -y -c file://$HOME/workspace/conda-bld torchffmpeg
       - checkout
       - run:
           name: smoke test
@@ -501,7 +501,7 @@ jobs:
           command: |
             set -x
             source /usr/local/etc/profile.d/conda.sh && conda activate python${PYTHON_VERSION}
-            pip install $(ls ~/workspace/torchaudio*.whl) -f "https://download.pytorch.org/whl/${UPLOAD_CHANNEL}/${CU_VERSION}/torch_${UPLOAD_CHANNEL}.html"
+            pip install $(ls ~/workspace/torchffmpeg*.whl) -f "https://download.pytorch.org/whl/${UPLOAD_CHANNEL}/${CU_VERSION}/torch_${UPLOAD_CHANNEL}.html"
       - checkout
       - run:
           name: smoke test
@@ -530,7 +530,7 @@ jobs:
             conda create -yn python${PYTHON_VERSION} python=${PYTHON_VERSION}
             conda activate python${PYTHON_VERSION}
             conda install -v -y ${CONDA_CHANNEL_FLAGS:-} -c pytorch-${UPLOAD_CHANNEL} pytorch cpuonly
-            conda install -v -y $(ls ~/workspace/conda-bld/win-64/torchaudio*.tar.bz2)
+            conda install -v -y $(ls ~/workspace/conda-bld/win-64/torchffmpeg*.tar.bz2)
       - checkout
       - run:
           name: smoke test
@@ -570,8 +570,8 @@ jobs:
             conda activate python${PYTHON_VERSION}
             conda install -v -y ${CONDA_CHANNEL_FLAGS:-} -c pytorch-${UPLOAD_CHANNEL} -c nvidia pytorch numpy ffmpeg pytorch-cuda=${CU_VERSION:2:2}.${CU_VERSION:4}
 
-            # Install from torchaudio file
-            conda install -v -y $(ls ~/workspace/conda-bld/win-64/torchaudio*.tar.bz2)
+            # Install from torchffmpeg file
+            conda install -v -y $(ls ~/workspace/conda-bld/win-64/torchffmpeg*.tar.bz2)
       - run:
           name: smoke test
           command: |
@@ -600,7 +600,7 @@ jobs:
             conda env remove -n python${PYTHON_VERSION} || true
             conda create -yn python${PYTHON_VERSION} python=${PYTHON_VERSION}
             conda activate python${PYTHON_VERSION}
-            pip install $(ls ~/workspace/torchaudio*.whl) -f "https://download.pytorch.org/whl/${UPLOAD_CHANNEL}/${CU_VERSION}/torch_${UPLOAD_CHANNEL}.html"
+            pip install $(ls ~/workspace/torchffmpeg*.whl) -f "https://download.pytorch.org/whl/${UPLOAD_CHANNEL}/${CU_VERSION}/torch_${UPLOAD_CHANNEL}.html"
       - checkout
       - run:
           name: smoke test
@@ -612,13 +612,13 @@ jobs:
             # For 3.9, copying them in CWD works.
             cp ~/workspace/ffmpeg/bin/* test/smoke_test/
             # For 3.8 and 3.10, they must be in the same directory as the entrypoint lib
-            cp ~/workspace/ffmpeg/bin/* /C/tools/miniconda3/envs/python${PYTHON_VERSION}/lib/site-packages/torchaudio/lib/
+            cp ~/workspace/ffmpeg/bin/* /C/tools/miniconda3/envs/python${PYTHON_VERSION}/lib/site-packages/torchffmpeg/lib/
             ./test/smoke_test/run_smoke_test.sh
 
   unittest_linux_cpu:
     <<: *binary_common
     docker:
-      - image: pytorch/torchaudio_unittest_base:manylinux-20210121
+      - image: pytorch/torchffmpeg_unittest_base:manylinux-20210121
     resource_class: 2xlarge+
     steps:
       - checkout
@@ -630,7 +630,7 @@ jobs:
           name: Setup
           command: .circleci/unittest/linux/scripts/setup_env.sh
       - run:
-          name: Install torchaudio
+          name: Install torchffmpeg
           command: .circleci/unittest/linux/scripts/install.sh
           environment:
               USE_FFMPEG: true
@@ -638,11 +638,11 @@ jobs:
           name: Run tests
           command: .circleci/unittest/linux/scripts/run_test.sh
           environment:
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CUDA: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_HW_ACCEL: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_ON_PYTHON_310: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_AUDIO_OUT_DEVICE: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_MACOS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CUDA: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_HW_ACCEL: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_ON_PYTHON_310: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_AUDIO_OUT_DEVICE: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_MACOS: true
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -660,7 +660,7 @@ jobs:
           name: Setup
           command: .circleci/unittest/windows/scripts/setup_env.sh
       - run:
-          name: Install torchaudio
+          name: Install torchffmpeg
           command: .circleci/unittest/windows/scripts/install.sh
           environment:
               USE_FFMPEG: true
@@ -668,20 +668,20 @@ jobs:
           name: Run tests
           command: .circleci/unittest/windows/scripts/run_test.sh
           environment:
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_APPLY_CMVN_SLIDING: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_FBANK_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_KALDI_PITCH_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_MFCC_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_SPECTROGRAM_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_SOX: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CUDA: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_HW_ACCEL: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_KALDI: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_SOX: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_ON_PYTHON_310: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_MOD_sentencepiece: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_AUDIO_OUT_DEVICE: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_MACOS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_APPLY_CMVN_SLIDING: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_FBANK_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_KALDI_PITCH_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_MFCC_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_SPECTROGRAM_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_SOX: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CUDA: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_HW_ACCEL: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_KALDI: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_SOX: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_ON_PYTHON_310: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_MOD_sentencepiece: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_AUDIO_OUT_DEVICE: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_MACOS: true
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -708,7 +708,7 @@ jobs:
           name: Update CUDA driver
           command: packaging/windows/internal/driver_update.bat
       - run:
-          name: Install torchaudio
+          name: Install torchffmpeg
           command: .circleci/unittest/windows/scripts/install.sh
           environment:
               USE_FFMPEG: true
@@ -716,19 +716,19 @@ jobs:
           name: Run tests
           command: .circleci/unittest/windows/scripts/run_test.sh
           environment:
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_APPLY_CMVN_SLIDING: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_FBANK_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_KALDI_PITCH_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_MFCC_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_SPECTROGRAM_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_SOX: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_KALDI: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_SOX: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_ON_PYTHON_310: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_MOD_sentencepiece: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_CUDA_SMALL_MEMORY: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_AUDIO_OUT_DEVICE: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_MACOS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_APPLY_CMVN_SLIDING: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_FBANK_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_KALDI_PITCH_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_MFCC_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_SPECTROGRAM_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_SOX: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_KALDI: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_SOX: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_ON_PYTHON_310: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_MOD_sentencepiece: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_CUDA_SMALL_MEMORY: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_AUDIO_OUT_DEVICE: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_MACOS: true
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -749,7 +749,7 @@ jobs:
           name: Setup
           command: .circleci/unittest/linux/scripts/setup_env.sh
       - run:
-          name: Install torchaudio
+          name: Install torchffmpeg
           command: .circleci/unittest/linux/scripts/install.sh
           environment:
               USE_FFMPEG: true
@@ -758,17 +758,17 @@ jobs:
           name: Run tests
           command: .circleci/unittest/linux/scripts/run_test.sh
           environment:
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_APPLY_CMVN_SLIDING: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_FBANK_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_KALDI_PITCH_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_MFCC_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_SPECTROGRAM_FEATS: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_CUDA: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_HW_ACCEL: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_QUANTIZATION: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_ON_PYTHON_310: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_MOD_sentencepiece: true
-              TORCHAUDIO_TEST_ALLOW_SKIP_IF_NO_AUDIO_OUT_DEVICE: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_APPLY_CMVN_SLIDING: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_FBANK_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_KALDI_PITCH_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_MFCC_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CMD_COMPUTE_SPECTROGRAM_FEATS: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_CUDA: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_HW_ACCEL: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_QUANTIZATION: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_ON_PYTHON_310: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_MOD_sentencepiece: true
+              TORCHFFMPEG_TEST_ALLOW_SKIP_IF_NO_AUDIO_OUT_DEVICE: true
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -777,7 +777,7 @@ jobs:
   stylecheck:
     <<: *binary_common
     docker:
-      - image: "pytorch/torchaudio_unittest_base:manylinux"
+      - image: "pytorch/torchffmpeg_unittest_base:manylinux"
     resource_class: medium
     steps:
       - checkout
@@ -800,7 +800,7 @@ jobs:
           name: Check parameters docstring sync
           command: |
             pip install --user pydocstyle
-            pydocstyle torchaudio
+            pydocstyle torchffmpeg
 
 workflows:
   lint:

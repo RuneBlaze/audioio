@@ -43,7 +43,7 @@ The following combination is known to work.
 
    |
 
-   .. image:: https://download.pytorch.org/torchaudio/doc-assets/windows-conda.png
+   .. image:: https://download.pytorch.org/torchffmpeg/doc-assets/windows-conda.png
       :width: 360px
 
    |
@@ -52,7 +52,7 @@ The following combination is known to work.
 
    |
 
-   .. image:: https://download.pytorch.org/torchaudio/doc-assets/windows-conda2.png
+   .. image:: https://download.pytorch.org/torchffmpeg/doc-assets/windows-conda2.png
       :width: 360px
 
    |
@@ -70,18 +70,18 @@ The following combination is known to work.
 
    Please makes sure that ``cl`` command is recognized.
 
-   .. image:: https://download.pytorch.org/torchaudio/doc-assets/windows-msvc.png
+   .. image:: https://download.pytorch.org/torchffmpeg/doc-assets/windows-msvc.png
       :width: 360px
 
 3. [Optional] Launch bash with the following command.
 
-   If you want a similar UX as Linux/macOS, you can launch Bash. However, please note that in Bash environment, the file paths are different from native Windows style, and ``torchaudio.datasets`` module does not work.
+   If you want a similar UX as Linux/macOS, you can launch Bash. However, please note that in Bash environment, the file paths are different from native Windows style, and ``torchffmpeg.datasets`` module does not work.
 
    .. code-block::
 
       Miniconda3\Library\bin\bash.exe
 
-   .. image:: https://download.pytorch.org/torchaudio/doc-assets/windows-bash.png
+   .. image:: https://download.pytorch.org/torchffmpeg/doc-assets/windows-bash.png
       :width: 360px
 
 3. Install PyTorch
@@ -159,7 +159,7 @@ Conda-forge's FFmpeg package comes with support for major codecs and GPU decoder
 
 If you are not using Conda, then you can either find a pre-built binary distribution or build FFmpeg by yourself.
 
-Also, in case torchaudio developer needs to update and customize the CI for FFmpeg build, this section might be helpful.
+Also, in case torchffmpeg developer needs to update and customize the CI for FFmpeg build, this section might be helpful.
 
 1. Install MSYS2
 ~~~~~~~~~~~~~~~~
@@ -175,7 +175,7 @@ Please follow the instruction at https://www.msys2.org/ to install MSYS2.
 
 Use the shortcut to launch MSYS2 (MINGW64).
 
-.. image:: https://download.pytorch.org/torchaudio/doc-assets/windows-msys2.png
+.. image:: https://download.pytorch.org/torchffmpeg/doc-assets/windows-msys2.png
    :width: 360px
 
 .. note::
@@ -233,7 +233,7 @@ Now launch a new command prompt and enable the TorchAudio development environmen
 6. Build TorchAudio with the custom FFmpeg
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To use this FFmpeg libraries for building torchaudio, do the following;
+To use this FFmpeg libraries for building torchffmpeg, do the following;
 1. Uninstall ``ffmpeg`` package installed by conda. ``conda uninstall ffmpeg``.
 2. When building set ``FFMPEG_ROOT`` environment variable to the directory where the libraries like ``libavcodec`` are found.
 

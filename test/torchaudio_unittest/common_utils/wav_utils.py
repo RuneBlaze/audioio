@@ -73,7 +73,7 @@ def get_wav_data(
 
 
 def load_wav(path: str, normalize=True, channels_first=True) -> torch.Tensor:
-    """Load wav file without torchaudio"""
+    """Load wav file without torchffmpeg"""
     sample_rate, data = scipy.io.wavfile.read(path)
     data = torch.from_numpy(data.copy())
     if data.ndim == 1:
@@ -86,7 +86,7 @@ def load_wav(path: str, normalize=True, channels_first=True) -> torch.Tensor:
 
 
 def save_wav(path, data, sample_rate, channels_first=True):
-    """Save wav file without torchaudio"""
+    """Save wav file without torchffmpeg"""
     if channels_first:
         data = data.transpose(1, 0)
     scipy.io.wavfile.write(path, sample_rate, data.numpy())

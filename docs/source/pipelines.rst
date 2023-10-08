@@ -1,25 +1,25 @@
-.. py:module:: torchaudio.pipelines
+.. py:module:: torchffmpeg.pipelines
 
-torchaudio.pipelines
+torchffmpeg.pipelines
 ====================
 
-.. currentmodule:: torchaudio.pipelines
+.. currentmodule:: torchffmpeg.pipelines
 		   
-The ``torchaudio.pipelines`` module packages pre-trained models with support functions and meta-data into simple APIs tailored to perform specific tasks.
+The ``torchffmpeg.pipelines`` module packages pre-trained models with support functions and meta-data into simple APIs tailored to perform specific tasks.
 
 When using pre-trained models to perform a task, in addition to instantiating the model with pre-trained weights, the client code also needs to build pipelines for feature extractions and post processing in the same way they were done during the training. This requires to carrying over information used during the training, such as the type of transforms and the their parameters (for example, sampling rate the number of FFT bins).
 
-To make this information tied to a pre-trained model and easily accessible, ``torchaudio.pipelines`` module uses the concept of a `Bundle` class, which defines a set of APIs to instantiate pipelines, and the interface of the pipelines.
+To make this information tied to a pre-trained model and easily accessible, ``torchffmpeg.pipelines`` module uses the concept of a `Bundle` class, which defines a set of APIs to instantiate pipelines, and the interface of the pipelines.
 
 The following figure illustrates this.
 
-.. image:: https://download.pytorch.org/torchaudio/doc-assets/pipelines-intro.png
+.. image:: https://download.pytorch.org/torchffmpeg/doc-assets/pipelines-intro.png
 
-A pre-trained model and associated pipelines are expressed as an instance of ``Bundle``. Different instances of same ``Bundle`` share the interface, but their implementations are not constrained to be of same types. For example, :class:`SourceSeparationBundle` defines the interface for performing source separation, but its instance :data:`CONVTASNET_BASE_LIBRI2MIX` instantiates a model of :class:`~torchaudio.models.ConvTasNet` while :data:`HDEMUCS_HIGH_MUSDB` instantiates a model of :class:`~torchaudio.models.HDemucs`. Still, because they share the same interface, the usage is the same.
+A pre-trained model and associated pipelines are expressed as an instance of ``Bundle``. Different instances of same ``Bundle`` share the interface, but their implementations are not constrained to be of same types. For example, :class:`SourceSeparationBundle` defines the interface for performing source separation, but its instance :data:`CONVTASNET_BASE_LIBRI2MIX` instantiates a model of :class:`~torchffmpeg.models.ConvTasNet` while :data:`HDEMUCS_HIGH_MUSDB` instantiates a model of :class:`~torchffmpeg.models.HDemucs`. Still, because they share the same interface, the usage is the same.
 
 .. note::
 
-   Under the hood, the implementations of ``Bundle`` use components from other ``torchaudio`` modules, such as :mod:`torchaudio.models` and :mod:`torchaudio.transforms`, or even third party libraries like `SentencPiece <https://github.com/google/sentencepiece>`__ and `DeepPhonemizer <https://github.com/as-ideas/DeepPhonemizer>`__. But this implementation detail is abstracted away from library users.
+   Under the hood, the implementations of ``Bundle`` use components from other ``torchffmpeg`` modules, such as :mod:`torchffmpeg.models` and :mod:`torchffmpeg.transforms`, or even third party libraries like `SentencPiece <https://github.com/google/sentencepiece>`__ and `DeepPhonemizer <https://github.com/as-ideas/DeepPhonemizer>`__. But this implementation detail is abstracted away from library users.
 
 .. _RNNT:
 
@@ -31,7 +31,7 @@ Interface
 
 ``RNNTBundle`` defines ASR pipelines and consists of three steps: feature extraction, inference, and de-tokenization.
 
-.. image:: https://download.pytorch.org/torchaudio/doc-assets/pipelines-rnntbundle.png
+.. image:: https://download.pytorch.org/torchffmpeg/doc-assets/pipelines-rnntbundle.png
 
 .. autosummary::
    :toctree: generated
@@ -44,7 +44,7 @@ Interface
 
 .. rubric:: Tutorials using ``RNNTBundle``
 
-.. minigallery:: torchaudio.pipelines.RNNTBundle
+.. minigallery:: torchffmpeg.pipelines.RNNTBundle
 
 Pretrained Models
 ^^^^^^^^^^^^^^^^^
@@ -65,7 +65,7 @@ Interface
 
 ``Wav2Vec2Bundle`` instantiates models that generate acoustic features that can be used for downstream inference and fine-tuning.
 
-.. image:: https://download.pytorch.org/torchaudio/doc-assets/pipelines-wav2vec2bundle.png
+.. image:: https://download.pytorch.org/torchffmpeg/doc-assets/pipelines-wav2vec2bundle.png
 
 .. autosummary::
    :toctree: generated
@@ -104,7 +104,7 @@ Interface
 
 ``Wav2Vec2ASRBundle`` instantiates models that generate probability distribution over pre-defined labels, that can be used for ASR.
 
-.. image:: https://download.pytorch.org/torchaudio/doc-assets/pipelines-wav2vec2asrbundle.png
+.. image:: https://download.pytorch.org/torchffmpeg/doc-assets/pipelines-wav2vec2asrbundle.png
 
 .. autosummary::
    :toctree: generated
@@ -115,7 +115,7 @@ Interface
 
 .. rubric:: Tutorials using ``Wav2Vec2ASRBundle``
 
-.. minigallery:: torchaudio.pipelines.Wav2Vec2ASRBundle
+.. minigallery:: torchffmpeg.pipelines.Wav2Vec2ASRBundle
 
 Pretrained Models
 ^^^^^^^^^^^^^^^^^
@@ -148,9 +148,9 @@ Pretrained Models
 Tacotron2 Text-To-Speech
 ------------------------
 
-``Tacotron2TTSBundle`` defines text-to-speech pipelines and consists of three steps: tokenization, spectrogram generation and vocoder. The spectrogram generation is based on :class:`~torchaudio.models.Tacotron2` model.
+``Tacotron2TTSBundle`` defines text-to-speech pipelines and consists of three steps: tokenization, spectrogram generation and vocoder. The spectrogram generation is based on :class:`~torchffmpeg.models.Tacotron2` model.
 
-.. image:: https://download.pytorch.org/torchaudio/doc-assets/pipelines-tacotron2bundle.png
+.. image:: https://download.pytorch.org/torchffmpeg/doc-assets/pipelines-tacotron2bundle.png
 
 ``TextProcessor`` can be rule-based tokenization in the case of characters, or it can be a neural-netowrk-based G2P model that generates sequence of phonemes from input text.
 
@@ -170,7 +170,7 @@ Interface
 
 .. rubric:: Tutorials using ``Tacotron2TTSBundle``
 
-.. minigallery:: torchaudio.pipelines.Tacotron2TTSBundle
+.. minigallery:: torchffmpeg.pipelines.Tacotron2TTSBundle
 
 Pretrained Models
 ^^^^^^^^^^^^^^^^^
@@ -193,7 +193,7 @@ Interface
 
 ``SourceSeparationBundle`` instantiates source separation models which take single channel audio and generates multi-channel audio.
 
-.. image:: https://download.pytorch.org/torchaudio/doc-assets/pipelines-sourceseparationbundle.png
+.. image:: https://download.pytorch.org/torchffmpeg/doc-assets/pipelines-sourceseparationbundle.png
 
 .. autosummary::
    :toctree: generated
@@ -204,7 +204,7 @@ Interface
 
 .. rubric:: Tutorials using ``SourceSeparationBundle``
 
-.. minigallery:: torchaudio.pipelines.SourceSeparationBundle
+.. minigallery:: torchffmpeg.pipelines.SourceSeparationBundle
 
 Pretrained Models
 ^^^^^^^^^^^^^^^^^

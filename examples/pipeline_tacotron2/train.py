@@ -41,11 +41,11 @@ import matplotlib.pyplot as plt
 import torch
 import torch.distributed as dist
 import torch.multiprocessing as mp
-import torchaudio
+import torchffmpeg
 from torch.optim import Adam
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
-from torchaudio.models import Tacotron2
+from torchffmpeg.models import Tacotron2
 from tqdm import tqdm
 
 plt.switch_backend("agg")
@@ -282,7 +282,7 @@ def get_datasets(args):
     )
 
     transforms = torch.nn.Sequential(
-        torchaudio.transforms.MelSpectrogram(
+        torchffmpeg.transforms.MelSpectrogram(
             sample_rate=args.sample_rate,
             n_fft=args.n_fft,
             win_length=args.win_length,
@@ -499,7 +499,7 @@ def main(args):
     # download dataset is not already downloaded
     if args.dataset == "ljspeech":
         if not os.path.exists(os.path.join(args.dataset_path, "LJSpeech-1.1")):
-            from torchaudio.datasets import LJSPEECH
+            from torchffmpeg.datasets import LJSPEECH
 
             LJSPEECH(root=args.dataset_path, download=True)
 

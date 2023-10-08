@@ -1,5 +1,5 @@
 import torch
-from torchaudio_unittest.common_utils import (
+from torchffmpeg_unittest.common_utils import (
     get_asset_path,
     skipIfNoCuCtcDecoder,
     skipIfNoCuda,
@@ -14,7 +14,7 @@ NUM_TOKENS = 7
 @skipIfNoCuCtcDecoder
 class CUCTCDecoderTest(TempDirMixin, TorchaudioTestCase):
     def _get_decoder(self, tokens=None, **kwargs):
-        from torchaudio.models.decoder import cuda_ctc_decoder
+        from torchffmpeg.models.decoder import cuda_ctc_decoder
 
         if tokens is None:
             tokens = get_asset_path("decoder/tokens.txt")

@@ -1,6 +1,6 @@
 import torch
-from torchaudio.models.decoder import CTCDecoderLM, CTCDecoderLMState
-from torchaudio.models.decoder._ctc_decoder import _create_word_dict, _Dictionary, _KenLM, _load_words
+from torchffmpeg.models.decoder import CTCDecoderLM, CTCDecoderLMState
+from torchffmpeg.models.decoder._ctc_decoder import _create_word_dict, _Dictionary, _KenLM, _load_words
 
 
 class CustomZeroLM(CTCDecoderLM):

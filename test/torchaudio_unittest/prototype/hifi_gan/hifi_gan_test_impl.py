@@ -2,9 +2,9 @@ import math
 
 import torch
 from parameterized import parameterized
-from torchaudio.prototype.models import hifigan_vocoder, hifigan_vocoder_v1, hifigan_vocoder_v2, hifigan_vocoder_v3
-from torchaudio.prototype.pipelines import HIFIGAN_VOCODER_V3_LJSPEECH
-from torchaudio_unittest.common_utils import TestBaseMixin, torch_script
+from torchffmpeg.prototype.models import hifigan_vocoder, hifigan_vocoder_v1, hifigan_vocoder_v2, hifigan_vocoder_v3
+from torchffmpeg.prototype.pipelines import HIFIGAN_VOCODER_V3_LJSPEECH
+from torchffmpeg_unittest.common_utils import TestBaseMixin, torch_script
 
 from .original.env import AttrDict
 from .original.meldataset import mel_spectrogram as ref_mel_spectrogram

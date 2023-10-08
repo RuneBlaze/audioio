@@ -40,10 +40,10 @@ to perform online speech recognition.
 #
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 #
@@ -51,7 +51,7 @@ import IPython
 import matplotlib.pyplot as plt
 
 try:
-    from torchaudio.io import StreamReader
+    from torchffmpeg.io import StreamReader
 except ModuleNotFoundError:
     try:
         import google.colab
@@ -75,13 +75,13 @@ except ModuleNotFoundError:
 # -------------------------
 #
 # Pre-trained model weights and related pipeline components are
-# bundled as :py:class:`torchaudio.pipelines.RNNTBundle`.
+# bundled as :py:class:`torchffmpeg.pipelines.RNNTBundle`.
 #
-# We use :py:data:`torchaudio.pipelines.EMFORMER_RNNT_BASE_LIBRISPEECH`,
+# We use :py:data:`torchffmpeg.pipelines.EMFORMER_RNNT_BASE_LIBRISPEECH`,
 # which is a Emformer RNN-T model trained on LibriSpeech dataset.
 #
 
-bundle = torchaudio.pipelines.EMFORMER_RNNT_BASE_LIBRISPEECH
+bundle = torchffmpeg.pipelines.EMFORMER_RNNT_BASE_LIBRISPEECH
 
 feature_extractor = bundle.get_streaming_feature_extractor()
 decoder = bundle.get_decoder()
@@ -95,7 +95,7 @@ token_processor = bundle.get_token_processor()
 # to start from this right context from the previous inference call.
 # The following figure illustrates this.
 #
-# .. image:: https://download.pytorch.org/torchaudio/tutorial-assets/emformer_rnnt_context.png
+# .. image:: https://download.pytorch.org/torchffmpeg/tutorial-assets/emformer_rnnt_context.png
 #
 # The size of main segment and right context, along with
 # the expected sample rate can be retrieved from bundle.
@@ -113,7 +113,7 @@ print(f"Right context: {context_length} frames ({context_length / sample_rate} s
 # 4. Configure the audio stream
 # -----------------------------
 #
-# Next, we configure the input audio stream using :py:class:`torchaudio.io.StreamReader`.
+# Next, we configure the input audio stream using :py:class:`torchffmpeg.io.StreamReader`.
 #
 # For the detail of this API, please refer to the
 # `StreamReader Basic Usage <./streamreader_basic_tutorial.html>`__.
@@ -127,7 +127,7 @@ print(f"Right context: {context_length} frames ({context_length / sample_rate} s
 #
 # It was re-uploaded for the sake of the tutorial.
 #
-src = "https://download.pytorch.org/torchaudio/tutorial-assets/greatpiratestories_00_various.mp3"
+src = "https://download.pytorch.org/torchffmpeg/tutorial-assets/greatpiratestories_00_various.mp3"
 
 streamer = StreamReader(src)
 streamer.add_basic_audio_stream(frames_per_chunk=segment_length, sample_rate=bundle.sample_rate)
@@ -144,7 +144,7 @@ print(streamer.get_out_stream_info(0))
 #
 # The following figure illustrates this.
 #
-# .. image:: https://download.pytorch.org/torchaudio/tutorial-assets/emformer_rnnt_streamer_context.png
+# .. image:: https://download.pytorch.org/torchffmpeg/tutorial-assets/emformer_rnnt_streamer_context.png
 #
 
 
@@ -303,4 +303,4 @@ run_inference()
 
 ######################################################################
 #
-# Tag: :obj:`torchaudio.io`
+# Tag: :obj:`torchffmpeg.io`

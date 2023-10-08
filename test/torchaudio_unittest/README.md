@@ -2,7 +2,7 @@
 
 ## How to run test
 
-You can use `pytest` to run `torchaudio`'s test suites. See
+You can use `pytest` to run `torchffmpeg`'s test suites. See
 https://docs.pytest.org/ for the detail of how to use `pytest` command.
 
 For testing, please refer to [contributing guide](../../CONTRIBUTING.md) for
@@ -22,9 +22,9 @@ pytest test --collect-only
 # Run all the test suites
 pytest test
 # Run tests on sox_effects module
-pytest test/torchaudio_unittest/sox_effect
+pytest test/torchffmpeg_unittest/sox_effect
 # use -k to apply filter
-pytest test/torchaudio_unittest/sox_io_backend -k load  # only runs tests where their names contain load
+pytest test/torchffmpeg_unittest/sox_io_backend -k load  # only runs tests where their names contain load
 # Some other useful options;
 # Stop on the first failure -x
 # Run failure fast --ff
@@ -34,14 +34,14 @@ pytest test/torchaudio_unittest/sox_io_backend -k load  # only runs tests where 
 **Note**
 We use PyTorch's test utilities instead of `pytest` frameworks when writing tests to avoid reinventing the wheel for Tensor comparison.
 Also, while we recommend using `pytest` for *running* the tests, we cannot
-make `pytest` a testing dependency of `torchaudio`. As a result, you should
+make `pytest` a testing dependency of `torchffmpeg`. As a result, you should
 not import `pytest` or its submodules in the test files; Use the Python
 `unittest` builtin module instead, or the `parameterized` package to
 parametrize tests.
 
 ## Structure of tests
 
-The following is an overview of the tests and related modules for `torchaudio`.
+The following is an overview of the tests and related modules for `torchffmpeg`.
 
 ### Purpose specific test suites
 
@@ -61,15 +61,15 @@ The following is an overview of the tests and related modules for `torchaudio`.
 
 ### Module specific test suites
 
-The following test modules are defined for corresponding `torchaudio` module/functions.
+The following test modules are defined for corresponding `torchffmpeg` module/functions.
 
-- [`torchaudio.datasets`](./datasets)
-- [`torchaudio.functional`](./functional)
-- [`torchaudio.transforms`](./transforms/transforms_test.py)
-- [`torchaudio.compliance.kaldi`](./compliance_kaldi_test.py)
-- [`torchaudio.kaldi_io`](./kaldi_io_test.py)
-- [`torchaudio.sox_effects`](./sox_effect)
-- [`torchaudio.backend`](./backend)
+- [`torchffmpeg.datasets`](./datasets)
+- [`torchffmpeg.functional`](./functional)
+- [`torchffmpeg.transforms`](./transforms/transforms_test.py)
+- [`torchffmpeg.compliance.kaldi`](./compliance_kaldi_test.py)
+- [`torchffmpeg.kaldi_io`](./kaldi_io_test.py)
+- [`torchffmpeg.sox_effects`](./sox_effect)
+- [`torchffmpeg.backend`](./backend)
 
 ### Test modules that do not fall into the above categories
 - [test_dataloader.py](./dataloader_test.py)
@@ -131,7 +131,7 @@ Files:
 
 ## Adding test
 
-The following is the current practice of torchaudio test suite.
+The following is the current practice of torchffmpeg test suite.
 
 1. Unless the tests are related to I/O, use synthetic data. [`common_utils`](./common_utils) has some data generator functions.
 1. When you add a new test case, use `common_utils.TorchaudioTestCase` as base class unless you are writing tests that are common to CPU / CUDA.
@@ -139,10 +139,10 @@ The following is the current practice of torchaudio test suite.
   - If you do not set `backend` value in your test suite, then I/O functions will be unassigned and attempt to load/save file will fail.
   - For `backend` value, in addition to available backends, you can also provide the value "default" and backend will be picked automatically based on availability.
 1. If you are writing tests that should pass on diffrent dtype/devices, write a common class inheriting `common_utils.TestBaseMixin`, then inherit `common_utils.PytorchTestCase` and define class attributes (`dtype` / `device` / `backend`) there. See [Torchscript consistency test implementation](./transforms/torchscript_consistency_impl.py) and test definitions for [CPU](./transforms/torchscript_consistency_cpu_test.py) and [CUDA](./transforms/torchscript_consistency_cuda_test.py) devices.
-1. For numerically comparing Tensors, use `assertEqual` method from torchaudio_unittest.common_utils.PytorchTestCase` class. This method has a better support for a wide variety of Tensor types.
+1. For numerically comparing Tensors, use `assertEqual` method from torchffmpeg_unittest.common_utils.PytorchTestCase` class. This method has a better support for a wide variety of Tensor types.
 
 When you add a new feature(functional/transform), consider the following
 
 1. When you add a new feature, please make it Torchscript-able and batch-consistent unless it degrades the performance. Please add the tests to see if the new feature meet these requirements.
 1. If the feature should be numerical compatible against existing software (SoX, Librosa, Kaldi etc), add a corresponding test.
-1. If the new feature is unique to `torchaudio` (not a PyTorch implementation of an existing Software functionality), consider adding correctness tests (wheather the expected output is produced for the set of input) under the corresponding test module (`test_functional.py`, `test_transforms.py`).
+1. If the new feature is unique to `torchffmpeg` (not a PyTorch implementation of an existing Software functionality), consider adding correctness tests (wheather the expected output is produced for the set of input) under the corresponding test module (`test_functional.py`, `test_transforms.py`).

@@ -41,4 +41,4 @@ The following is the evaluation result of training the model on Libri2Mix datase
 |                     | Si-SNRi (dB) | SDRi (dB) | Epoch |
 |:-------------------:|-------------:|----------:|------:|
 | Reference (Asteroid)|         14.7 |      15.1 |   200 |
-| torchaudio          |         15.3 |      15.6 |   200 |
+| torchffmpeg          |         15.3 |      15.6 |   200 |

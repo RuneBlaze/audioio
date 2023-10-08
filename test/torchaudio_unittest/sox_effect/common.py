@@ -1,7 +1,7 @@
 import json
 
 from parameterized import param
-from torchaudio_unittest.common_utils import get_asset_path
+from torchffmpeg_unittest.common_utils import get_asset_path
 
 
 def name_func(func, _, params):

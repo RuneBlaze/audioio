@@ -1,19 +1,19 @@
-torchaudio: an audio library for PyTorch
+torchffmpeg: an audio library for PyTorch
 ========================================
 
 [![Build Status](https://circleci.com/gh/pytorch/audio.svg?style=svg)](https://app.circleci.com/pipelines/github/pytorch/audio)
-[![Documentation](https://img.shields.io/badge/dynamic/json.svg?label=docs&url=https%3A%2F%2Fpypi.org%2Fpypi%2Ftorchaudio%2Fjson&query=%24.info.version&colorB=brightgreen&prefix=v)](https://pytorch.org/audio/main/)
-[![Anaconda Badge](https://anaconda.org/pytorch/torchaudio/badges/downloads.svg)](https://anaconda.org/pytorch/torchaudio)
-[![Anaconda-Server Badge](https://anaconda.org/pytorch/torchaudio/badges/platforms.svg)](https://anaconda.org/pytorch/torchaudio)
+[![Documentation](https://img.shields.io/badge/dynamic/json.svg?label=docs&url=https%3A%2F%2Fpypi.org%2Fpypi%2Ftorchffmpeg%2Fjson&query=%24.info.version&colorB=brightgreen&prefix=v)](https://pytorch.org/audio/main/)
+[![Anaconda Badge](https://anaconda.org/pytorch/torchffmpeg/badges/downloads.svg)](https://anaconda.org/pytorch/torchffmpeg)
+[![Anaconda-Server Badge](https://anaconda.org/pytorch/torchffmpeg/badges/platforms.svg)](https://anaconda.org/pytorch/torchffmpeg)
 
 ![TorchAudio Logo](docs/source/_static/img/logo.png)
 
-The aim of torchaudio is to apply [PyTorch](https://github.com/pytorch/pytorch) to
-the audio domain. By supporting PyTorch, torchaudio follows the same philosophy
+The aim of torchffmpeg is to apply [PyTorch](https://github.com/pytorch/pytorch) to
+the audio domain. By supporting PyTorch, torchffmpeg follows the same philosophy
 of providing strong GPU acceleration, having a focus on trainable features through
 the autograd system, and having consistent style (tensor names and dimension names).
 Therefore, it is primarily a machine learning library and not a general signal
-processing library. The benefits of PyTorch can be seen in torchaudio through
+processing library. The benefits of PyTorch can be seen in torchffmpeg through
 having all the computations be through PyTorch operations which makes it easy
 to use and feel like a natural extension.
 
@@ -35,26 +35,26 @@ Quick Usage
 -----------
 
 ```python
-import torchaudio
+import torchffmpeg
 
-waveform, sample_rate = torchaudio.load('foo.wav')  # load tensor from file
-torchaudio.save('foo_save.wav', waveform, sample_rate)  # save tensor to file
+waveform, sample_rate = torchffmpeg.load('foo.wav')  # load tensor from file
+torchffmpeg.save('foo_save.wav', waveform, sample_rate)  # save tensor to file
 ```
 
 Backend Dispatch
 ----------------
 
-By default in OSX and Linux, torchaudio uses SoX as a backend to load and save files.
+By default in OSX and Linux, torchffmpeg uses SoX as a backend to load and save files.
 The backend can be changed to [SoundFile](https://pysoundfile.readthedocs.io/en/latest/)
 using the following. See [SoundFile](https://pysoundfile.readthedocs.io/en/latest/)
 for installation instructions.
 
 ```python
-import torchaudio
-torchaudio.set_audio_backend("soundfile")  # switch backend
+import torchffmpeg
+torchffmpeg.set_audio_backend("soundfile")  # switch backend
 
-waveform, sample_rate = torchaudio.load('foo.wav')  # load tensor from file, as usual
-torchaudio.save('foo_save.wav', waveform, sample_rate)  # save tensor to file, as usual
+waveform, sample_rate = torchffmpeg.load('foo.wav')  # load tensor from file, as usual
+torchffmpeg.save('foo_save.wav', waveform, sample_rate)  # save tensor to file, as usual
 ```
 
 **Note**
@@ -77,7 +77,7 @@ Citation
 If you find this package useful, please cite as:
 
 ```bibtex
-@article{yang2021torchaudio,
+@article{yang2021torchffmpeg,
   title={TorchAudio: Building Blocks for Audio and Speech Processing},
   author={Yao-Yuan Yang and Moto Hira and Zhaoheng Ni and Anjali Chourdia and Artyom Astafurov and Caroline Chen and Ching-Feng Yeh and Christian Puhrsch and David Pollack and Dmitriy Genzel and Donny Greenberg and Edward Z. Yang and Jason Lian and Jay Mahadeokar and Jeff Hwang and Ji Chen and Peter Goldsborough and Prabhat Roy and Sean Narenthiran and Shinji Watanabe and Soumith Chintala and Vincent Quenneville-Bélair and Yangyang Shi},
   journal={arXiv preprint arXiv:2110.15018},

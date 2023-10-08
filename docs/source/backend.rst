@@ -1,27 +1,27 @@
 .. _backend:
 
-torchaudio.backend
+torchffmpeg.backend
 ==================
 
-.. py:module:: torchaudio.backend
+.. py:module:: torchffmpeg.backend
 
 Overview
 ~~~~~~~~
 
-:mod:`torchaudio.backend` module provides implementations for audio file I/O functionalities, which are ``torchaudio.info``, ``torchaudio.load``, and ``torchaudio.save``.
+:mod:`torchffmpeg.backend` module provides implementations for audio file I/O functionalities, which are ``torchffmpeg.info``, ``torchffmpeg.load``, and ``torchffmpeg.save``.
 
 .. note::
-   Release 2.1 will revise ``torchaudio.info``, ``torchaudio.load``, and ``torchaudio.save`` to allow for backend selection via function parameter rather than ``torchaudio.set_audio_backend``, with FFmpeg being the default backend.
-   The new logic can be enabled in the current release by setting environment variable ``TORCHAUDIO_USE_BACKEND_DISPATCHER=1``.
+   Release 2.1 will revise ``torchffmpeg.info``, ``torchffmpeg.load``, and ``torchffmpeg.save`` to allow for backend selection via function parameter rather than ``torchffmpeg.set_audio_backend``, with FFmpeg being the default backend.
+   The new logic can be enabled in the current release by setting environment variable ``TORCHFFMPEG_USE_BACKEND_DISPATCHER=1``.
    See :ref:`future_api` for details on the new API.
 
 There are currently two implementations available.
 
-* :py:mod:`"sox_io" <torchaudio.backends.sox_io_backend>` (default on Linux/macOS)
-* :py:mod:`"soundfile" <torchaudio.backends.soundfile_backend>` (default on Windows)
+* :py:mod:`"sox_io" <torchffmpeg.backends.sox_io_backend>` (default on Linux/macOS)
+* :py:mod:`"soundfile" <torchffmpeg.backends.soundfile_backend>` (default on Windows)
 
 .. note::
-   Instead of calling functions in ``torchaudio.backend`` directly, please use ``torchaudio.info``, ``torchaudio.load``, and ``torchaudio.save`` with proper backend set with :func:`torchaudio.set_audio_backend`.
+   Instead of calling functions in ``torchffmpeg.backend`` directly, please use ``torchffmpeg.info``, ``torchffmpeg.load``, and ``torchffmpeg.save`` with proper backend set with :func:`torchffmpeg.set_audio_backend`.
 
 Availability
 ------------
@@ -38,9 +38,9 @@ Structures used to report the metadata of audio files.
 AudioMetaData
 -------------
 
-.. autoclass:: torchaudio.backend.common.AudioMetaData
+.. autoclass:: torchffmpeg.backend.common.AudioMetaData
 
-.. py:module:: torchaudio.backend.sox_io_backend
+.. py:module:: torchffmpeg.backend.sox_io_backend
 
 Sox IO Backend
 ~~~~~~~~~~~~~~
@@ -53,24 +53,24 @@ You can switch from another backend to the ``sox_io`` backend with the following
 
 .. code::
 
-   torchaudio.set_audio_backend("sox_io")
+   torchffmpeg.set_audio_backend("sox_io")
 
 info
 ----
 
-.. autofunction:: torchaudio.backend.sox_io_backend.info
+.. autofunction:: torchffmpeg.backend.sox_io_backend.info
 
 load
 ----
 
-.. autofunction:: torchaudio.backend.sox_io_backend.load
+.. autofunction:: torchffmpeg.backend.sox_io_backend.load
 
 save
 ----
 
-.. autofunction:: torchaudio.backend.sox_io_backend.save
+.. autofunction:: torchffmpeg.backend.sox_io_backend.save
 
-.. py:module:: torchaudio.backend.soundfile_backend
+.. py:module:: torchffmpeg.backend.soundfile_backend
 
 Soundfile Backend
 ~~~~~~~~~~~~~~~~~
@@ -81,19 +81,19 @@ You can switch from another backend to the ``"soundfile"`` backend with the foll
 
 .. code::
 
-   torchaudio.set_audio_backend("soundfile")
+   torchffmpeg.set_audio_backend("soundfile")
 
 info
 ----
 
-.. autofunction:: torchaudio.backend.soundfile_backend.info
+.. autofunction:: torchffmpeg.backend.soundfile_backend.info
 
 load
 ----
 
-.. autofunction:: torchaudio.backend.soundfile_backend.load
+.. autofunction:: torchffmpeg.backend.soundfile_backend.load
 
 save
 ----
 
-.. autofunction:: torchaudio.backend.soundfile_backend.save
+.. autofunction:: torchffmpeg.backend.soundfile_backend.save

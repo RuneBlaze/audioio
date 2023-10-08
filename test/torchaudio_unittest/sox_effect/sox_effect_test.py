@@ -4,9 +4,9 @@ import tarfile
 from pathlib import Path
 
 from parameterized import parameterized
-from torchaudio import sox_effects
-from torchaudio._internal import module_utils as _mod_utils
-from torchaudio_unittest.common_utils import (
+from torchffmpeg import sox_effects
+from torchffmpeg._internal import module_utils as _mod_utils
+from torchffmpeg_unittest.common_utils import (
     get_sinusoid,
     get_wav_data,
     HttpServerMixin,

@@ -1,9 +1,9 @@
 import os
 
 import torch
-import torchaudio.prototype.transforms as T
-import torchaudio.transforms as transforms
-from torchaudio_unittest.common_utils import TorchaudioTestCase
+import torchffmpeg.prototype.transforms as T
+import torchffmpeg.transforms as transforms
+from torchffmpeg_unittest.common_utils import TorchaudioTestCase
 
 
 class BatchConsistencyTest(TorchaudioTestCase):

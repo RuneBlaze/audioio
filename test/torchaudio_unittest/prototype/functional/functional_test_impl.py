@@ -1,12 +1,12 @@
-from torchaudio._internal import module_utils as _mod_utils
+from torchffmpeg._internal import module_utils as _mod_utils
 
 if _mod_utils.is_module_available("pyroomacoustics"):
     import pyroomacoustics as pra
 
 import torch
-import torchaudio.prototype.functional as F
+import torchffmpeg.prototype.functional as F
 from parameterized import param, parameterized
-from torchaudio_unittest.common_utils import nested_params, skipIfNoModule, skipIfNoRIR, TestBaseMixin
+from torchffmpeg_unittest.common_utils import nested_params, skipIfNoModule, skipIfNoRIR, TestBaseMixin
 
 from .dsp_utils import (
     exp_sigmoid as exp_sigmoid_np,
@@ -479,7 +479,7 @@ class FunctionalCPUOnlyTestImpl(TestBaseMixin):
         max_order = 3
         # absorption is set as a float value indicating absorption coefficients are the same for every wall.
         absorption = 0.5
-        # compute rir signal by torchaudio implementation
+        # compute rir signal by torchffmpeg implementation
         actual = F.simulate_rir_ism(room_dim, source, mic_array, max_order, absorption)
         # compute rir signal by pyroomacoustics
         room = pra.ShoeBox(

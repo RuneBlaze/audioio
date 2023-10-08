@@ -31,7 +31,7 @@ Here, we install nightly build.
 
    conda install -c conda-forge ffmpeg
 
-5. Clone the torchaudio repository
+5. Clone the torchffmpeg repository
 ----------------------------------
 
 .. code-block::

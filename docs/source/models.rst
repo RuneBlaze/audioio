@@ -1,14 +1,14 @@
-.. py:module:: torchaudio.models
+.. py:module:: torchffmpeg.models
 
-torchaudio.models
+torchffmpeg.models
 =================
 
-.. currentmodule:: torchaudio.models
+.. currentmodule:: torchffmpeg.models
 
-The ``torchaudio.models`` subpackage contains definitions of models for addressing common audio tasks.
+The ``torchffmpeg.models`` subpackage contains definitions of models for addressing common audio tasks.
 
 .. note::
-   For models with pre-trained parameters, please refer to :mod:`torchaudio.pipelines` module.
+   For models with pre-trained parameters, please refer to :mod:`torchffmpeg.pipelines` module.
 
 Model defintions are responsible for constructing computation graphs and executing them.
 

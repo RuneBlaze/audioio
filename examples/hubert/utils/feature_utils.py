@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Optional, Tuple, Union
 
 import torch
-import torchaudio
+import torchffmpeg
 from torch import Tensor
 from torch.nn import Module
 
@@ -53,15 +53,15 @@ def extract_feature_mfcc(
     Returns:
         Tensor: The desired feature tensor of the given audio file.
     """
-    waveform, sr = torchaudio.load(path)
+    waveform, sr = torchffmpeg.load(path)
     assert sr == sample_rate
-    feature_extractor = torchaudio.transforms.MFCC(
+    feature_extractor = torchffmpeg.transforms.MFCC(
         sample_rate=sample_rate, n_mfcc=13, melkwargs={"n_fft": 400, "hop_length": 160, "center": False}
     ).to(device)
     waveform = waveform[0].to(device)
     mfccs = feature_extractor(waveform)  # (freq, time)
-    deltas = torchaudio.functional.compute_deltas(mfccs)
-    ddeltas = torchaudio.functional.compute_deltas(deltas)
+    deltas = torchffmpeg.functional.compute_deltas(mfccs)
+    ddeltas = torchffmpeg.functional.compute_deltas(deltas)
     concat = torch.cat([mfccs, deltas, ddeltas], dim=0)
     feat = concat.transpose(0, 1)  # (time, freq)
     return feat
@@ -82,13 +82,13 @@ def extract_feature_hubert(
         sample_rate (int): The sample rate of the audio.
         model (Module): The loaded ``HuBERTPretrainModel`` model.
         layer_index (int): The index of transformer layers in
-            ``torchaudio.models.HuBERTPretrainModel`` for extracting features.
+            ``torchffmpeg.models.HuBERTPretrainModel`` for extracting features.
             (``1`` means the first layer output).
 
     Returns:
         Tensor: The desired feature tensor of the given audio file.
     """
-    waveform, sr = torchaudio.load(path)
+    waveform, sr = torchffmpeg.load(path)
     assert sr == sample_rate
     waveform = waveform.to(device)
     with torch.inference_mode():
@@ -137,10 +137,10 @@ def dump_features(
         feature_type (str, optional): The type of the desired feature. Options: [``mfcc``, ``hubert``].
             (Default: ``mfcc``)
         layer_index (int or None, optional): The index of transformer layers in
-            ``torchaudio.models.HuBERTPretrainModel`` for extracting features.
+            ``torchffmpeg.models.HuBERTPretrainModel`` for extracting features.
             (``1`` means the first layer output). Only active when ``feature_type``
             is set to ``hubert``. (Default: ``None``)
-        checkpoint_path(Path or None, optional): The checkpoint path of ``torchaudio.models.HuBERTPretrainModel``.
+        checkpoint_path(Path or None, optional): The checkpoint path of ``torchffmpeg.models.HuBERTPretrainModel``.
             Only active when ``feature_type`` is set to ``hubert``. (Default: ``None``)
         sample_rate (int, optional): The sample rate of the audio. (Default: ``16000``)
 
@@ -158,7 +158,7 @@ def dump_features(
     feat_path, len_path = _get_feat_lens_paths(out_dir, split, rank, num_rank)
 
     if feature_type == "hubert":
-        from torchaudio.models import hubert_pretrain_base
+        from torchffmpeg.models import hubert_pretrain_base
 
         model = hubert_pretrain_base()
         model.to(device)

@@ -1,7 +1,7 @@
 import io
 
-from torchaudio._backend.utils import get_info_func, get_load_func, get_save_func
-from torchaudio_unittest.common_utils import get_wav_data, PytorchTestCase, skipIfNoFFmpeg, TempDirMixin
+from torchffmpeg._backend.utils import get_info_func, get_load_func, get_save_func
+from torchffmpeg_unittest.common_utils import get_wav_data, PytorchTestCase, skipIfNoFFmpeg, TempDirMixin
 
 
 @skipIfNoFFmpeg

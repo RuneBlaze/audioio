@@ -1,6 +1,6 @@
 import torch
 from pytorch_lightning import LightningDataModule
-from torchaudio.datasets.librispeech import LIBRISPEECH
+from torchffmpeg.datasets.librispeech import LIBRISPEECH
 
 from ._utils import BucketizeBatchSampler, CollateFnWav2Vec2, DistributedBatchSampler
 

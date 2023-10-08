@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Mapping, Optional, Tuple, TypedDict, Union
 
 import torch
-import torchaudio
+import torchffmpeg
 from pytorch_lightning import LightningModule, Trainer
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 from torch import nn
@@ -235,7 +235,7 @@ def _get_model(
     msk_num_stacks=3,
     msk_activate="relu",
 ):
-    model = torchaudio.models.ConvTasNet(
+    model = torchffmpeg.models.ConvTasNet(
         num_sources=num_sources,
         enc_kernel_size=enc_kernel_size,
         enc_num_feats=enc_num_feats,

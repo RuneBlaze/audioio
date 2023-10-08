@@ -61,10 +61,10 @@ Torchaudio-Squim: Non-intrusive Speech Assessment in TorchAudio
 #
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 
 ######################################################################
@@ -73,13 +73,13 @@ print(torchaudio.__version__)
 #
 # First import the modules and define the helper functions.
 #
-# We will need torch, torchaudio to use Torchaudio-squim, Matplotlib to
+# We will need torch, torchffmpeg to use Torchaudio-squim, Matplotlib to
 # plot data, pystoi, pesq for computing reference metrics.
 #
 
 try:
-    from torchaudio.prototype.pipelines import SQUIM_OBJECTIVE
-    from torchaudio.prototype.pipelines import SQUIM_SUBJECTIVE
+    from torchffmpeg.prototype.pipelines import SQUIM_OBJECTIVE
+    from torchffmpeg.prototype.pipelines import SQUIM_SUBJECTIVE
     from pesq import pesq
     from pystoi import stoi
 except ImportError:
@@ -88,10 +88,10 @@ except ImportError:
     print(
         """
         To enable running this notebook in Google Colab, install nightly
-        torch and torchaudio builds by adding the following code block to the top
+        torch and torchffmpeg builds by adding the following code block to the top
         of the notebook before running it:
-        !pip3 uninstall -y torch torchvision torchaudio
-        !pip3 install --pre torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cpu
+        !pip3 uninstall -y torch torchvision torchffmpeg
+        !pip3 install --pre torch torchvision torchffmpeg --extra-index-url https://download.pytorch.org/whl/nightly/cpu
         !pip3 install pesq
         !pip3 install pystoi
         """
@@ -102,8 +102,8 @@ except ImportError:
 #
 #
 
-import torchaudio.functional as F
-from torchaudio.utils import download_asset
+import torchffmpeg.functional as F
+from torchffmpeg.utils import download_asset
 from IPython.display import Audio
 import matplotlib.pyplot as plt
 
@@ -164,8 +164,8 @@ SAMPLE_NOISE = download_asset("tutorial-assets/Lab41-SRI-VOiCES-rm1-babb-mc01-st
 #
 #
 
-WAVEFORM_SPEECH, SAMPLE_RATE_SPEECH = torchaudio.load(SAMPLE_SPEECH)
-WAVEFORM_NOISE, SAMPLE_RATE_NOISE = torchaudio.load(SAMPLE_NOISE)
+WAVEFORM_SPEECH, SAMPLE_RATE_SPEECH = torchffmpeg.load(SAMPLE_SPEECH)
+WAVEFORM_NOISE, SAMPLE_RATE_NOISE = torchffmpeg.load(SAMPLE_NOISE)
 WAVEFORM_NOISE = WAVEFORM_NOISE[0:1, :]
 
 
@@ -338,7 +338,7 @@ subjective_model = SQUIM_SUBJECTIVE.get_model()
 
 NMR_SPEECH = download_asset("tutorial-assets/ctc-decoding/1688-142285-0007.wav")
 
-WAVEFORM_NMR, SAMPLE_RATE_NMR = torchaudio.load(NMR_SPEECH)
+WAVEFORM_NMR, SAMPLE_RATE_NMR = torchffmpeg.load(NMR_SPEECH)
 if SAMPLE_RATE_NMR != 16000:
     WAVEFORM_NMR = F.resample(WAVEFORM_NMR, SAMPLE_RATE_NMR, 16000)
 

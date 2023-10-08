@@ -4,11 +4,11 @@ This directory contains sample implementations of training and evaluation pipeli
 
 The `DNNBeamformer` model composes the following componenst:
 
-+ [`torchaudio.transforms.Spectrogram`](https://pytorch.org/audio/stable/generated/torchaudio.transforms.Spectrogram.html#spectrogram) that applies Short-time Fourier Transform (STFT) to the waveform.
++ [`torchffmpeg.transforms.Spectrogram`](https://pytorch.org/audio/stable/generated/torchffmpeg.transforms.Spectrogram.html#spectrogram) that applies Short-time Fourier Transform (STFT) to the waveform.
 + ConvTasNet without encoder/decoder that predicts T-F masks for speech and noise, respectively.
-+ [`torchaudio.transforms.PSD`](https://pytorch.org/audio/stable/generated/torchaudio.transforms.PSD.html#psd) that computes covariance matrices for speech and noise.
-+ [`torchaudio.transforms.SoudenMVDR`](https://pytorch.org/audio/stable/generated/torchaudio.transforms.SoudenMVDR.html#soudenmvdr) that estimates the compex-valued STFT for the enhanced speech.
-+ [`torchaudio.transforms.InverseSpectrogram`](https://pytorch.org/audio/stable/generated/torchaudio.transforms.InverseSpectrogram.html#inversespectrogram) that applies inverse STFT (iSTFT) to generate the enhanced waveform.
++ [`torchffmpeg.transforms.PSD`](https://pytorch.org/audio/stable/generated/torchffmpeg.transforms.PSD.html#psd) that computes covariance matrices for speech and noise.
++ [`torchffmpeg.transforms.SoudenMVDR`](https://pytorch.org/audio/stable/generated/torchffmpeg.transforms.SoudenMVDR.html#soudenmvdr) that estimates the compex-valued STFT for the enhanced speech.
++ [`torchffmpeg.transforms.InverseSpectrogram`](https://pytorch.org/audio/stable/generated/torchffmpeg.transforms.InverseSpectrogram.html#inversespectrogram) that applies inverse STFT (iSTFT) to generate the enhanced waveform.
 
 ## Usage
 
@@ -45,7 +45,7 @@ The table below contains Ci-SDR, STOI, and PESQ results for the test subset of `
 If you find this training recipe useful, please cite as:
 
 ```bibtex
-@article{yang2021torchaudio,
+@article{yang2021torchffmpeg,
   title={TorchAudio: Building Blocks for Audio and Speech Processing},
   author={Yao-Yuan Yang and Moto Hira and Zhaoheng Ni and Anjali Chourdia and Artyom Astafurov and Caroline Chen and Ching-Feng Yeh and Christian Puhrsch and David Pollack and Dmitriy Genzel and Donny Greenberg and Edward Z. Yang and Jason Lian and Jay Mahadeokar and Jeff Hwang and Ji Chen and Peter Goldsborough and Prabhat Roy and Sean Narenthiran and Shinji Watanabe and Soumith Chintala and Vincent Quenneville-Bélair and Yangyang Shi},
   journal={arXiv preprint arXiv:2110.15018},

@@ -3,7 +3,7 @@ import lightning.pytorch as pl
 import torch
 from asteroid.losses.stoi import NegSTOILoss
 from asteroid.masknn import TDConvNet
-from torchaudio.transforms import InverseSpectrogram, PSD, SoudenMVDR, Spectrogram
+from torchffmpeg.transforms import InverseSpectrogram, PSD, SoudenMVDR, Spectrogram
 
 
 class DNNBeamformer(torch.nn.Module):

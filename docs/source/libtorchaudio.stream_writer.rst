@@ -2,15 +2,15 @@
    TorchAudio's C++ API is prototype feature.
    API/ABI backward compatibility is not guaranteed.
 
-torchaudio::io::StreamWriter
+torchffmpeg::io::StreamWriter
 ============================
 
-.. doxygenclass:: torchaudio::io::StreamWriter
+.. doxygenclass:: torchffmpeg::io::StreamWriter
 
 Constructors
 ------------
 
-.. doxygenfunction:: torchaudio::io::StreamWriter::StreamWriter(const std::string &dst, const c10::optional<std::string> &format = {})
+.. doxygenfunction:: torchffmpeg::io::StreamWriter::StreamWriter(const std::string &dst, const c10::optional<std::string> &format = {})
 
 Config methods
 --------------
@@ -18,17 +18,17 @@ Config methods
 add_audio_stream
 ^^^^^^^^^^^^^^^^
 
-.. doxygenfunction:: torchaudio::io::StreamWriter::add_audio_stream
+.. doxygenfunction:: torchffmpeg::io::StreamWriter::add_audio_stream
 
 add_video_stream
 ^^^^^^^^^^^^^^^^
 
-.. doxygenfunction:: torchaudio::io::StreamWriter::add_video_stream
+.. doxygenfunction:: torchffmpeg::io::StreamWriter::add_video_stream
 
 set_metadata
 ^^^^^^^^^^^^
 
-.. doxygenfunction:: torchaudio::io::StreamWriter::set_metadata
+.. doxygenfunction:: torchffmpeg::io::StreamWriter::set_metadata
 
 Write methods
 -------------
@@ -36,24 +36,24 @@ Write methods
 open
 ^^^^
 
-.. doxygenfunction:: torchaudio::io::StreamWriter::open
+.. doxygenfunction:: torchffmpeg::io::StreamWriter::open
 
 close
 ^^^^^
 
-.. doxygenfunction:: torchaudio::io::StreamWriter::close
+.. doxygenfunction:: torchffmpeg::io::StreamWriter::close
 
 write_audio_chunk
 ^^^^^^^^^^^^^^^^^
 
-.. doxygenfunction:: torchaudio::io::StreamWriter::write_audio_chunk
+.. doxygenfunction:: torchffmpeg::io::StreamWriter::write_audio_chunk
 
 write_video_chunk
 ^^^^^^^^^^^^^^^^^
 
-.. doxygenfunction:: torchaudio::io::StreamWriter::write_video_chunk
+.. doxygenfunction:: torchffmpeg::io::StreamWriter::write_video_chunk
 
 flush
 ^^^^^
 
-.. doxygenfunction:: torchaudio::io::StreamWriter::flush
+.. doxygenfunction:: torchffmpeg::io::StreamWriter::flush

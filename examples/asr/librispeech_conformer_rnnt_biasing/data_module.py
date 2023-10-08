@@ -2,7 +2,7 @@ import os
 import random
 
 import torch
-import torchaudio
+import torchffmpeg
 from pytorch_lightning import LightningDataModule
 
 
@@ -103,7 +103,7 @@ class TransformDataset(torch.utils.data.Dataset):
 
 
 class LibriSpeechDataModule(LightningDataModule):
-    librispeech_cls = torchaudio.datasets.LibriSpeechBiasing
+    librispeech_cls = torchffmpeg.datasets.LibriSpeechBiasing
 
     def __init__(
         self,

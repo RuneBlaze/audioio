@@ -4,8 +4,8 @@ from pathlib import Path
 from typing import Dict, Tuple
 
 from torch import Tensor
-from torchaudio.datasets import COMMONVOICE
-from torchaudio_unittest.common_utils import get_whitenoise, normalize_wav, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import COMMONVOICE
+from torchffmpeg_unittest.common_utils import get_whitenoise, normalize_wav, save_wav, TempDirMixin, TorchaudioTestCase
 
 _ORIGINAL_EXT_AUDIO = COMMONVOICE._ext_audio
 _SAMPLE_RATE = 48000

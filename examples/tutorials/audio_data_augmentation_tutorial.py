@@ -5,7 +5,7 @@ Audio Data Augmentation
 
 **Author**: `Moto Hira <moto@meta.com>`__
 
-``torchaudio`` provides a variety of ways to augment audio data.
+``torchffmpeg`` provides a variety of ways to augment audio data.
 
 In this tutorial, we look into a way to apply effects, filters,
 RIR (room impulse response) and codecs.
@@ -14,11 +14,11 @@ At the end, we synthesize noisy speech over phone from clean speech.
 """
 
 import torch
-import torchaudio
-import torchaudio.functional as F
+import torchffmpeg
+import torchffmpeg.functional as F
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 # Preparation
@@ -32,7 +32,7 @@ import math
 from IPython.display import Audio
 import matplotlib.pyplot as plt
 
-from torchaudio.utils import download_asset
+from torchffmpeg.utils import download_asset
 
 SAMPLE_WAV = download_asset("tutorial-assets/steam-train-whistle-daniel_simon.wav")
 SAMPLE_RIR = download_asset("tutorial-assets/Lab41-SRI-VOiCES-rm1-impulse-mc01-stu-clo-8000hz.wav")
@@ -44,32 +44,32 @@ SAMPLE_NOISE = download_asset("tutorial-assets/Lab41-SRI-VOiCES-rm1-babb-mc01-st
 # Applying effects and filtering
 # ------------------------------
 #
-# :py:func:`torchaudio.sox_effects` allows for directly applying filters similar to
+# :py:func:`torchffmpeg.sox_effects` allows for directly applying filters similar to
 # those available in ``sox`` to Tensor objects and file object audio sources.
 #
 # There are two functions for this:
 #
-# -  :py:func:`torchaudio.sox_effects.apply_effects_tensor` for applying effects
+# -  :py:func:`torchffmpeg.sox_effects.apply_effects_tensor` for applying effects
 #    to Tensor.
-# -  :py:func:`torchaudio.sox_effects.apply_effects_file` for applying effects to
+# -  :py:func:`torchffmpeg.sox_effects.apply_effects_file` for applying effects to
 #    other audio sources.
 #
 # Both functions accept effect definitions in the form
 # ``List[List[str]]``.
 # This is mostly consistent with how ``sox`` command works, but one caveat is
-# that ``sox`` adds some effects automatically, whereas ``torchaudio``’s
+# that ``sox`` adds some effects automatically, whereas ``torchffmpeg``’s
 # implementation does not.
 #
 # For the list of available effects, please refer to `the sox
 # documentation <http://sox.sourceforge.net/sox.html>`__.
 #
 # **Tip** If you need to load and resample your audio data on the fly,
-# then you can use :py:func:`torchaudio.sox_effects.apply_effects_file`
+# then you can use :py:func:`torchffmpeg.sox_effects.apply_effects_file`
 # with effect ``"rate"``.
 #
-# **Note** :py:func:`torchaudio.sox_effects.apply_effects_file` accepts a
+# **Note** :py:func:`torchffmpeg.sox_effects.apply_effects_file` accepts a
 # file-like object or path-like object.
-# Similar to :py:func:`torchaudio.load`, when the audio format cannot be
+# Similar to :py:func:`torchffmpeg.load`, when the audio format cannot be
 # inferred from either the file extension or header, you can provide
 # argument ``format`` to specify the format of the audio source.
 #
@@ -77,7 +77,7 @@ SAMPLE_NOISE = download_asset("tutorial-assets/Lab41-SRI-VOiCES-rm1-babb-mc01-st
 #
 
 # Load the data
-waveform1, sample_rate1 = torchaudio.load(SAMPLE_WAV)
+waveform1, sample_rate1 = torchffmpeg.load(SAMPLE_WAV)
 
 # Define effects
 effects = [
@@ -90,7 +90,7 @@ effects = [
 ]
 
 # Apply effects
-waveform2, sample_rate2 = torchaudio.sox_effects.apply_effects_tensor(waveform1, sample_rate1, effects)
+waveform2, sample_rate2 = torchffmpeg.sox_effects.apply_effects_tensor(waveform1, sample_rate1, effects)
 
 print(waveform1.shape, sample_rate1)
 print(waveform2.shape, sample_rate2)
@@ -179,7 +179,7 @@ Audio(waveform2, rate=sample_rate2)
 # and clap your hands.
 #
 
-rir_raw, sample_rate = torchaudio.load(SAMPLE_RIR)
+rir_raw, sample_rate = torchffmpeg.load(SAMPLE_RIR)
 plot_waveform(rir_raw, sample_rate, title="Room Impulse Response (raw)")
 plot_specgram(rir_raw, sample_rate, title="Room Impulse Response (raw)")
 Audio(rir_raw, rate=sample_rate)
@@ -195,11 +195,11 @@ rir = rir / torch.norm(rir, p=2)
 plot_waveform(rir, sample_rate, title="Room Impulse Response")
 
 ######################################################################
-# Then, using :py:func:`torchaudio.functional.fftconvolve`,
+# Then, using :py:func:`torchffmpeg.functional.fftconvolve`,
 # we convolve the speech signal with the RIR.
 #
 
-speech, _ = torchaudio.load(SAMPLE_SPEECH)
+speech, _ = torchffmpeg.load(SAMPLE_SPEECH)
 augmented = F.fftconvolve(speech, rir)
 
 ######################################################################
@@ -237,10 +237,10 @@ Audio(augmented, rate=sample_rate)
 # $$ \\mathrm{SNR_{dB}} = 10 \\log _{{10}} \\mathrm {SNR} $$
 #
 # To add noise to audio data per SNRs, we
-# use :py:func:`torchaudio.functional.add_noise`.
+# use :py:func:`torchffmpeg.functional.add_noise`.
 
-speech, _ = torchaudio.load(SAMPLE_SPEECH)
-noise, _ = torchaudio.load(SAMPLE_NOISE)
+speech, _ = torchffmpeg.load(SAMPLE_SPEECH)
+noise, _ = torchffmpeg.load(SAMPLE_NOISE)
 noise = noise[:, : speech.shape[1]]
 
 snr_dbs = torch.tensor([20, 10, 3])
@@ -291,14 +291,14 @@ Audio(noisy_speech, rate=sample_rate)
 # Applying codec to Tensor object
 # -------------------------------
 #
-# :py:func:`torchaudio.functional.apply_codec` can apply codecs to
+# :py:func:`torchffmpeg.functional.apply_codec` can apply codecs to
 # a Tensor object.
 #
 # **Note** This process is not differentiable.
 #
 
 
-waveform, sample_rate = torchaudio.load(SAMPLE_SPEECH)
+waveform, sample_rate = torchffmpeg.load(SAMPLE_SPEECH)
 
 configs = [
     {"format": "wav", "encoding": "ULAW", "bits_per_sample": 8},
@@ -356,7 +356,7 @@ Audio(waveforms[2], rate=sample_rate)
 #
 
 sample_rate = 16000
-original_speech, sample_rate = torchaudio.load(SAMPLE_SPEECH)
+original_speech, sample_rate = torchffmpeg.load(SAMPLE_SPEECH)
 
 plot_specgram(original_speech, sample_rate, title="Original")
 
@@ -369,7 +369,7 @@ plot_specgram(rir_applied, sample_rate, title="RIR Applied")
 # Because the noise is recorded in the actual environment, we consider that
 # the noise contains the acoustic feature of the environment. Therefore, we add
 # the noise after RIR application.
-noise, _ = torchaudio.load(SAMPLE_NOISE)
+noise, _ = torchffmpeg.load(SAMPLE_NOISE)
 noise = noise[:, : rir_applied.shape[1]]
 
 snr_db = torch.tensor([8])
@@ -378,7 +378,7 @@ bg_added = F.add_noise(rir_applied, noise, snr_db)
 plot_specgram(bg_added, sample_rate, title="BG noise added")
 
 # Apply filtering and change sample rate
-filtered, sample_rate2 = torchaudio.sox_effects.apply_effects_tensor(
+filtered, sample_rate2 = torchffmpeg.sox_effects.apply_effects_tensor(
     bg_added,
     sample_rate,
     effects=[

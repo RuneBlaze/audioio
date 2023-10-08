@@ -4,7 +4,7 @@ from unittest.mock import patch
 import torch
 
 from parameterized import parameterized
-from torchaudio._backend.utils import (
+from torchffmpeg._backend.utils import (
     FFmpegBackend,
     get_info_func,
     get_load_func,
@@ -12,7 +12,7 @@ from torchaudio._backend.utils import (
     SoundfileBackend,
     SoXBackend,
 )
-from torchaudio_unittest.common_utils import PytorchTestCase
+from torchffmpeg_unittest.common_utils import PytorchTestCase
 
 
 class DispatcherTest(PytorchTestCase):
@@ -27,8 +27,8 @@ class DispatcherTest(PytorchTestCase):
     def test_info(self, available_backends, expected_backend):
         filename = "test.wav"
         format = "wav"
-        with patch("torchaudio._backend.utils.get_available_backends", return_value=available_backends), patch(
-            f"torchaudio._backend.utils.{expected_backend.__name__}.info"
+        with patch("torchffmpeg._backend.utils.get_available_backends", return_value=available_backends), patch(
+            f"torchffmpeg._backend.utils.{expected_backend.__name__}.info"
         ) as mock_info:
             get_info_func()(filename, format=format)
             mock_info.assert_called_once_with(filename, format, 4096)
@@ -46,8 +46,8 @@ class DispatcherTest(PytorchTestCase):
         f = io.BytesIO()
         format = "wav"
         buffer_size = 8192
-        with patch("torchaudio._backend.utils.get_available_backends", return_value=available_backends), patch(
-            f"torchaudio._backend.utils.{expected_backend.__name__}.info"
+        with patch("torchffmpeg._backend.utils.get_available_backends", return_value=available_backends), patch(
+            f"torchffmpeg._backend.utils.{expected_backend.__name__}.info"
         ) as mock_info:
             get_info_func()(f, format=format, buffer_size=buffer_size)
             mock_info.assert_called_once_with(f, format, buffer_size)
@@ -63,8 +63,8 @@ class DispatcherTest(PytorchTestCase):
     def test_load(self, available_backends, expected_backend):
         filename = "test.wav"
         format = "wav"
-        with patch("torchaudio._backend.utils.get_available_backends", return_value=available_backends), patch(
-            f"torchaudio._backend.utils.{expected_backend.__name__}.load"
+        with patch("torchffmpeg._backend.utils.get_available_backends", return_value=available_backends), patch(
+            f"torchffmpeg._backend.utils.{expected_backend.__name__}.load"
         ) as mock_load:
             get_load_func()(filename, format=format)
             mock_load.assert_called_once_with(filename, 0, -1, True, True, format, 4096)
@@ -82,8 +82,8 @@ class DispatcherTest(PytorchTestCase):
         f = io.BytesIO()
         format = "wav"
         buffer_size = 8192
-        with patch("torchaudio._backend.utils.get_available_backends", return_value=available_backends), patch(
-            f"torchaudio._backend.utils.{expected_backend.__name__}.load"
+        with patch("torchffmpeg._backend.utils.get_available_backends", return_value=available_backends), patch(
+            f"torchffmpeg._backend.utils.{expected_backend.__name__}.load"
         ) as mock_load:
             get_load_func()(f, format=format, buffer_size=buffer_size)
             mock_load.assert_called_once_with(f, 0, -1, True, True, format, buffer_size)
@@ -101,8 +101,8 @@ class DispatcherTest(PytorchTestCase):
         filename = "test.wav"
         format = "wav"
         sample_rate = 16000
-        with patch("torchaudio._backend.utils.get_available_backends", return_value=available_backends), patch(
-            f"torchaudio._backend.utils.{expected_backend.__name__}.save"
+        with patch("torchffmpeg._backend.utils.get_available_backends", return_value=available_backends), patch(
+            f"torchffmpeg._backend.utils.{expected_backend.__name__}.save"
         ) as mock_save:
             get_save_func()(filename, src, sample_rate, format=format)
             mock_save.assert_called_once_with(filename, src, sample_rate, True, format, None, None, 4096)
@@ -122,8 +122,8 @@ class DispatcherTest(PytorchTestCase):
         format = "wav"
         buffer_size = 8192
         sample_rate = 16000
-        with patch("torchaudio._backend.utils.get_available_backends", return_value=available_backends), patch(
-            f"torchaudio._backend.utils.{expected_backend.__name__}.save"
+        with patch("torchffmpeg._backend.utils.get_available_backends", return_value=available_backends), patch(
+            f"torchffmpeg._backend.utils.{expected_backend.__name__}.save"
         ) as mock_save:
             get_save_func()(f, src, sample_rate, format=format, buffer_size=buffer_size)
             mock_save.assert_called_once_with(f, src, sample_rate, True, format, None, None, buffer_size)

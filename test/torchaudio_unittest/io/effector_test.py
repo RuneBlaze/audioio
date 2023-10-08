@@ -1,7 +1,7 @@
 from parameterized import parameterized
 
-from torchaudio.io import AudioEffector
-from torchaudio_unittest.common_utils import get_sinusoid, skipIfNoFFmpeg, TorchaudioTestCase
+from torchffmpeg.io import AudioEffector
+from torchffmpeg_unittest.common_utils import get_sinusoid, skipIfNoFFmpeg, TorchaudioTestCase
 
 from .common import lt42
 

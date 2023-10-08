@@ -36,27 +36,27 @@ perform music separation
 # --------------
 #
 # First, we install the necessary dependencies. The first requirement is
-# ``torchaudio`` and ``torch``
+# ``torchffmpeg`` and ``torch``
 #
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
-# In addition to ``torchaudio``, ``mir_eval`` is required to perform
+# In addition to ``torchffmpeg``, ``mir_eval`` is required to perform
 # signal-to-distortion ratio (SDR) calculations. To install ``mir_eval``
 # please use ``pip3 install mir_eval``.
 #
 
 from IPython.display import Audio
-from torchaudio.utils import download_asset
+from torchffmpeg.utils import download_asset
 import matplotlib.pyplot as plt
 
 try:
-    from torchaudio.pipelines import HDEMUCS_HIGH_MUSDB_PLUS
+    from torchffmpeg.pipelines import HDEMUCS_HIGH_MUSDB_PLUS
     from mir_eval import separation
 
 except ModuleNotFoundError:
@@ -66,10 +66,10 @@ except ModuleNotFoundError:
         print(
             """
             To enable running this notebook in Google Colab, install nightly
-            torch and torchaudio builds by adding the following code block to the top
+            torch and torchffmpeg builds by adding the following code block to the top
             of the notebook before running it:
-            !pip3 uninstall -y torch torchvision torchaudio
-            !pip3 install --pre torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cpu
+            !pip3 uninstall -y torch torchvision torchffmpeg
+            !pip3 install --pre torch torchvision torchffmpeg --extra-index-url https://download.pytorch.org/whl/nightly/cpu
             !pip3 install mir_eval
             """
         )
@@ -82,8 +82,8 @@ except ModuleNotFoundError:
 # -------------------------
 #
 # Pre-trained model weights and related pipeline components are bundled as
-# :py:func:`torchaudio.pipelines.HDEMUCS_HIGH_MUSDB_PLUS`. This is a
-# :py:class:`torchaudio.models.HDemucs` model trained on
+# :py:func:`torchffmpeg.pipelines.HDEMUCS_HIGH_MUSDB_PLUS`. This is a
+# :py:class:`torchffmpeg.models.HDemucs` model trained on
 # `MUSDB18-HQ <https://zenodo.org/record/3338373>`__ and additional
 # internal extra training data.
 # This specific model is suited for higher sample rates, around 44.1 kHZ
@@ -124,9 +124,9 @@ print(f"Sample rate: {sample_rate}")
 # This accommodates for the artifacts by using less of the edges of the
 # model outputs.
 #
-# .. image:: https://download.pytorch.org/torchaudio/tutorial-assets/HDemucs_Drawing.jpg
+# .. image:: https://download.pytorch.org/torchffmpeg/tutorial-assets/HDemucs_Drawing.jpg
 
-from torchaudio.transforms import Fade
+from torchffmpeg.transforms import Fade
 
 
 def separate_sources(
@@ -207,7 +207,7 @@ def plot_spectrogram(stft, title="Spectrogram"):
 
 # We download the audio file from our storage. Feel free to download another file and use audio from a specific path
 SAMPLE_SONG = download_asset("tutorial-assets/hdemucs_mix.wav")
-waveform, sample_rate = torchaudio.load(SAMPLE_SONG)  # replace SAMPLE_SONG with desired path for different song
+waveform, sample_rate = torchffmpeg.load(SAMPLE_SONG)  # replace SAMPLE_SONG with desired path for different song
 waveform = waveform.to(device)
 mixture = waveform
 
@@ -249,7 +249,7 @@ audios = dict(zip(sources_list, sources))
 
 N_FFT = 4096
 N_HOP = 4
-stft = torchaudio.transforms.Spectrogram(
+stft = torchffmpeg.transforms.Spectrogram(
     n_fft=N_FFT,
     hop_length=N_HOP,
     power=None,
@@ -286,16 +286,16 @@ vocals_original = download_asset("tutorial-assets/hdemucs_vocals_segment.wav")
 other_original = download_asset("tutorial-assets/hdemucs_other_segment.wav")
 
 drums_spec = audios["drums"][:, frame_start: frame_end].cpu()
-drums, sample_rate = torchaudio.load(drums_original)
+drums, sample_rate = torchffmpeg.load(drums_original)
 
 bass_spec = audios["bass"][:, frame_start: frame_end].cpu()
-bass, sample_rate = torchaudio.load(bass_original)
+bass, sample_rate = torchffmpeg.load(bass_original)
 
 vocals_spec = audios["vocals"][:, frame_start: frame_end].cpu()
-vocals, sample_rate = torchaudio.load(vocals_original)
+vocals, sample_rate = torchffmpeg.load(vocals_original)
 
 other_spec = audios["other"][:, frame_start: frame_end].cpu()
-other, sample_rate = torchaudio.load(other_original)
+other, sample_rate = torchffmpeg.load(other_original)
 
 mix_spec = mixture[:, frame_start: frame_end].cpu()
 

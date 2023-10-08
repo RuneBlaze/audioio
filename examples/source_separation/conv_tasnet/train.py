@@ -6,8 +6,8 @@ import time
 
 import conv_tasnet
 import torch
-import torchaudio
-import torchaudio.models
+import torchffmpeg
+import torchffmpeg.models
 from utils import dist_utils
 from utils.dataset import utils as dataset_utils
 
@@ -110,7 +110,7 @@ def _get_model(
     msk_num_layers=8,
     msk_num_stacks=3,
 ):
-    model = torchaudio.models.ConvTasNet(
+    model = torchffmpeg.models.ConvTasNet(
         num_sources=num_sources,
         enc_kernel_size=enc_kernel_size,
         enc_num_feats=enc_num_feats,
@@ -174,7 +174,7 @@ def _write_header(log_path, args):
             f"# torch: {torch.__version__}",
         ],
         [
-            f"# torchaudio: {torchaudio.__version__}",
+            f"# torchffmpeg: {torchffmpeg.__version__}",
         ],
     ]
     rows.append(["# arguments"])
@@ -189,8 +189,8 @@ def train(args):
     _LG.info("%s", args)
 
     args.save_dir.mkdir(parents=True, exist_ok=True)
-    if "sox_io" in torchaudio.list_audio_backends():
-        torchaudio.set_audio_backend("sox_io")
+    if "sox_io" in torchffmpeg.list_audio_backends():
+        torchffmpeg.set_audio_backend("sox_io")
 
     start_epoch = 1
     if args.resume:

@@ -1,18 +1,18 @@
 Installing pre-built binaries
 =============================
 
-``torchaudio`` has binary distributions for PyPI (``pip``) and Anaconda (``conda``).
+``torchffmpeg`` has binary distributions for PyPI (``pip``) and Anaconda (``conda``).
 
 Please refer to https://pytorch.org/get-started/locally/ for the details.
 
 .. note::
 
-   Each ``torchaudio`` package is compiled against specific version of ``torch``.
-   Please refer to the following table and install the correct pair of ``torch`` and ``torchaudio``.
+   Each ``torchffmpeg`` package is compiled against specific version of ``torch``.
+   Please refer to the following table and install the correct pair of ``torch`` and ``torchffmpeg``.
 
 .. note::
 
-   Starting ``0.10``, torchaudio has CPU-only and CUDA-enabled binary distributions,
+   Starting ``0.10``, torchffmpeg has CPU-only and CUDA-enabled binary distributions,
    each of which requires a corresponding PyTorch distribution.
 
 .. note::
@@ -30,7 +30,7 @@ Optional Dependencies
 
 * `FFmpeg <https://ffmpeg.org>`_.
 
-  Required to use :py:mod:`torchaudio.io` module.
+  Required to use :py:mod:`torchffmpeg.io` module.
   TorchAudio official binary distributions are compatible with FFmpeg 4.1 to 4.4.
   If you need to use FFmpeg 5, please build TorchAudio from source.
 
@@ -44,7 +44,7 @@ Optional Dependencies
 
 * `kaldi_io <https://pypi.org/project/kaldi-io/>`_
 
-  Required to use :py:mod:`torchaudio.kaldi_io` module.
+  Required to use :py:mod:`torchffmpeg.kaldi_io` module.
 
    
 Compatibility Matrix

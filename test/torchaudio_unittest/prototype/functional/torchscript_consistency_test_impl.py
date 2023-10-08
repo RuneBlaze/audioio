@@ -1,9 +1,9 @@
 import unittest
 
 import torch
-import torchaudio.prototype.functional as F
+import torchffmpeg.prototype.functional as F
 from parameterized import parameterized
-from torchaudio_unittest.common_utils import skipIfNoRIR, TestBaseMixin, torch_script
+from torchffmpeg_unittest.common_utils import skipIfNoRIR, TestBaseMixin, torch_script
 
 
 class TorchScriptConsistencyTestImpl(TestBaseMixin):

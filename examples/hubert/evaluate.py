@@ -4,15 +4,15 @@ from typing import Dict, List
 
 import torch
 import torch.nn.functional as F
-import torchaudio
-from torchaudio.models.decoder import ctc_decoder, CTCDecoder, download_pretrained_files
+import torchffmpeg
+from torchffmpeg.models.decoder import ctc_decoder, CTCDecoder, download_pretrained_files
 from utils import _get_id2label
 
 logger = logging.getLogger(__name__)
 
 
 def _load_checkpoint(checkpoint: str) -> torch.nn.Module:
-    model = torchaudio.models.hubert_base(aux_num_out=29)
+    model = torchffmpeg.models.hubert_base(aux_num_out=29)
     checkpoint = torch.load(checkpoint, map_location="cpu")
     state_dict = checkpoint["state_dict"]
     new_state_dict = {}
@@ -88,7 +88,7 @@ def run_inference(args):
     else:
         id2token = _get_id2label()
 
-    dataset = torchaudio.datasets.LIBRISPEECH(args.librispeech_path, url=args.split)
+    dataset = torchffmpeg.datasets.LIBRISPEECH(args.librispeech_path, url=args.split)
 
     total_edit_distance = 0
     total_length = 0
@@ -104,7 +104,7 @@ def run_inference(args):
         else:
             hypothesis = _viterbi_decode(emission, id2token)
 
-        total_edit_distance += torchaudio.functional.edit_distance(hypothesis, transcript.split())
+        total_edit_distance += torchffmpeg.functional.edit_distance(hypothesis, transcript.split())
         total_length += len(transcript.split())
 
         if idx % 100 == 0:

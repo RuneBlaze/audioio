@@ -366,7 +366,7 @@ The following command fetches video from remote server, decode with NVDEC (cuvid
 
 .. code-block:: bash
 
-   $ src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/NASAs_Most_Scientifically_Complex_Space_Observatory_Requires_Precision-MP4_small.mp4"
+   $ src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/NASAs_Most_Scientifically_Complex_Space_Observatory_Requires_Precision-MP4_small.mp4"
 
    $ ffmpeg -hide_banner -y -vsync 0 \
         -hwaccel cuvid \
@@ -382,7 +382,7 @@ Note that there is ``Stream #0:0 -> #0:0 (h264 (h264_cuvid) -> h264 (h264_nvenc)
          
 .. code-block::
 
-   Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/NASAs_Most_Scientifically_Complex_Space_Observatory_Requires_Precision-MP4_small.mp4':
+   Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/NASAs_Most_Scientifically_Complex_Space_Observatory_Requires_Precision-MP4_small.mp4':
      Metadata:
        major_brand     : mp42
        minor_version   : 512
@@ -429,15 +429,15 @@ Checking the installation
 
 Once the FFmpeg is properly working with hardware acceleration, we need to check if TorchAudio can pick it up correctly.
 
-There are utility functions to query the capability of FFmpeg in :py:mod:`torchaudio.utils.ffmpeg_utils`.
+There are utility functions to query the capability of FFmpeg in :py:mod:`torchffmpeg.utils.ffmpeg_utils`.
 
-You can first use :py:func:`~torchaudio.utils.ffmpeg_utils.get_video_decoders` and :py:func:`~torchaudio.utils.ffmpeg_utils.get_video_encoders` to check if GPU decoders and encoders (such as ``h264_cuvid`` and ``h264_nvenc``) are listed.
+You can first use :py:func:`~torchffmpeg.utils.ffmpeg_utils.get_video_decoders` and :py:func:`~torchffmpeg.utils.ffmpeg_utils.get_video_encoders` to check if GPU decoders and encoders (such as ``h264_cuvid`` and ``h264_nvenc``) are listed.
 
-It is often the case where there are multiple FFmpeg installations in the system, and TorchAudio is loading one different than expected. In such cases, use of ``ffmpeg`` to check the installation does not help. You can use functions like :py:func:`~torchaudio.utils.ffmpeg_utils.get_build_config` and :py:func:`~torchaudio.utils.ffmpeg_utils.get_versions` to get information about FFmpeg libraries TorchAudio loaded.
+It is often the case where there are multiple FFmpeg installations in the system, and TorchAudio is loading one different than expected. In such cases, use of ``ffmpeg`` to check the installation does not help. You can use functions like :py:func:`~torchffmpeg.utils.ffmpeg_utils.get_build_config` and :py:func:`~torchffmpeg.utils.ffmpeg_utils.get_versions` to get information about FFmpeg libraries TorchAudio loaded.
 
 .. code-block:: python
 
-   from torchaudio.utils import ffmpeg_utils
+   from torchffmpeg.utils import ffmpeg_utils
 
    print("Library versions:")
    print(ffmpeg_utils.get_versions())
@@ -473,9 +473,9 @@ For the detail on the performance of GPU decoder and encoder please see `Hardwar
 
 .. code-block:: python
 
-   from torchaudio.io import StreamReader
+   from torchffmpeg.io import StreamReader
 
-   src = "https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/NASAs_Most_Scientifically_Complex_Space_Observatory_Requires_Precision-MP4_small.mp4"
+   src = "https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/NASAs_Most_Scientifically_Complex_Space_Observatory_Requires_Precision-MP4_small.mp4"
 
    s = StreamReader(src)
    s.add_video_stream(

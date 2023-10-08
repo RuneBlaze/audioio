@@ -1,14 +1,14 @@
-torchaudio.prototype.models
+torchffmpeg.prototype.models
 ===========================
 
-.. py:module:: torchaudio.prototype.models
-.. currentmodule:: torchaudio.prototype.models
+.. py:module:: torchffmpeg.prototype.models
+.. currentmodule:: torchffmpeg.prototype.models
 
 
-The ``torchaudio.prototype.models`` subpackage contains definitions of models for addressing common audio tasks.
+The ``torchffmpeg.prototype.models`` subpackage contains definitions of models for addressing common audio tasks.
 
 .. note::
-   For models with pre-trained parameters, please refer to :mod:`torchaudio.prototype.pipelines` module.
+   For models with pre-trained parameters, please refer to :mod:`torchffmpeg.prototype.pipelines` module.
 
 Model defintions are responsible for constructing computation graphs and executing them.
 
@@ -29,7 +29,7 @@ For such models, factory functions are provided.
 Prototype Factory Functions of Beta Models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. currentmodule:: torchaudio.models
+.. currentmodule:: torchffmpeg.models
 
 Some model definitions are in beta, but there are new factory functions that are still in prototype. Please check "Prototype Factory Functions" section in each model.
 

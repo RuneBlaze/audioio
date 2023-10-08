@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert a Wav2Vec2/HuBERT model published by fairseq into torchaudio format
+"""Convert a Wav2Vec2/HuBERT model published by fairseq into torchffmpeg format
 
 Examples
 
@@ -60,7 +60,7 @@ def _load_model(input_file, dict_dir):
 
 
 def _import_model(model):
-    from torchaudio.models.wav2vec2.utils import import_fairseq_model
+    from torchffmpeg.models.wav2vec2.utils import import_fairseq_model
 
     if model.__class__.__name__ in ["HubertCtc", "Wav2VecCtc"]:
         model = model.w2v_encoder

@@ -1,9 +1,9 @@
-.. py:module:: torchaudio.prototype.transforms
+.. py:module:: torchffmpeg.prototype.transforms
 
-torchaudio.prototype.transforms
+torchffmpeg.prototype.transforms
 ===============================
 
-.. currentmodule:: torchaudio.prototype.transforms
+.. currentmodule:: torchffmpeg.prototype.transforms
 
 .. autosummary::
     :toctree: generated

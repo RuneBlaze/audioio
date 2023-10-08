@@ -5,11 +5,11 @@ import tarfile
 from contextlib import contextmanager
 
 from parameterized import parameterized
-from torchaudio._internal import module_utils as _mod_utils
-from torchaudio.backend import sox_io_backend
-from torchaudio.utils.sox_utils import get_buffer_size, set_buffer_size
-from torchaudio_unittest.backend.common import get_bits_per_sample, get_encoding
-from torchaudio_unittest.common_utils import (
+from torchffmpeg._internal import module_utils as _mod_utils
+from torchffmpeg.backend import sox_io_backend
+from torchffmpeg.utils.sox_utils import get_buffer_size, set_buffer_size
+from torchffmpeg_unittest.backend.common import get_bits_per_sample, get_encoding
+from torchffmpeg_unittest.common_utils import (
     get_asset_path,
     get_wav_data,
     HttpServerMixin,

@@ -4,8 +4,8 @@ from unittest.mock import patch
 
 import torch
 from parameterized import parameterized
-from torchaudio._internal.module_utils import is_module_available
-from torchaudio_unittest.common_utils import skipIfNoModule, TorchaudioTestCase
+from torchffmpeg._internal.module_utils import is_module_available
+from torchffmpeg_unittest.common_utils import skipIfNoModule, TorchaudioTestCase
 
 from .utils import MockCustomDataset, MockDataloader, MockSentencePieceProcessor
 
@@ -35,7 +35,7 @@ class MockTEDLIUM:
 def get_lightning_module():
     with patch("sentencepiece.SentencePieceProcessor", new=partial(MockSentencePieceProcessor, num_symbols=500)), patch(
         "asr.emformer_rnnt.tedlium3.lightning.GlobalStatsNormalization", new=torch.nn.Identity
-    ), patch("torchaudio.datasets.TEDLIUM", new=MockTEDLIUM), patch(
+    ), patch("torchffmpeg.datasets.TEDLIUM", new=MockTEDLIUM), patch(
         "asr.emformer_rnnt.tedlium3.lightning.CustomDataset", new=MockCustomDataset
     ), patch(
         "torch.utils.data.DataLoader", new=MockDataloader

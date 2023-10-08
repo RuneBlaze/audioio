@@ -1,10 +1,10 @@
 """Test suites for jit-ability and its numerical compatibility"""
 
 import torch
-import torchaudio.transforms as T
+import torchffmpeg.transforms as T
 from parameterized import parameterized
-from torchaudio_unittest import common_utils
-from torchaudio_unittest.common_utils import skipIfRocm, TestBaseMixin, torch_script
+from torchffmpeg_unittest import common_utils
+from torchffmpeg_unittest.common_utils import skipIfRocm, TestBaseMixin, torch_script
 
 
 class Transforms(TestBaseMixin):

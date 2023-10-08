@@ -2,10 +2,10 @@ import itertools
 from functools import partial
 
 import torch
-import torchaudio
+import torchffmpeg
 from parameterized import parameterized
-from torchaudio._backend.utils import get_load_func
-from torchaudio_unittest.common_utils import (
+from torchffmpeg._backend.utils import get_load_func
+from torchffmpeg_unittest.common_utils import (
     get_asset_path,
     get_wav_data,
     load_wav,
@@ -49,7 +49,7 @@ class LoadTestBase(TempDirMixin, PytorchTestCase):
          v    2. Convert to wav with Sox
         given format ----------------------> wav
          |                                   |
-         |    3. Load with torchaudio        | 4. Load with scipy
+         |    3. Load with torchffmpeg        | 4. Load with scipy
          |                                   |
          v                                   v
         tensor ----------> x <----------- tensor
@@ -60,7 +60,7 @@ class LoadTestBase(TempDirMixin, PytorchTestCase):
         ii. Loading wav file with scipy is correct.
 
         By combining i & ii, step 2. and 4. allows to load reference given format
-        data without using torchaudio
+        data without using torchffmpeg
         """
 
         path = self.get_temp_path(f"1.original.{format}")
@@ -79,7 +79,7 @@ class LoadTestBase(TempDirMixin, PytorchTestCase):
         # 2. Convert to wav with sox
         wav_bit_depth = 32 if bit_depth == 24 else None  # for 24-bit wav
         sox_utils.convert_audio_file(path, ref_path, bit_depth=wav_bit_depth)
-        # 3. Load the given format with torchaudio
+        # 3. Load the given format with torchffmpeg
         data, sr = self._load(path, normalize=normalize)
         # 4. Load wav with scipy
         data_ref = load_wav(ref_path, normalize=normalize)[0]
@@ -314,12 +314,12 @@ class TestLoadParams(TempDirMixin, PytorchTestCase):
     def test_sox(self, frame_offset, num_frames, channels_first, normalize):
         """The combination of properly changes the output tensor"""
 
-        self._test(torch.ops.torchaudio.sox_io_load_audio_file, frame_offset, num_frames, channels_first, normalize)
+        self._test(torch.ops.torchffmpeg.sox_io_load_audio_file, frame_offset, num_frames, channels_first, normalize)
 
         # test file-like obj
         def func(path, *args):
             with open(path, "rb") as fileobj:
-                return torchaudio.lib._torchaudio_sox.load_audio_fileobj(fileobj, *args)
+                return torchffmpeg.lib._torchffmpeg_sox.load_audio_fileobj(fileobj, *args)
 
         self._test(func, frame_offset, num_frames, channels_first, normalize)
 
@@ -331,7 +331,7 @@ class TestLoadParams(TempDirMixin, PytorchTestCase):
     )
     def test_ffmpeg(self, frame_offset, num_frames, channels_first, normalize):
         """The combination of properly changes the output tensor"""
-        from torchaudio.io._compat import load_audio, load_audio_fileobj
+        from torchffmpeg.io._compat import load_audio, load_audio_fileobj
 
         self._test(load_audio, frame_offset, num_frames, channels_first, normalize)
 

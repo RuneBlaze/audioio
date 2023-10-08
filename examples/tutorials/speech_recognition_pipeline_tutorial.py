@@ -26,7 +26,7 @@ pre-trained models from wav2vec 2.0
 # Torchaudio provides easy access to the pre-trained weights and
 # associated information, such as the expected sample rate and class
 # labels. They are bundled together and available under
-# :py:mod:`torchaudio.pipelines` module.
+# :py:mod:`torchffmpeg.pipelines` module.
 #
 
 
@@ -36,10 +36,10 @@ pre-trained models from wav2vec 2.0
 #
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 torch.random.manual_seed(0)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -51,7 +51,7 @@ print(device)
 
 import IPython
 import matplotlib.pyplot as plt
-from torchaudio.utils import download_asset
+from torchffmpeg.utils import download_asset
 
 SPEECH_FILE = download_asset("tutorial-assets/Lab41-SRI-VOiCES-src-sp0307-ch127535-sg0042.wav")
 
@@ -64,7 +64,7 @@ SPEECH_FILE = download_asset("tutorial-assets/Lab41-SRI-VOiCES-src-sp0307-ch1275
 # extraction and the classification.
 #
 # There are two types of Wav2Vec2 pre-trained weights available in
-# torchaudio. The ones fine-tuned for ASR task, and the ones not
+# torchffmpeg. The ones fine-tuned for ASR task, and the ones not
 # fine-tuned.
 #
 # Wav2Vec2 (and HuBERT) models are trained in self-supervised manner. They
@@ -75,16 +75,16 @@ SPEECH_FILE = download_asset("tutorial-assets/Lab41-SRI-VOiCES-src-sp0307-ch1275
 # for other downstream tasks as well, but this tutorial does not
 # cover that.
 #
-# We will use :py:data:`torchaudio.pipelines.WAV2VEC2_ASR_BASE_960H` here.
+# We will use :py:data:`torchffmpeg.pipelines.WAV2VEC2_ASR_BASE_960H` here.
 #
-# There are multiple pre-trained models available in :py:mod:`torchaudio.pipelines`.
+# There are multiple pre-trained models available in :py:mod:`torchffmpeg.pipelines`.
 # Please check the documentation for the detail of how they are trained.
 #
 # The bundle object provides the interface to instantiate model and other
 # information. Sampling rate and the class labels are found as follow.
 #
 
-bundle = torchaudio.pipelines.WAV2VEC2_ASR_BASE_960H
+bundle = torchffmpeg.pipelines.WAV2VEC2_ASR_BASE_960H
 
 print("Sample Rate:", bundle.sample_rate)
 
@@ -114,23 +114,23 @@ IPython.display.Audio(SPEECH_FILE)
 
 
 ######################################################################
-# To load data, we use :py:func:`torchaudio.load`.
+# To load data, we use :py:func:`torchffmpeg.load`.
 #
 # If the sampling rate is different from what the pipeline expects, then
-# we can use :py:func:`torchaudio.functional.resample` for resampling.
+# we can use :py:func:`torchffmpeg.functional.resample` for resampling.
 #
 # .. note::
 #
-#    - :py:func:`torchaudio.functional.resample` works on CUDA tensors as well.
+#    - :py:func:`torchffmpeg.functional.resample` works on CUDA tensors as well.
 #    - When performing resampling multiple times on the same set of sample rates,
-#      using :py:class:`torchaudio.transforms.Resample` might improve the performace.
+#      using :py:class:`torchffmpeg.transforms.Resample` might improve the performace.
 #
 
-waveform, sample_rate = torchaudio.load(SPEECH_FILE)
+waveform, sample_rate = torchffmpeg.load(SPEECH_FILE)
 waveform = waveform.to(device)
 
 if sample_rate != bundle.sample_rate:
-    waveform = torchaudio.functional.resample(waveform, sample_rate, bundle.sample_rate)
+    waveform = torchffmpeg.functional.resample(waveform, sample_rate, bundle.sample_rate)
 
 
 ######################################################################
@@ -280,12 +280,12 @@ IPython.display.Audio(SPEECH_FILE)
 # Conclusion
 # ----------
 #
-# In this tutorial, we looked at how to use :py:class:`~torchaudio.pipelines.Wav2Vec2ASRBundle` to
+# In this tutorial, we looked at how to use :py:class:`~torchffmpeg.pipelines.Wav2Vec2ASRBundle` to
 # perform acoustic feature extraction and speech recognition. Constructing
 # a model and getting the emission is as short as two lines.
 #
 # ::
 #
-#    model = torchaudio.pipelines.WAV2VEC2_ASR_BASE_960H.get_model()
+#    model = torchffmpeg.pipelines.WAV2VEC2_ASR_BASE_960H.get_model()
 #    emission = model(waveforms, ...)
 #

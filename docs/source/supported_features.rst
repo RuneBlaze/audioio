@@ -53,7 +53,7 @@ For example:
    cuda = torch.device("cuda")
           
    waveform = waveform.to(cuda)
-   spectrogram = torchaudio.functional.spectrogram(waveform)
+   spectrogram = torchffmpeg.functional.spectrogram(waveform)
 
 Classes with CUDA support are implemented with :py:func:`torch.nn.Module`.
 It is also necessary to move the instance to CUDA device, before passing CUDA tensors.
@@ -64,7 +64,7 @@ For example:
 
    cuda = torch.device("cuda")
 
-   resampler = torchaudio.transforms.Resample(8000, 16000)
+   resampler = torchffmpeg.transforms.Resample(8000, 16000)
    resampler.to(cuda)
 
    waveform.to(cuda)

@@ -55,13 +55,13 @@ extensions = [
     "breathe",
 ]
 
-breathe_projects = {"libtorchaudio": "cpp/xml"}
+breathe_projects = {"libtorchffmpeg": "cpp/xml"}
 
-breathe_default_project = "libtorchaudio"
+breathe_default_project = "libtorchffmpeg"
 
 breathe_projects_source = {
-    "libtorchaudio": (
-        "../../torchaudio/csrc/ffmpeg/",
+    "libtorchffmpeg": (
+        "../../torchffmpeg/csrc/ffmpeg/",
         ["ffmpeg.h"],
     )
 }
@@ -137,7 +137,7 @@ sphinx_gallery_conf = {
     "backreferences_dir": "gen_modules/backreferences",
     "promote_jupyter_magic": True,
     "first_notebook_cell": None,
-    "doc_module": ("torchaudio",),
+    "doc_module": ("torchffmpeg",),
 }
 autosummary_generate = True
 
@@ -171,9 +171,9 @@ author = "Torchaudio Contributors"
 if os.getenv("BUILD_VERSION"):
     version = release = os.environ["BUILD_VERSION"]
 else:
-    import torchaudio
+    import torchffmpeg
 
-    version = f"Nightly Build ({torchaudio.__version__})"
+    version = f"Nightly Build ({torchffmpeg.__version__})"
     release = "nightly"
 
 

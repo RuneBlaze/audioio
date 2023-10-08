@@ -1,6 +1,6 @@
 import torch
-from torchaudio_unittest.common_utils import PytorchTestCase
-from torchaudio_unittest.models.emformer.emformer_test_impl import EmformerTestImpl
+from torchffmpeg_unittest.common_utils import PytorchTestCase
+from torchffmpeg_unittest.models.emformer.emformer_test_impl import EmformerTestImpl
 
 
 class EmformerFloat32CPUTest(EmformerTestImpl, PytorchTestCase):

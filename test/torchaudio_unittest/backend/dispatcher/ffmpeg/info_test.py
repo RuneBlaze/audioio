@@ -7,13 +7,13 @@ from contextlib import contextmanager
 from functools import partial
 
 from parameterized import parameterized
-from torchaudio._backend.utils import get_info_func
-from torchaudio._internal import module_utils as _mod_utils
-from torchaudio.utils.sox_utils import get_buffer_size, set_buffer_size
-from torchaudio_unittest.backend.common import get_bits_per_sample, get_encoding
+from torchffmpeg._backend.utils import get_info_func
+from torchffmpeg._internal import module_utils as _mod_utils
+from torchffmpeg.utils.sox_utils import get_buffer_size, set_buffer_size
+from torchffmpeg_unittest.backend.common import get_bits_per_sample, get_encoding
 
-from torchaudio_unittest.backend.dispatcher.sox.common import name_func
-from torchaudio_unittest.common_utils import (
+from torchffmpeg_unittest.backend.dispatcher.sox.common import name_func
+from torchffmpeg_unittest.common_utils import (
     get_asset_path,
     get_wav_data,
     HttpServerMixin,

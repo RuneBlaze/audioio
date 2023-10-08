@@ -2,8 +2,8 @@ from unittest.mock import patch
 
 import torch
 from parameterized import parameterized
-from torchaudio.io import play_audio, StreamWriter
-from torchaudio_unittest.common_utils import get_sinusoid, skipIfNoAudioDevice, skipIfNoMacOS, TorchaudioTestCase
+from torchffmpeg.io import play_audio, StreamWriter
+from torchffmpeg_unittest.common_utils import get_sinusoid, skipIfNoAudioDevice, skipIfNoMacOS, TorchaudioTestCase
 
 
 @skipIfNoAudioDevice

@@ -1,6 +1,6 @@
 # Augmentation
 
-This example demonstrates how you can use torchaudio's I/O features and augmentations in C++ application.
+This example demonstrates how you can use torchffmpeg's I/O features and augmentations in C++ application.
 
 **NOTE**
 This example uses `"sox_io"` backend, thus does not work on Windows.

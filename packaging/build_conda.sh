@@ -19,4 +19,4 @@ if [[ ${OSTYPE} =~ darwin* ]] && [[ ${PYTHON_VERSION} = "3.10" ]]; then
     CONDA_CHANNEL_FLAGS="${CONDA_CHANNEL_FLAGS} -c conda-forge"
 fi
 
-conda build -c defaults -c $CUDATOOLKIT_CHANNEL ${CONDA_CHANNEL_FLAGS:-}  --no-anaconda-upload --no-test --python "$PYTHON_VERSION"  packaging/torchaudio
+conda build -c defaults -c $CUDATOOLKIT_CHANNEL ${CONDA_CHANNEL_FLAGS:-}  --no-anaconda-upload --no-test --python "$PYTHON_VERSION"  packaging/torchffmpeg

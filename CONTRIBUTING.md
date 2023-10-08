@@ -41,7 +41,7 @@ Complete your CLA here: <https://code.facebook.com/cla>
 ## Development installation
 
 We recommend using a `conda` environment to contribute efficiently to
-torchaudio.
+torchffmpeg.
 
 ### Install PyTorch Nightly
 
@@ -63,7 +63,7 @@ conda install ffmpeg
 ### Install Torchaudio
 
 ```bash
-# Build torchaudio
+# Build torchffmpeg
 git clone https://github.com/pytorch/audio.git
 cd audio
 python setup.py develop
@@ -86,7 +86,7 @@ Please check the [./tools/setup_helpers/extension.py](./tools/setup_helpers/exte
 If you built sox, set the `PATH` variable so that the tests properly use the newly built `sox` binary:
 
 ```bash
-export PATH="<path_to_torchaudio>/third_party/install/bin:${PATH}"
+export PATH="<path_to_torchffmpeg>/third_party/install/bin:${PATH}"
 ```
 
 The following dependencies are also needed for testing:
@@ -113,7 +113,7 @@ Optional packages to install if you want to run related tests:
 If you plan to modify the code or documentation, please follow the steps below:
 
 1. Fork the repository and create your branch from `main`: `$ git checkout main && git checkout -b my_cool_feature`
-2. If you have modified the code (new feature or bug-fix), [please add tests](test/torchaudio_unittest/).
+2. If you have modified the code (new feature or bug-fix), [please add tests](test/torchffmpeg_unittest/).
 3. If you have changed APIs, [update the documentation](#Documentation).
 
 For more details about pull requests,
@@ -125,7 +125,7 @@ If you would like to contribute a new dataset, please see [here](#New-dataset).
 
 ## Testing
 
-Please refer to our [testing guidelines](test/torchaudio_unittest/) for more
+Please refer to our [testing guidelines](test/torchffmpeg_unittest/) for more
 details.
 
 ## Documentation

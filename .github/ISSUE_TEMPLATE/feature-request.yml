@@ -1,5 +1,5 @@
 name: 🚀 Feature request
-description: Submit a proposal/request for a new torchaudio feature
+description: Submit a proposal/request for a new torchffmpeg feature
 
 body:
 - type: textarea

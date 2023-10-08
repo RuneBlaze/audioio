@@ -3,10 +3,10 @@ from collections import namedtuple
 
 import torch
 from parameterized import parameterized
-from torchaudio.models import ConvTasNet, DeepSpeech, Wav2Letter, WaveRNN
-from torchaudio.models.wavernn import MelResNet, UpsampleNetwork
-from torchaudio_unittest import common_utils
-from torchaudio_unittest.common_utils import torch_script
+from torchffmpeg.models import ConvTasNet, DeepSpeech, Wav2Letter, WaveRNN
+from torchffmpeg.models.wavernn import MelResNet, UpsampleNetwork
+from torchffmpeg_unittest import common_utils
+from torchffmpeg_unittest.common_utils import torch_script
 
 
 class TestWav2Letter(common_utils.TorchaudioTestCase):

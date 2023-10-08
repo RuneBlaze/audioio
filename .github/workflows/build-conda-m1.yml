@@ -35,11 +35,11 @@ jobs:
             pre-script: packaging/pre_build_script.sh
             post-script: packaging/post_build_script.sh
             smoke-test-script: test/smoke_test/smoke_test.py
-            package-name: torchaudio
+            package-name: torchffmpeg
     name: ${{ matrix.repository }}
     uses: pytorch/test-infra/.github/workflows/build_conda_macos.yml@main
     with:
-      conda-package-directory: packaging/torchaudio
+      conda-package-directory: packaging/torchffmpeg
       repository: ${{ matrix.repository }}
       ref: ""
       test-infra-repository: pytorch/test-infra

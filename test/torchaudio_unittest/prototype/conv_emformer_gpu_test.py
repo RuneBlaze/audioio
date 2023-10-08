@@ -1,6 +1,6 @@
 import torch
-from torchaudio_unittest.common_utils import PytorchTestCase, skipIfNoCuda
-from torchaudio_unittest.prototype.conv_emformer_test_impl import ConvEmformerTestImpl
+from torchffmpeg_unittest.common_utils import PytorchTestCase, skipIfNoCuda
+from torchffmpeg_unittest.prototype.conv_emformer_test_impl import ConvEmformerTestImpl
 
 
 @skipIfNoCuda

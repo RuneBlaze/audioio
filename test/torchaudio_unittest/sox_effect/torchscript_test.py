@@ -2,8 +2,8 @@ from typing import List
 
 import torch
 from parameterized import parameterized
-from torchaudio import sox_effects
-from torchaudio_unittest.common_utils import (
+from torchffmpeg import sox_effects
+from torchffmpeg_unittest.common_utils import (
     get_sinusoid,
     save_wav,
     skipIfNoSox,

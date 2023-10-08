@@ -6,8 +6,8 @@ Oscillator and ADSR envelope
 **Author**: `Moto Hira <moto@meta.com>`__
 
 This tutorial shows how to synthesize various waveforms using
-:py:func:`~torchaudio.prototype.functional.oscillator_bank` and
-:py:func:`~torchaudio.prototype.functional.adsr_envelope`.
+:py:func:`~torchffmpeg.prototype.functional.oscillator_bank` and
+:py:func:`~torchffmpeg.prototype.functional.adsr_envelope`.
 
 .. warning::
    This tutorial requires prototype DSP features, which are
@@ -19,23 +19,23 @@ This tutorial shows how to synthesize various waveforms using
 """
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 #
 
 try:
-    from torchaudio.prototype.functional import (
+    from torchffmpeg.prototype.functional import (
         oscillator_bank,
         adsr_envelope,
     )
 except ModuleNotFoundError:
     print(
         "Failed to import prototype DSP features. "
-        "Please install torchaudio nightly builds. "
+        "Please install torchffmpeg nightly builds. "
         "Please refer to https://pytorch.org/get-started/locally "
         "for instructions to install a nightly build.")
     raise
@@ -73,7 +73,7 @@ PI2 = 2 * torch.pi
 #    In discrete-time signal processing, integration becomes accumulation.
 #    In PyTorch, accumulation can be computed using :py:func:`torch.cumsum`.
 #
-# :py:func:`torchaudio.prototype.functional.oscillator_bank` generates a bank of
+# :py:func:`torchffmpeg.prototype.functional.oscillator_bank` generates a bank of
 # sinsuoidal waveforms from amplitude envelopes and instantaneous frequencies.
 #
 
@@ -153,7 +153,7 @@ show(freq, amp, waveform, SAMPLE_RATE, zoom=(1/F0, 3/F0))
 # Combining multiple sine waves
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# :py:func:`~torchaudio.prototype.functional.oscillator_bank` can
+# :py:func:`~torchffmpeg.prototype.functional.oscillator_bank` can
 # combine an arbitrary number of sinusoids to generate a waveform.
 #
 
@@ -226,7 +226,7 @@ show(freq, amp, waveform, SAMPLE_RATE)
 #  - `Hold`: The time the level stays at the top level after attack.
 #  - non-linear decay/release: The decay and release take non-linear change.
 #
-# :py:class:`~torchaudio.prototype.functional.adsr_envelope` supports
+# :py:class:`~torchffmpeg.prototype.functional.adsr_envelope` supports
 # hold and polynomial decay.
 #
 

@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
 
-from torchaudio.datasets import cmuarctic
-from torchaudio_unittest.common_utils import get_whitenoise, normalize_wav, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import cmuarctic
+from torchffmpeg_unittest.common_utils import get_whitenoise, normalize_wav, save_wav, TempDirMixin, TorchaudioTestCase
 
 
 def get_mock_dataset(root_dir):

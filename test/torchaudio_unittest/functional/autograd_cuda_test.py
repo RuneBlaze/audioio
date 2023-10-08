@@ -1,5 +1,5 @@
 import torch
-from torchaudio_unittest import common_utils
+from torchffmpeg_unittest import common_utils
 
 from .autograd_impl import Autograd, AutogradFloat32
 

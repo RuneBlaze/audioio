@@ -5,7 +5,7 @@ from functools import partial
 from typing import Dict, Tuple
 
 import torch
-import torchaudio.models
+import torchffmpeg.models
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.utilities.seed import seed_everything
@@ -115,7 +115,7 @@ def run_train(args):
             "Expect model_name to be one of 'hubert_pretrain_base', 'hubert_pretrain_large', 'hubert_pretrain_xlarge'."
             f"Found {args.model_name}."
         )
-    model = getattr(torchaudio.models, args.model_name)()
+    model = getattr(torchffmpeg.models, args.model_name)()
     loss_fn = partial(
         hubert_loss,
         masked_weight=args.masked_weight,

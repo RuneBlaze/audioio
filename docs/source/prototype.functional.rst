@@ -1,8 +1,8 @@
-torchaudio.prototype.functional
+torchffmpeg.prototype.functional
 ===============================
 
-.. py:module:: torchaudio.prototype.functional
-.. currentmodule:: torchaudio.prototype.functional
+.. py:module:: torchffmpeg.prototype.functional
+.. currentmodule:: torchffmpeg.prototype.functional
 
 barkscale_fbanks
 ~~~~~~~~~~~~~~~~

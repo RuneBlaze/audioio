@@ -9,7 +9,7 @@
 #
 # This script is not meant to build useful FFmpeg libraries, but to build
 # a skeleton of FFmpeg libraries that are use only during the build process of
-# torchaudio.
+# torchffmpeg.
 #
 # The resulting FFmpeg libraries should not be shipped either.
 

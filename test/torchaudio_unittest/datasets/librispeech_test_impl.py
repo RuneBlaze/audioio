@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
 
-from torchaudio.datasets import librispeech
-from torchaudio_unittest.common_utils import get_whitenoise, normalize_wav, save_wav, TempDirMixin
+from torchffmpeg.datasets import librispeech
+from torchffmpeg_unittest.common_utils import get_whitenoise, normalize_wav, save_wav, TempDirMixin
 
 # Used to generate a unique transcript for each dummy audio file
 _NUMBERS = ["ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE"]

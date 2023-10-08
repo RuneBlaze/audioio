@@ -29,7 +29,7 @@ set +e
 exit_status=0
 
 printf "\x1b[34mRunning flake8:\x1b[0m\n"
-flake8 torchaudio test tools/setup_helpers docs/source/conf.py examples
+flake8 torchffmpeg test tools/setup_helpers docs/source/conf.py examples
 status=$?
 exit_status="$((exit_status+status))"
 if [ "${status}" -ne 0 ]; then
@@ -38,7 +38,7 @@ fi
 
 printf "\x1b[34mRunning clang-format:\x1b[0m\n"
 "${this_dir}"/run_clang_format.py \
-  -r torchaudio/csrc third_party/kaldi/src \
+  -r torchffmpeg/csrc third_party/kaldi/src \
   --clang-format-executable "${clangformat_path}" \
     && git diff --exit-code
 status=$?

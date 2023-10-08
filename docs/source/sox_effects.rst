@@ -1,9 +1,9 @@
-.. py:module:: torchaudio.sox_effects
+.. py:module:: torchffmpeg.sox_effects
 
-torchaudio.sox_effects
+torchffmpeg.sox_effects
 ======================
 
-.. currentmodule:: torchaudio.sox_effects
+.. currentmodule:: torchffmpeg.sox_effects
 
 Applying effects
 ----------------
@@ -17,7 +17,7 @@ Apply SoX effects chain on torch.Tensor or on file and load as torch.Tensor.
    apply_effects_tensor
    apply_effects_file
 
-.. minigallery:: torchaudio.sox_effects.apply_effects_tensor
+.. minigallery:: torchffmpeg.sox_effects.apply_effects_tensor
    
 Utilities
 ---------

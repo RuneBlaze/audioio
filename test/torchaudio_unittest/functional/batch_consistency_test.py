@@ -4,9 +4,9 @@ import math
 from functools import partial
 
 import torch
-import torchaudio.functional as F
+import torchffmpeg.functional as F
 from parameterized import parameterized, parameterized_class
-from torchaudio_unittest import common_utils
+from torchffmpeg_unittest import common_utils
 
 
 def _name_from_args(func, _, params):

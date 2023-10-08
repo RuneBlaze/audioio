@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Dict, Tuple, Union
 
 import torch
-import torchaudio
+import torchffmpeg
 
 
 _LG = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ def create_tsv(
 
         for fname in root_dir.glob(f"**/*.{extension}"):
             if re.match(search_pattern, str(fname)):
-                frames = torchaudio.info(fname).num_frames
+                frames = torchffmpeg.info(fname).num_frames
                 dest = train_f if torch.rand(1) > valid_percent else valid_f
                 print(f"{fname.relative_to(root_dir)}\t{frames}", file=dest)
     if valid_f is not None:
@@ -98,13 +98,13 @@ def _get_model_path(km_dir: Path) -> Path:
 
 def _get_id2label() -> Dict:
     """Get the dictionary that maps indices of ASR model's last layer dimension to the corresponding labels."""
-    bundle = torchaudio.pipelines.HUBERT_ASR_LARGE
+    bundle = torchffmpeg.pipelines.HUBERT_ASR_LARGE
     labels = bundle.get_labels()
     return {i: char.lower() for i, char in enumerate(labels)}
 
 
 def _get_label2id() -> Dict:
     """Get the dictionary that maps the labels to the corresponding indices in ASR model's last dimension."""
-    bundle = torchaudio.pipelines.HUBERT_ASR_LARGE
+    bundle = torchffmpeg.pipelines.HUBERT_ASR_LARGE
     labels = bundle.get_labels()
     return {char: i for i, char in enumerate(labels)}

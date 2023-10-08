@@ -4,7 +4,7 @@ from typing import Tuple, Union
 import lightning.pytorch as pl
 
 import torch
-import torchaudio
+import torchffmpeg
 from torch import Tensor
 from torch.utils.data import Dataset
 from utils import CollateFnL3DAS22
@@ -31,7 +31,7 @@ class L3DAS22(Dataset):
             raise ValueError(f"Expect subset to be one of ('train360', 'train100', 'dev', 'test'). Found {subset}.")
         for sub_dir in _SUBSETS[subset]:
             path = Path(root) / f"{_PREFIX}{sub_dir}" / "data"
-            files = [str(p) for p in path.glob("*_A.wav") if torchaudio.info(p).num_frames >= min_len]
+            files = [str(p) for p in path.glob("*_A.wav") if torchffmpeg.info(p).num_frames >= min_len]
             if len(files) == 0:
                 raise RuntimeError(
                     f"Directory {path} is not found. Please check if the zip file has been downloaded and extracted."
@@ -46,10 +46,10 @@ class L3DAS22(Dataset):
         noisy_path_B = str(noisy_path_A).replace("_A.wav", "_B.wav")
         clean_path = noisy_path_A.parent.parent / "labels" / noisy_path_A.name.replace("_A.wav", ".wav")
         transcript_path = str(clean_path).replace("wav", "txt")
-        waveform_noisy_A, sample_rate1 = torchaudio.load(noisy_path_A)
-        waveform_noisy_B, sample_rate2 = torchaudio.load(noisy_path_B)
+        waveform_noisy_A, sample_rate1 = torchffmpeg.load(noisy_path_A)
+        waveform_noisy_B, sample_rate2 = torchffmpeg.load(noisy_path_B)
         waveform_noisy = torch.cat((waveform_noisy_A, waveform_noisy_B), dim=0)
-        waveform_clean, sample_rate3 = torchaudio.load(clean_path)
+        waveform_clean, sample_rate3 = torchffmpeg.load(clean_path)
         assert sample_rate1 == _SAMPLE_RATE and sample_rate2 == _SAMPLE_RATE and sample_rate3 == _SAMPLE_RATE
         with open(transcript_path, "r") as f:
             transcript = f.readline()

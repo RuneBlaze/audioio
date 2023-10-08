@@ -1,5 +1,5 @@
 import torch
-from torchaudio_unittest.common_utils import PytorchTestCase
+from torchffmpeg_unittest.common_utils import PytorchTestCase
 
 from .kaldi_compatibility_test_impl import Kaldi, KaldiCPUOnly
 

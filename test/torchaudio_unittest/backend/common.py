@@ -1,4 +1,4 @@
-from torchaudio_unittest.common_utils import sox_utils
+from torchffmpeg_unittest.common_utils import sox_utils
 
 
 def get_encoding(ext, dtype):

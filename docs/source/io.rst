@@ -1,9 +1,9 @@
-.. py:module:: torchaudio.io
+.. py:module:: torchffmpeg.io
 
-torchaudio.io
+torchffmpeg.io
 =============
 
-.. currentmodule:: torchaudio.io
+.. currentmodule:: torchffmpeg.io
 
 .. autosummary::
    :toctree: generated
@@ -15,6 +15,6 @@ torchaudio.io
    AudioEffector
    play_audio
 
-.. rubric:: Tutorials using ``torchaudio.io``
+.. rubric:: Tutorials using ``torchffmpeg.io``
 
-.. minigallery:: torchaudio.io
+.. minigallery:: torchffmpeg.io

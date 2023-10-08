@@ -5,9 +5,9 @@ from typing import List, Tuple
 
 import sentencepiece as spm
 import torch
-import torchaudio
+import torchffmpeg
 from pytorch_lightning import LightningModule
-from torchaudio.prototype.models import conformer_rnnt_biasing_base, Hypothesis, RNNTBeamSearchBiasing
+from torchffmpeg.prototype.models import conformer_rnnt_biasing_base, Hypothesis, RNNTBeamSearchBiasing
 
 
 logger = logging.getLogger()
@@ -94,7 +94,7 @@ class ConformerRNNTModule(LightningModule):
         # For greater customizability, please refer to ``conformer_rnnt_biasing``.
         self.biasing = biasing
         self.model = conformer_rnnt_biasing_base(charlist=self.char_list, biasing=self.biasing)
-        self.loss = torchaudio.transforms.RNNTLoss(reduction="sum", fused_log_softmax=False)
+        self.loss = torchffmpeg.transforms.RNNTLoss(reduction="sum", fused_log_softmax=False)
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=8e-4, betas=(0.9, 0.98), eps=1e-9)
         # This scheduler is for clean 100 and train 90 epochs, should change it when running longer
         self.warmup_lr_scheduler = WarmupLR(self.optimizer, 35, 60, 0.92)

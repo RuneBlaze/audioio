@@ -1,7 +1,7 @@
 import os
 
-from torchaudio.datasets import snips
-from torchaudio_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import snips
+from torchffmpeg_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
 
 
 _SAMPLE_RATE = 16000

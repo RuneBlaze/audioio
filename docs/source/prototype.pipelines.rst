@@ -1,9 +1,9 @@
 
-torchaudio.prototype.pipelines
+torchffmpeg.prototype.pipelines
 ==============================
 
-.. py:module:: torchaudio.prototype.pipelines
-.. currentmodule:: torchaudio.prototype.pipelines
+.. py:module:: torchffmpeg.prototype.pipelines
+.. currentmodule:: torchffmpeg.prototype.pipelines
 
 The pipelines subpackage contains APIs to models with pretrained weights and relevant utilities.
 

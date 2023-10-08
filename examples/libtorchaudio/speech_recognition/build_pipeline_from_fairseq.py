@@ -10,10 +10,10 @@ from typing import Tuple
 
 import fairseq
 import torch
-import torchaudio
+import torchffmpeg
 from greedy_decoder import Decoder
 from torch.utils.mobile_optimizer import optimize_for_mobile
-from torchaudio.models.wav2vec2.utils.import_fairseq import import_fairseq_model
+from torchffmpeg.models.wav2vec2.utils.import_fairseq import import_fairseq_model
 
 TORCH_VERSION: Tuple[int, ...] = tuple(int(x) for x in torch.__version__.split(".")[:2])
 if TORCH_VERSION >= (1, 10):
@@ -58,9 +58,9 @@ def _parse_args():
 
 class Loader(torch.nn.Module):
     def forward(self, audio_path: str) -> torch.Tensor:
-        waveform, sample_rate = torchaudio.load(audio_path)
+        waveform, sample_rate = torchffmpeg.load(audio_path)
         if sample_rate != 16000:
-            waveform = torchaudio.functional.resample(waveform, float(sample_rate), 16000.0)
+            waveform = torchffmpeg.functional.resample(waveform, float(sample_rate), 16000.0)
         return waveform
 
 

@@ -1,11 +1,11 @@
-.. py:module:: torchaudio.utils
+.. py:module:: torchffmpeg.utils
 
-torchaudio.utils
+torchffmpeg.utils
 ================
 
-``torchaudio.utils`` module contains utility functions to configure the global state of third party libraries.
+``torchffmpeg.utils`` module contains utility functions to configure the global state of third party libraries.
 
-.. currentmodule:: torchaudio.utils
+.. currentmodule:: torchffmpeg.utils
 
 .. autosummary::
    :toctree: generated

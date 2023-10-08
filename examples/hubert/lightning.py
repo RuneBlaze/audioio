@@ -3,8 +3,8 @@ from typing import Optional, Tuple
 
 import torch
 import torch.nn.functional as F
-import torchaudio
-import torchaudio.models.wav2vec2.components as components
+import torchffmpeg
+import torchffmpeg.models.wav2vec2.components as components
 from dataset import (
     _get_lengths_librilightlimited,
     _get_lengths_librispeech,
@@ -139,13 +139,13 @@ class HuBERTPreTrainModule(LightningModule):
         super().__init__()
 
         if model_name == "hubert_pretrain_base":
-            self.model = torchaudio.models.hubert_pretrain_base(
+            self.model = torchffmpeg.models.hubert_pretrain_base(
                 feature_grad_mult=feature_grad_mult, num_classes=num_classes
             )
         elif model_name == "hubert_pretrain_large":
-            self.model = torchaudio.models.hubert_pretrain_large()
+            self.model = torchffmpeg.models.hubert_pretrain_large()
         elif model_name == "hubert_pretrain_xlarge":
-            self.model = torchaudio.models.hubert_pretrain_xlarge()
+            self.model = torchffmpeg.models.hubert_pretrain_xlarge()
         else:
             raise ValueError(f"Unsupported model name: {model_name}")
         self.automatic_optimization = False
@@ -350,7 +350,7 @@ class HuBERTFineTuneModule(LightningModule):
         super().__init__()
 
         if model_name == "hubert_pretrain_base":
-            self.model = torchaudio.models.hubert_pretrain_base(
+            self.model = torchffmpeg.models.hubert_pretrain_base(
                 encoder_projection_dropout=encoder_projection_dropout,
                 encoder_attention_dropout=encoder_attention_dropout,
                 encoder_ff_interm_dropout=encoder_ff_interm_dropout,
@@ -363,7 +363,7 @@ class HuBERTFineTuneModule(LightningModule):
             )
             self.aux = torch.nn.Linear(768, aux_num_out)
         elif model_name == "hubert_pretrain_large":
-            self.model = torchaudio.models.hubert_pretrain_large(
+            self.model = torchffmpeg.models.hubert_pretrain_large(
                 encoder_projection_dropout=encoder_projection_dropout,
                 encoder_attention_dropout=encoder_attention_dropout,
                 encoder_ff_interm_dropout=encoder_ff_interm_dropout,
@@ -376,7 +376,7 @@ class HuBERTFineTuneModule(LightningModule):
             )
             self.aux = torch.nn.Linear(1024, aux_num_out)
         elif model_name == "hubert_pretrain_xlarge":
-            self.model = torchaudio.models.hubert_pretrain_xlarge(
+            self.model = torchffmpeg.models.hubert_pretrain_xlarge(
                 encoder_projection_dropout=encoder_projection_dropout,
                 encoder_attention_dropout=encoder_attention_dropout,
                 encoder_ff_interm_dropout=encoder_ff_interm_dropout,
@@ -506,7 +506,7 @@ class HuBERTFineTuneModule(LightningModule):
         return self._step(batch, batch_idx, "val")
 
     def train_dataloader(self):
-        dataset = torchaudio.datasets.LibriLightLimited(self.dataset_path, self.subset)
+        dataset = torchffmpeg.datasets.LibriLightLimited(self.dataset_path, self.subset)
         lengths = _get_lengths_librilightlimited(dataset._fileids_paths, dataset._path, dataset._ext_audio)
         sampler = BucketizeBatchSampler(
             lengths,
@@ -526,7 +526,7 @@ class HuBERTFineTuneModule(LightningModule):
         return dataloader
 
     def val_dataloader(self):
-        dataset = torchaudio.datasets.LIBRISPEECH(self.dataset_path, "dev-other")
+        dataset = torchffmpeg.datasets.LIBRISPEECH(self.dataset_path, "dev-other")
         lengths = _get_lengths_librispeech(dataset._walker, dataset._path, dataset._ext_audio)
         sampler = BucketizeBatchSampler(
             lengths, num_buckets=100, max_token_count=self.seconds_per_batch * 16000, shuffle=False

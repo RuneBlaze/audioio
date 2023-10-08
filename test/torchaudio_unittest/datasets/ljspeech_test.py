@@ -2,8 +2,8 @@ import csv
 import os
 from pathlib import Path
 
-from torchaudio.datasets import ljspeech
-from torchaudio_unittest.common_utils import get_whitenoise, normalize_wav, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import ljspeech
+from torchffmpeg_unittest.common_utils import get_whitenoise, normalize_wav, save_wav, TempDirMixin, TorchaudioTestCase
 
 _TRANSCRIPTS = [
     "Test transcript 1",

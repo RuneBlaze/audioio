@@ -5,8 +5,8 @@ from typing import List, Tuple
 
 import sentencepiece as spm
 import torch
-import torchaudio
-from torchaudio.models import Hypothesis
+import torchffmpeg
+from torchffmpeg.models import Hypothesis
 
 
 MODEL_TYPE_LIBRISPEECH = "librispeech"
@@ -16,7 +16,7 @@ MODEL_TYPE_MUSTC = "mustc"
 
 DECIBEL = 2 * 20 * math.log10(torch.iinfo(torch.int16).max)
 GAIN = pow(10, 0.05 * DECIBEL)
-spectrogram_transform = torchaudio.transforms.MelSpectrogram(sample_rate=16000, n_fft=400, n_mels=80, hop_length=160)
+spectrogram_transform = torchffmpeg.transforms.MelSpectrogram(sample_rate=16000, n_fft=400, n_mels=80, hop_length=160)
 
 Batch = namedtuple("Batch", ["features", "feature_lengths", "targets", "target_lengths"])
 

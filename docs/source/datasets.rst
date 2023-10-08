@@ -1,6 +1,6 @@
-.. py:module:: torchaudio.datasets
+.. py:module:: torchffmpeg.datasets
 
-torchaudio.datasets
+torchffmpeg.datasets
 ====================
 
 All datasets are subclasses of :class:`torch.utils.data.Dataset`
@@ -12,14 +12,14 @@ For example:
 
 .. code::
 
-   yesno_data = torchaudio.datasets.YESNO('.', download=True)
+   yesno_data = torchffmpeg.datasets.YESNO('.', download=True)
    data_loader = torch.utils.data.DataLoader(
        yesno_data,
        batch_size=1,
        shuffle=True,
        num_workers=args.nThreads)
 
-.. currentmodule:: torchaudio.datasets
+.. currentmodule:: torchffmpeg.datasets
 
 .. autosummary::
    :toctree: generated

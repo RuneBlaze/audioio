@@ -5,20 +5,20 @@ Audio Datasets
 
 **Author**: `Moto Hira <moto@meta.com>`__
 
-``torchaudio`` provides easy access to common, publicly accessible
+``torchffmpeg`` provides easy access to common, publicly accessible
 datasets. Please refer to the official documentation for the list of
 available datasets.
 """
 
 # When running this tutorial in Google Colab, install the required packages
 # with the following.
-# !pip install torchaudio
+# !pip install torchffmpeg
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 # Preparing data and utility functions (skip this section)
@@ -76,11 +76,11 @@ def play_audio(waveform, sample_rate):
 
 ######################################################################
 # Here, we show how to use the
-# :py:class:`torchaudio.datasets.YESNO` dataset.
+# :py:class:`torchffmpeg.datasets.YESNO` dataset.
 #
 
 
-dataset = torchaudio.datasets.YESNO(YESNO_DATASET_PATH, download=True)
+dataset = torchffmpeg.datasets.YESNO(YESNO_DATASET_PATH, download=True)
 
 for i in [1, 3, 5]:
     waveform, sample_rate, label = dataset[i]

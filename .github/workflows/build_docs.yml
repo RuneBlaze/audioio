@@ -59,7 +59,7 @@ jobs:
           -c nvidia "pytorch-${CHANNEL}"::pytorch[build="*${CU_VERSION}*"] \
           "${CUDATOOLKIT}"
 
-        # Install torchaudio
+        # Install torchffmpeg
         # TODO: Enable NVDec/NVEnc
         conda install --quiet -y 'ffmpeg>=4.1' pkg-config
         pip --quiet install cmake>=3.18.0 ninja

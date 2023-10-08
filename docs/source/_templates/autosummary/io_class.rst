@@ -3,7 +3,7 @@
 
 {#-
     ################################################################################
-    # autosummary template for torchaudio.io module
+    # autosummary template for torchffmpeg.io module
     # Since StreamReader/StreamWriter have many methods/properties,
     # we want to list them up in the table of contents.
     # The default class template does not do this, so we use custom one here.
@@ -73,7 +73,7 @@ Support Structures
 
 {{ item | underline("~") }}
 
-.. autoclass:: torchaudio.io._stream_reader.{{item}}()
+.. autoclass:: torchffmpeg.io._stream_reader.{{item}}()
    :members:
 
 {%- endfor %}
@@ -83,7 +83,7 @@ Support Structures
 CodecConfig
 ~~~~~~~~~~~
 
-.. autoclass:: torchaudio.io::CodecConfig
+.. autoclass:: torchffmpeg.io::CodecConfig
    :members:
 
 {%- endif %}

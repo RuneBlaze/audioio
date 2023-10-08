@@ -1,9 +1,9 @@
-.. py:module:: torchaudio.models.decoder
+.. py:module:: torchffmpeg.models.decoder
 
-torchaudio.models.decoder
+torchffmpeg.models.decoder
 =========================
 
-.. currentmodule:: torchaudio.models.decoder
+.. currentmodule:: torchffmpeg.models.decoder
 
 CTC Decoder
 -----------
@@ -19,7 +19,7 @@ CTC Decoder
 
 .. rubric:: Tutorials using CTC Decoder
 
-.. minigallery:: torchaudio.models.decoder.CTCDecoder
+.. minigallery:: torchffmpeg.models.decoder.CTCDecoder
 
 CUDA CTC Decoder
 ----------------
@@ -35,4 +35,4 @@ CUDA CTC Decoder
 
 .. rubric:: Tutorials using CUDA CTC Decoder
 
-.. minigallery:: torchaudio.models.decoder.CUCTCDecoder
+.. minigallery:: torchffmpeg.models.decoder.CUCTCDecoder

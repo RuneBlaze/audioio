@@ -3,7 +3,7 @@ import shutil
 
 import pytest
 import torch
-import torchaudio
+import torchffmpeg
 
 
 class GreedyCTCDecoder(torch.nn.Module):
@@ -66,7 +66,7 @@ def sample_speech(lang):
     if lang not in _FILES:
         raise NotImplementedError(f"Unexpected lang: {lang}")
     filename = _FILES[lang]
-    path = torchaudio.utils.download_asset(f"test-assets/{filename}")
+    path = torchffmpeg.utils.download_asset(f"test-assets/{filename}")
     return path
 
 
@@ -74,7 +74,7 @@ def sample_speech(lang):
 def mixture_source(task):
     if task not in _MIXTURE_FILES:
         raise NotImplementedError(f"Unexpected task: {task}")
-    path = torchaudio.utils.download_asset(f"test-assets/{_MIXTURE_FILES[task]}")
+    path = torchffmpeg.utils.download_asset(f"test-assets/{_MIXTURE_FILES[task]}")
     return path
 
 
@@ -84,7 +84,7 @@ def clean_sources(task):
         raise NotImplementedError(f"Unexpected task: {task}")
     paths = []
     for file in _CLEAN_FILES[task]:
-        path = torchaudio.utils.download_asset(f"test-assets/{file}")
+        path = torchffmpeg.utils.download_asset(f"test-assets/{file}")
         paths.append(path)
     return paths
 
@@ -115,5 +115,5 @@ def temp_hub_dir(tmp_path, pytestconfig):
 
 @pytest.fixture()
 def emissions():
-    path = torchaudio.utils.download_asset("test-assets/emissions-8555-28447-0012.pt")
+    path = torchffmpeg.utils.download_asset("test-assets/emissions-8555-28447-0012.pt")
     return torch.load(path)

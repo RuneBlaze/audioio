@@ -65,7 +65,7 @@ srun python evaluate.py --librispeech_path /root/datasets/ --checkpoint ./exp_fi
 ```
 
 ### CTC Decoding with language model
-torchaudio provides a CTCDecoder feature that is based on [Flashlight](https://github.com/flashlight/flashlight). The decoder supports KenLM language model. Use `--use-lm` to enable CTC decoding with KenLM 4-gram language model.
+torchffmpeg provides a CTCDecoder feature that is based on [Flashlight](https://github.com/flashlight/flashlight). The decoder supports KenLM language model. Use `--use-lm` to enable CTC decoding with KenLM 4-gram language model.
 
 Sample SLURM command for evaluation with KenLM language model (use the checkpoint that has the lowest validation loss):
 ```

@@ -1,5 +1,5 @@
 import torch
-from torchaudio.datasets import LIBRISPEECH
+from torchffmpeg.datasets import LIBRISPEECH
 
 
 class MapMemoryCache(torch.utils.data.Dataset):

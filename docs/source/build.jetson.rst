@@ -51,7 +51,7 @@ To check the version installed you can use the following commands;
    nvidia-cudnn8-dev/stable,now 5.0.1-b118 arm64 [installed,automatic]
    nvidia-cudnn8-runtime/stable,now 5.0.1-b118 arm64 [installed,automatic]
 
-.. image:: https://download.pytorch.org/torchaudio/doc-assets/jetson-package-versions.png
+.. image:: https://download.pytorch.org/torchffmpeg/doc-assets/jetson-package-versions.png
    :width: 360px
 
 2. [Optional] Install jtop
@@ -85,7 +85,7 @@ After this verify that ``pip`` command is pointing the one in user directory.
 4. Install PyTorch
 ------------------
 
-As of PyTorch 1.13 and torchaudio 0.13, there is no official pre-built binaries for Linux ARM64. Nidia provides custom pre-built binaries for PyTorch, which works with specific JetPack.
+As of PyTorch 1.13 and torchffmpeg 0.13, there is no official pre-built binaries for Linux ARM64. Nidia provides custom pre-built binaries for PyTorch, which works with specific JetPack.
 
 Please refer to https://docs.nvidia.com/deeplearning/frameworks/install-pytorch-jetson-platform/index.html for up-to-date instruction on how to install PyTorch.
 
@@ -110,7 +110,7 @@ Verify the installation by checking the version and CUDA device accessibility.
    True
    tensor([[0., 0.]], device='cuda:0')
 
-.. image:: https://download.pytorch.org/torchaudio/doc-assets/jetson-torch.png
+.. image:: https://download.pytorch.org/torchffmpeg/doc-assets/jetson-torch.png
    :width: 360px
 
 5. Build TorchAudio
@@ -144,16 +144,16 @@ Verify the installation by checking the version and CUDA device accessibility.
 
 .. code-block::
 
-   import torchaudio
+   import torchffmpeg
 
-   print(torchaudio.__version__)
+   print(torchffmpeg.__version__)
 
-   torchaudio.utils.ffmpeg_utils.get_build_config()
+   torchffmpeg.utils.ffmpeg_utils.get_build_config()
 
 .. code-block::
 
    2.0.0a0+2ead941
    --prefix=/usr --extra-version=0ubuntu0.1 --toolchain=hardened --libdir=/usr/lib/aarch64-linux-gnu --incdir=/usr/include/aarch64-linux-gnu --arch=arm64 --enable-gpl --disable-stripping --enable-avresample --disable-filter=resample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librsvg --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
 
-.. image:: https://download.pytorch.org/torchaudio/doc-assets/jetson-verify-build.png
+.. image:: https://download.pytorch.org/torchffmpeg/doc-assets/jetson-verify-build.png
    :width: 360px

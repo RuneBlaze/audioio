@@ -37,7 +37,7 @@ using CTC loss.
 #    tokens sequence
 # -  Language Model (LM): n-gram language model trained with the `KenLM
 #    library <https://kheafield.com/code/kenlm/>`__, or custom language
-#    model that inherits :py:class:`~torchaudio.models.decoder.CTCDecoderLM`
+#    model that inherits :py:class:`~torchffmpeg.models.decoder.CTCDecoderLM`
 #
 
 
@@ -50,10 +50,10 @@ using CTC loss.
 #
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 #
@@ -63,21 +63,21 @@ from typing import List
 
 import IPython
 import matplotlib.pyplot as plt
-from torchaudio.models.decoder import ctc_decoder
-from torchaudio.utils import download_asset
+from torchffmpeg.models.decoder import ctc_decoder
+from torchffmpeg.utils import download_asset
 
 ######################################################################
 #
 # We use the pretrained `Wav2Vec 2.0 <https://arxiv.org/abs/2006.11477>`__
 # Base model that is finetuned on 10 min of the `LibriSpeech
 # dataset <http://www.openslr.org/12>`__, which can be loaded in using
-# :data:`torchaudio.pipelines.WAV2VEC2_ASR_BASE_10M`.
+# :data:`torchffmpeg.pipelines.WAV2VEC2_ASR_BASE_10M`.
 # For more detail on running Wav2Vec 2.0 speech
-# recognition pipelines in torchaudio, please refer to `this
+# recognition pipelines in torchffmpeg, please refer to `this
 # tutorial <./speech_recognition_pipeline_tutorial.html>`__.
 #
 
-bundle = torchaudio.pipelines.WAV2VEC2_ASR_BASE_10M
+bundle = torchffmpeg.pipelines.WAV2VEC2_ASR_BASE_10M
 acoustic_model = bundle.get_model()
 
 
@@ -98,10 +98,10 @@ IPython.display.Audio(speech_file)
 #    i really was very much afraid of showing him how much shocked i was at some parts of what he said
 #
 
-waveform, sample_rate = torchaudio.load(speech_file)
+waveform, sample_rate = torchffmpeg.load(speech_file)
 
 if sample_rate != bundle.sample_rate:
-    waveform = torchaudio.functional.resample(waveform, sample_rate, bundle.sample_rate)
+    waveform = torchffmpeg.functional.resample(waveform, sample_rate, bundle.sample_rate)
 
 
 ######################################################################
@@ -110,7 +110,7 @@ if sample_rate != bundle.sample_rate:
 #
 # Next, we load in our token, lexicon, and language model data, which are used
 # by the decoder to predict words from the acoustic model output. Pretrained
-# files for the LibriSpeech dataset can be downloaded through torchaudio,
+# files for the LibriSpeech dataset can be downloaded through torchffmpeg,
 # or the user can provide their own files.
 #
 
@@ -195,14 +195,14 @@ print(tokens)
 #
 # Users can define their own custom language model in Python, whether
 # it be a statistical or neural network language model, using
-# :py:class:`~torchaudio.models.decoder.CTCDecoderLM` and
-# :py:class:`~torchaudio.models.decoder.CTCDecoderLMState`.
+# :py:class:`~torchffmpeg.models.decoder.CTCDecoderLM` and
+# :py:class:`~torchffmpeg.models.decoder.CTCDecoderLMState`.
 #
 # For instance, the following code creates a basic wrapper around a PyTorch
 # ``torch.nn.Module`` language model.
 #
 
-from torchaudio.models.decoder import CTCDecoderLM, CTCDecoderLMState
+from torchffmpeg.models.decoder import CTCDecoderLM, CTCDecoderLMState
 
 
 class CustomLM(CTCDecoderLM):
@@ -241,13 +241,13 @@ class CustomLM(CTCDecoderLM):
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
 # Pretrained files for the LibriSpeech dataset can be downloaded using
-# :py:func:`~torchaudio.models.decoder.download_pretrained_files`.
+# :py:func:`~torchffmpeg.models.decoder.download_pretrained_files`.
 #
 # Note: this cell may take a couple of minutes to run, as the language
 # model can be large
 #
 
-from torchaudio.models.decoder import download_pretrained_files
+from torchffmpeg.models.decoder import download_pretrained_files
 
 files = download_pretrained_files("librispeech-4-gram")
 
@@ -266,7 +266,7 @@ print(files)
 # Beam Search Decoder
 # ~~~~~~~~~~~~~~~~~~~
 # The decoder can be constructed using the factory function
-# :py:func:`~torchaudio.models.decoder.ctc_decoder`.
+# :py:func:`~torchffmpeg.models.decoder.ctc_decoder`.
 # In addition to the previously mentioned components, it also takes in various beam
 # search decoding parameters and token/word parameters.
 #
@@ -324,7 +324,7 @@ greedy_decoder = GreedyCTCDecoder(tokens)
 #
 # Now that we have the data, acoustic model, and decoder, we can perform
 # inference. The output of the beam search decoder is of type
-# :py:class:`~torchaudio.models.decoder.CTCHypothesis`, consisting of the
+# :py:class:`~torchffmpeg.models.decoder.CTCHypothesis`, consisting of the
 # predicted token IDs, corresponding words (if a lexicon is provided), hypothesis score,
 # and timesteps corresponding to the token IDs. Recall the transcript corresponding to the
 # waveform is
@@ -346,7 +346,7 @@ emission, _ = acoustic_model(waveform)
 
 greedy_result = greedy_decoder(emission[0])
 greedy_transcript = " ".join(greedy_result)
-greedy_wer = torchaudio.functional.edit_distance(actual_transcript, greedy_result) / len(actual_transcript)
+greedy_wer = torchffmpeg.functional.edit_distance(actual_transcript, greedy_result) / len(actual_transcript)
 
 print(f"Transcript: {greedy_transcript}")
 print(f"WER: {greedy_wer}")
@@ -358,7 +358,7 @@ print(f"WER: {greedy_wer}")
 
 beam_search_result = beam_search_decoder(emission)
 beam_search_transcript = " ".join(beam_search_result[0][0].words).strip()
-beam_search_wer = torchaudio.functional.edit_distance(actual_transcript, beam_search_result[0][0].words) / len(
+beam_search_wer = torchffmpeg.functional.edit_distance(actual_transcript, beam_search_result[0][0].words) / len(
     actual_transcript
 )
 
@@ -369,7 +369,7 @@ print(f"WER: {beam_search_wer}")
 ######################################################################
 # .. note::
 #
-#    The :py:attr:`~torchaudio.models.decoder.CTCHypothesis.words`
+#    The :py:attr:`~torchffmpeg.models.decoder.CTCHypothesis.words`
 #    field of the output hypotheses will be empty if no lexicon
 #    is provided to the decoder. To retrieve a transcript with lexicon-free
 #    decoding, you can perform the following to retrieve the token indices,
@@ -439,7 +439,7 @@ plot_alignments(waveform[0], emission, predicted_tokens, timesteps)
 # In this section, we go a little bit more in depth about some different
 # parameters and tradeoffs. For the full list of customizable parameters,
 # please refer to the
-# :py:func:`documentation <torchaudio.models.decoder.ctc_decoder>`.
+# :py:func:`documentation <torchffmpeg.models.decoder.ctc_decoder>`.
 #
 
 

@@ -1,6 +1,6 @@
 # Speech Recognition with wav2vec2.0
 
-This example demonstarates how you can use torchaudio's I/O features and models to run speech recognition in C++ application.
+This example demonstarates how you can use torchffmpeg's I/O features and models to run speech recognition in C++ application.
 
 **NOTE**
 This example uses `"sox_io"` backend for loading audio, which does not work on Windows. To make it work on
@@ -14,7 +14,7 @@ We will create a TorchScript that performs the following processes;
 1. Pass audio to encoder which produces the sequence of probability distribution on labels.
 1. Pass the encoder output to decoder which generates transcripts.
 
-For building decoder, we borrow the pre-trained weights published by `fairseq` and/or Hugging Face Transformers, then convert it `torchaudio`'s format, which supports TorchScript.
+For building decoder, we borrow the pre-trained weights published by `fairseq` and/or Hugging Face Transformers, then convert it `torchffmpeg`'s format, which supports TorchScript.
 
 ### 1.1. From `fairseq`
 

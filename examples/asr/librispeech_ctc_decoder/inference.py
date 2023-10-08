@@ -3,8 +3,8 @@ import logging
 from typing import Optional
 
 import torch
-import torchaudio
-from torchaudio.models.decoder import ctc_decoder, download_pretrained_files
+import torchffmpeg
+from torchffmpeg.models.decoder import ctc_decoder, download_pretrained_files
 
 
 logger = logging.getLogger(__name__)
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def run_inference(args):
     # get pretrained wav2vec2.0 model
-    bundle = getattr(torchaudio.pipelines, args.model)
+    bundle = getattr(torchffmpeg.pipelines, args.model)
     model = bundle.get_model()
 
     # get decoder files
@@ -33,7 +33,7 @@ def run_inference(args):
         log_add=False,
     )
 
-    dataset = torchaudio.datasets.LIBRISPEECH(args.librispeech_path, url=args.split, download=False)
+    dataset = torchffmpeg.datasets.LIBRISPEECH(args.librispeech_path, url=args.split, download=False)
 
     total_edit_distance = 0
     total_length = 0
@@ -45,7 +45,7 @@ def run_inference(args):
             emission, _ = model(waveform)
         results = decoder(emission)
 
-        total_edit_distance += torchaudio.functional.edit_distance(transcript.split(), results[0][0].words)
+        total_edit_distance += torchffmpeg.functional.edit_distance(transcript.split(), results[0][0].words)
         total_length += len(transcript.split())
 
         if idx % 100 == 0:
@@ -74,7 +74,7 @@ def _parse_args():
         "--model",
         type=str,
         default="WAV2VEC2_ASR_BASE_960H",
-        help="pretrained Wav2Vec2 model from torchaudio.pipelines",
+        help="pretrained Wav2Vec2 model from torchffmpeg.pipelines",
     )
     parser.add_argument("--nbest", type=int, default=1, help="number of best hypotheses to return")
     parser.add_argument(

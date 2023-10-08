@@ -3,7 +3,7 @@ import unittest
 
 import numpy as np
 import torch
-from torchaudio.functional import rnnt_loss
+from torchffmpeg.functional import rnnt_loss
 
 
 CPU_DEVICE = torch.device("cpu")
@@ -605,7 +605,7 @@ def get_random_data(
 
 def skipIfNoRNNT(test_item):
     try:
-        torch.ops.torchaudio.rnnt_loss
+        torch.ops.torchffmpeg.rnnt_loss
         return test_item
     except RuntimeError:
-        return unittest.skip("torchaudio C++ extension is not compiled with RNN transducer loss")
+        return unittest.skip("torchffmpeg C++ extension is not compiled with RNN transducer loss")

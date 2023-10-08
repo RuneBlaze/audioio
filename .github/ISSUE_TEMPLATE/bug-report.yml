@@ -17,7 +17,7 @@ body:
       ```python
       # All necessary imports at the beginning
       import torch
-      from torchaudio.transforms import Spectrogram, InverseSpectrogram
+      from torchffmpeg.transforms import Spectrogram, InverseSpectrogram
 
       # A succinct reproducing example trimmed down to the essential parts:
       theta = torch.linspace(0, 300 * 3.14, 8000)

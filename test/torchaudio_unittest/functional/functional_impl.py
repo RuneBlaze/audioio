@@ -5,10 +5,10 @@ import warnings
 
 import numpy as np
 import torch
-import torchaudio.functional as F
+import torchffmpeg.functional as F
 from parameterized import parameterized
 from scipy import signal
-from torchaudio_unittest.common_utils import (
+from torchffmpeg_unittest.common_utils import (
     beamform_utils,
     get_sinusoid,
     get_whitenoise,

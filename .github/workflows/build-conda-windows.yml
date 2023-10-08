@@ -31,13 +31,13 @@ jobs:
             pre-script: packaging/ffmpeg/build.bat
             wheel-build-params: "--plat-name win_amd64"
             post-script: ""
-            package-name: torchaudio
-            conda-package-directory: packaging/torchaudio
+            package-name: torchffmpeg
+            conda-package-directory: packaging/torchffmpeg
             smoke-test-script: test/smoke_test/smoke_test.py
     name: ${{ matrix.repository }}
     uses: pytorch/test-infra/.github/workflows/build_conda_windows.yml@main
     with:
-      conda-package-directory: packaging/torchaudio
+      conda-package-directory: packaging/torchffmpeg
       repository: ${{ matrix.repository }}
       ref: ""
       test-infra-repository: pytorch/test-infra

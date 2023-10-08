@@ -1,12 +1,12 @@
 import argparse
 
 import torch
-import torchaudio
+import torchffmpeg
 from processing import NormalizeDB
-from torchaudio.datasets import LJSPEECH
-from torchaudio.models import wavernn
-from torchaudio.models.wavernn import _MODEL_CONFIG_AND_URLS
-from torchaudio.transforms import MelSpectrogram
+from torchffmpeg.datasets import LJSPEECH
+from torchffmpeg.models import wavernn
+from torchffmpeg.models.wavernn import _MODEL_CONFIG_AND_URLS
+from torchffmpeg.transforms import MelSpectrogram
 from wavernn_inference_wrapper import WaveRNNInferenceWrapper
 
 
@@ -84,7 +84,7 @@ def main(args):
             overlap=args.batch_overlap,
         )
 
-    torchaudio.save(args.output_wav_path, output, sample_rate=sample_rate)
+    torchffmpeg.save(args.output_wav_path, output, sample_rate=sample_rate)
 
 
 if __name__ == "__main__":

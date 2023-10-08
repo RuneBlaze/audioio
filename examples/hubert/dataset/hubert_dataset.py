@@ -8,7 +8,7 @@ from typing import Dict, Iterator, List, Optional, Tuple, Union
 import numpy as np
 import torch
 import torch.distributed as dist
-import torchaudio
+import torchffmpeg
 from torch import Tensor
 from torch.utils.data import BatchSampler, Dataset, DistributedSampler
 
@@ -299,7 +299,7 @@ class HuBERTDataSet(Dataset):
             (Tensor): The corresponding waveform Tensor.
         """
         wav_path = self.f_list[index]
-        waveform, sample_rate = torchaudio.load(wav_path)
+        waveform, sample_rate = torchffmpeg.load(wav_path)
         assert waveform.shape[1] == self.len_list[index]
         return waveform
 
@@ -438,7 +438,7 @@ def _get_lengths_librilightlimited(files: List[str], path: str, ext_audio: str) 
         # Load audio
         file_audio = f"{speaker_id}-{chapter_id}-{utterance_id}{ext_audio}"
         file_audio = os.path.join(path, file_path, speaker_id, chapter_id, file_audio)
-        length = torchaudio.info(file_audio).num_frames
+        length = torchffmpeg.info(file_audio).num_frames
         lengths.append(length)
     return lengths
 
@@ -450,7 +450,7 @@ def _get_lengths_librispeech(files: List[str], path: str, ext_audio: str) -> Lis
         fileid_audio = speaker_id + "-" + chapter_id + "-" + utterance_id
         file_audio = fileid_audio + ext_audio
         file_audio = os.path.join(path, speaker_id, chapter_id, file_audio)
-        length = torchaudio.info(file_audio).num_frames
+        length = torchffmpeg.info(file_audio).num_frames
         lengths.append(length)
     return lengths
 

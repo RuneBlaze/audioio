@@ -33,7 +33,7 @@ Sample SLURM command for evaluation:
 srun python eval.py --model-type librispeech --checkpoint-path ./experiments/checkpoints/epoch=119-step=208079.ckpt --dataset-path ./datasets/librispeech  --sp-model-path ./spm_bpe_4096.model --use-cuda
 ```
 
-The script used for training the SentencePiece model that's referenced by the training command above can be found at [`librispeech/train_spm.py`](./librispeech/train_spm.py); a pretrained SentencePiece model can be downloaded [here](https://download.pytorch.org/torchaudio/pipeline-assets/spm_bpe_4096_librispeech.model).
+The script used for training the SentencePiece model that's referenced by the training command above can be found at [`librispeech/train_spm.py`](./librispeech/train_spm.py); a pretrained SentencePiece model can be downloaded [here](https://download.pytorch.org/torchffmpeg/pipeline-assets/spm_bpe_4096_librispeech.model).
 
 Using the sample training command above, [`train.py`](./train.py) produces a model with 76.7M parameters (307MB) that achieves an WER of 0.0456 when evaluated on test-clean with [`eval.py`](./eval.py).
 

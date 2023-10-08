@@ -1,6 +1,6 @@
 import torch
-from torchaudio.prototype.models import conformer_rnnt_model
-from torchaudio_unittest.common_utils import TestBaseMixin, torch_script
+from torchffmpeg.prototype.models import conformer_rnnt_model
+from torchffmpeg_unittest.common_utils import TestBaseMixin, torch_script
 
 
 class ConformerRNNTTestImpl(TestBaseMixin):

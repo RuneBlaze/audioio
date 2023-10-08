@@ -16,7 +16,7 @@ __all__ = [
 
 _THIS_DIR = Path(__file__).parent.resolve()
 _ROOT_DIR = _THIS_DIR.parent.parent.resolve()
-_TORCHAUDIO_DIR = _ROOT_DIR / "torchaudio"
+_TORCHFFMPEG_DIR = _ROOT_DIR / "torchffmpeg"
 
 
 def _get_build(var, default=False):
@@ -47,30 +47,30 @@ _TORCH_CUDA_ARCH_LIST = os.environ.get("TORCH_CUDA_ARCH_LIST", None)
 
 def get_ext_modules():
     modules = [
-        Extension(name="torchaudio.lib.libtorchaudio", sources=[]),
-        Extension(name="torchaudio.lib._torchaudio", sources=[]),
+        Extension(name="torchffmpeg.lib.libtorchffmpeg", sources=[]),
+        Extension(name="torchffmpeg.lib._torchffmpeg", sources=[]),
     ]
     if _BUILD_SOX:
         modules.extend(
             [
-                Extension(name="torchaudio.lib.libtorchaudio_sox", sources=[]),
-                Extension(name="torchaudio.lib._torchaudio_sox", sources=[]),
+                Extension(name="torchffmpeg.lib.libtorchffmpeg_sox", sources=[]),
+                Extension(name="torchffmpeg.lib._torchffmpeg_sox", sources=[]),
             ]
         )
     if _BUILD_CUDA_CTC_DECODER:
         modules.extend(
             [
-                Extension(name="torchaudio.lib.libctc_prefix_decoder", sources=[]),
-                Extension(name="torchaudio.lib.pybind11_prefixctc", sources=[]),
+                Extension(name="torchffmpeg.lib.libctc_prefix_decoder", sources=[]),
+                Extension(name="torchffmpeg.lib.pybind11_prefixctc", sources=[]),
             ]
         )
-    if _USE_FFMPEG:
-        modules.extend(
-            [
-                Extension(name="torchaudio.lib.libtorchaudio_ffmpeg", sources=[]),
-                Extension(name="torchaudio.lib._torchaudio_ffmpeg", sources=[]),
-            ]
-        )
+    # if _USE_FFMPEG:
+    modules.extend(
+        [
+            Extension(name="torchffmpeg.lib.libtorchffmpeg_ffmpeg", sources=[]),
+            Extension(name="torchffmpeg.lib._torchffmpeg_ffmpeg", sources=[]),
+        ]
+    )
     return modules
 
 
@@ -85,22 +85,22 @@ class CMakeBuild(build_ext):
         super().run()
 
     def build_extension(self, ext):
-        # Since two library files (libtorchaudio and _torchaudio) need to be
+        # Since two library files (libtorchffmpeg and _torchffmpeg) need to be
         # recognized by setuptools, we instantiate `Extension` twice. (see `get_ext_modules`)
         # This leads to the situation where this `build_extension` method is called twice.
         # However, the following `cmake` command will build all of them at the same time,
         # so, we do not need to perform `cmake` twice.
-        # Therefore we call `cmake` only for `torchaudio._torchaudio`.
-        if ext.name != "torchaudio.lib.libtorchaudio":
+        # Therefore we call `cmake` only for `torchffmpeg._torchffmpeg`.
+        if ext.name != "torchffmpeg.lib.libtorchffmpeg":
             return
 
         # Note:
         # the last part "lib" does not really matter. We want to get the full path of
-        # the root build directory. Passing "torchaudio" will be interpreted as
-        # `torchaudio.[so|dylib|pyd]`, so we need something `torchaudio.foo`, that is
-        # interpreted as `torchaudio/foo.so` then use dirname to get the `torchaudio`
+        # the root build directory. Passing "torchffmpeg" will be interpreted as
+        # `torchffmpeg.[so|dylib|pyd]`, so we need something `torchffmpeg.foo`, that is
+        # interpreted as `torchffmpeg/foo.so` then use dirname to get the `torchffmpeg`
         # directory.
-        extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath("torchaudio.lib")))
+        extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath("torchffmpeg.lib")))
 
         # required for auto-detection of auxiliary "native" libs
         if not extdir.endswith(os.path.sep):
@@ -119,7 +119,7 @@ class CMakeBuild(build_ext):
             f"-DBUILD_RIR:BOOL={'ON' if _BUILD_RIR else 'OFF'}",
             f"-DBUILD_RNNT:BOOL={'ON' if _BUILD_RNNT else 'OFF'}",
             f"-DBUILD_CUDA_CTC_DECODER:BOOL={'ON' if _BUILD_CUDA_CTC_DECODER else 'OFF'}",
-            "-DBUILD_TORCHAUDIO_PYTHON_EXTENSION:BOOL=ON",
+            "-DBUILD_TORCHFFMPEG_PYTHON_EXTENSION:BOOL=ON",
             f"-DUSE_ROCM:BOOL={'ON' if _USE_ROCM else 'OFF'}",
             f"-DUSE_CUDA:BOOL={'ON' if _USE_CUDA else 'OFF'}",
             f"-DUSE_OPENMP:BOOL={'ON' if _USE_OPENMP else 'OFF'}",

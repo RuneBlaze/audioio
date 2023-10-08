@@ -1,9 +1,9 @@
-.. py:module:: torchaudio.functional
+.. py:module:: torchffmpeg.functional
 
-torchaudio.functional
+torchffmpeg.functional
 =====================
 
-.. currentmodule:: torchaudio.functional
+.. currentmodule:: torchffmpeg.functional
 
 Functions to perform common audio operations.
 

@@ -1,6 +1,6 @@
 import torch
-from torchaudio_unittest.common_utils import PytorchTestCase
-from torchaudio_unittest.prototype.rnnt_test_impl import ConformerRNNTTestImpl
+from torchffmpeg_unittest.common_utils import PytorchTestCase
+from torchffmpeg_unittest.prototype.rnnt_test_impl import ConformerRNNTTestImpl
 
 
 class ConformerRNNTFloat32CPUTest(ConformerRNNTTestImpl, PytorchTestCase):

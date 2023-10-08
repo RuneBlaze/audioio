@@ -5,7 +5,7 @@ from typing import List
 
 import sentencepiece as spm
 import torch
-import torchaudio
+import torchffmpeg
 from data_module import LibriSpeechDataModule
 from lightning import Batch
 
@@ -13,7 +13,7 @@ from lightning import Batch
 _decibel = 2 * 20 * math.log10(torch.iinfo(torch.int16).max)
 _gain = pow(10, 0.05 * _decibel)
 
-_spectrogram_transform = torchaudio.transforms.MelSpectrogram(sample_rate=16000, n_fft=400, n_mels=80, hop_length=160)
+_spectrogram_transform = torchffmpeg.transforms.MelSpectrogram(sample_rate=16000, n_fft=400, n_mels=80, hop_length=160)
 
 
 def _piecewise_linear_log(x):
@@ -72,10 +72,10 @@ class TrainTransform:
             FunctionalModule(_piecewise_linear_log),
             GlobalStatsNormalization(global_stats_path),
             FunctionalModule(partial(torch.transpose, dim0=1, dim1=2)),
-            torchaudio.transforms.FrequencyMasking(27),
-            torchaudio.transforms.FrequencyMasking(27),
-            torchaudio.transforms.TimeMasking(100, p=0.2),
-            torchaudio.transforms.TimeMasking(100, p=0.2),
+            torchffmpeg.transforms.FrequencyMasking(27),
+            torchffmpeg.transforms.FrequencyMasking(27),
+            torchffmpeg.transforms.TimeMasking(100, p=0.2),
+            torchffmpeg.transforms.TimeMasking(100, p=0.2),
             FunctionalModule(partial(torch.transpose, dim0=1, dim1=2)),
         )
 

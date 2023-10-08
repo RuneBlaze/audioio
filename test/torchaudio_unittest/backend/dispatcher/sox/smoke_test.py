@@ -2,8 +2,8 @@ import itertools
 from functools import partial
 
 from parameterized import parameterized
-from torchaudio._backend.utils import get_info_func, get_load_func, get_save_func
-from torchaudio_unittest.common_utils import get_wav_data, skipIfNoSox, TempDirMixin, TorchaudioTestCase
+from torchffmpeg._backend.utils import get_info_func, get_load_func, get_save_func
+from torchffmpeg_unittest.common_utils import get_wav_data, skipIfNoSox, TempDirMixin, TorchaudioTestCase
 
 from .common import name_func
 

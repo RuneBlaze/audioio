@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
 
-from torchaudio.datasets import speechcommands
-from torchaudio_unittest.common_utils import get_whitenoise, normalize_wav, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import speechcommands
+from torchffmpeg_unittest.common_utils import get_whitenoise, normalize_wav, save_wav, TempDirMixin, TorchaudioTestCase
 
 _LABELS = [
     "bed",

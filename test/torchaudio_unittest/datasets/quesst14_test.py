@@ -3,8 +3,8 @@ from collections import defaultdict
 from pathlib import Path
 
 from parameterized import parameterized
-from torchaudio.datasets import quesst14
-from torchaudio_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import quesst14
+from torchffmpeg_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
 
 
 def _get_filename(folder, index):

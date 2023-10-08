@@ -2,10 +2,10 @@ import io
 import math
 
 import torch
-import torchaudio
+import torchffmpeg
 
 from parameterized import parameterized, parameterized_class
-from torchaudio_unittest.common_utils import (
+from torchffmpeg_unittest.common_utils import (
     get_asset_path,
     get_sinusoid,
     is_ffmpeg_available,
@@ -20,7 +20,7 @@ from torchaudio_unittest.common_utils import (
 from .common import lt42
 
 if is_ffmpeg_available():
-    from torchaudio.io import CodecConfig, StreamReader, StreamWriter
+    from torchffmpeg.io import CodecConfig, StreamReader, StreamWriter
 
 
 def get_audio_chunk(fmt, sample_rate, num_channels):
@@ -83,11 +83,11 @@ class StreamWriterInterfaceTest(_MediaSourceMixin, TempDirMixin, TorchaudioTestC
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        torchaudio.utils.ffmpeg_utils.set_log_level(32)
+        torchffmpeg.utils.ffmpeg_utils.set_log_level(32)
 
     @classmethod
     def tearDownClass(cls):
-        torchaudio.utils.ffmpeg_utils.set_log_level(8)
+        torchffmpeg.utils.ffmpeg_utils.set_log_level(8)
         super().tearDownClass()
 
     def get_dst(self, path):
@@ -97,7 +97,7 @@ class StreamWriterInterfaceTest(_MediaSourceMixin, TempDirMixin, TorchaudioTestC
         """If dst is not opened when attempting to write data, runtime error should be raised"""
         path = self.get_dst("test.mp4")
         s = StreamWriter(path, format="mp4")
-        s.set_metadata(metadata={"artist": "torchaudio", "title": self.id()})
+        s.set_metadata(metadata={"artist": "torchffmpeg", "title": self.id()})
         s.add_audio_stream(sample_rate=16000, num_channels=2)
         s.add_video_stream(frame_rate=30, width=16, height=16)
 
@@ -120,7 +120,7 @@ class StreamWriterInterfaceTest(_MediaSourceMixin, TempDirMixin, TorchaudioTestC
 
         dst = self.get_dst("test.mp3")
         s = StreamWriter(dst, format="mp3")
-        s.set_metadata(metadata={"artist": "torchaudio", "title": "foo"})
+        s.set_metadata(metadata={"artist": "torchffmpeg", "title": "foo"})
         s.set_metadata(metadata={"title": self.id()})
         s.add_audio_stream(sample_rate, num_channels, format=src_fmt)
 
@@ -144,7 +144,7 @@ class StreamWriterInterfaceTest(_MediaSourceMixin, TempDirMixin, TorchaudioTestC
         """Tensor of various dtypes can be saved as wav format."""
         path = self.get_dst("test.wav")
         s = StreamWriter(path, format="wav")
-        s.set_metadata(metadata={"artist": "torchaudio", "title": self.id()})
+        s.set_metadata(metadata={"artist": "torchffmpeg", "title": self.id()})
         s.add_audio_stream(sample_rate, num_channels, format=src_fmt)
 
         chunk = get_audio_chunk(src_fmt, sample_rate, num_channels)
@@ -169,7 +169,7 @@ class StreamWriterInterfaceTest(_MediaSourceMixin, TempDirMixin, TorchaudioTestC
         """Tensor of various dtypes can be saved as given format."""
         path = self.get_dst(f"test.{ext}")
         s = StreamWriter(path, format=ext)
-        s.set_metadata(metadata={"artist": "torchaudio", "title": self.id()})
+        s.set_metadata(metadata={"artist": "torchffmpeg", "title": self.id()})
         s.add_audio_stream(
             sample_rate, num_channels, encoder=encoder, encoder_option=encoder_option, encoder_format=encoder_format
         )
@@ -214,7 +214,7 @@ class StreamWriterInterfaceTest(_MediaSourceMixin, TempDirMixin, TorchaudioTestC
 
         path = self.get_dst(f"test.{ext}")
         s = StreamWriter(path, format=ext)
-        s.set_metadata({"artist": "torchaudio", "title": self.id()})
+        s.set_metadata({"artist": "torchffmpeg", "title": self.id()})
         s.add_audio_stream(sample_rate, num_channels)
         s.add_video_stream(frame_rate, width, height, format=video_fmt)
 
@@ -231,11 +231,11 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        torchaudio.utils.ffmpeg_utils.set_log_level(32)
+        torchffmpeg.utils.ffmpeg_utils.set_log_level(32)
 
     @classmethod
     def tearDownClass(cls):
-        torchaudio.utils.ffmpeg_utils.set_log_level(8)
+        torchffmpeg.utils.ffmpeg_utils.set_log_level(8)
         super().tearDownClass()
 
     @nested_params(
@@ -298,14 +298,14 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
 
         # Write data
         dst = self.get_temp_path(filename)
-        s = torchaudio.io.StreamWriter(dst=dst, format=ext)
+        s = torchffmpeg.io.StreamWriter(dst=dst, format=ext)
         s.add_video_stream(frame_rate=framerate, height=h, width=w, format=format)
         chunk = torch.stack([torch.full((3, h, w), i, dtype=torch.uint8) for i in torch.linspace(0, 255, 256)])
         with s.open():
             s.write_video_chunk(0, chunk)
 
         # Load data
-        s = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        s = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         print(s.get_src_stream_info(0))
         s.add_video_stream(-1)
         s.process_all_packets()
@@ -339,13 +339,13 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
 
         # Write data
         dst = self.get_temp_path(filename)
-        s = torchaudio.io.StreamWriter(dst=dst, format=ext)
+        s = torchffmpeg.io.StreamWriter(dst=dst, format=ext)
         s.add_audio_stream(sample_rate=sample_rate, num_channels=num_channels, format="s16")
         with s.open():
             s.write_audio_chunk(0, data)
 
         # Load data
-        s = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        s = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         s.add_audio_stream(-1)
         s.process_all_packets()
         (saved,) = s.pop_chunks()
@@ -371,13 +371,13 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
 
         # Write data
         dst = self.get_temp_path(filename)
-        s = torchaudio.io.StreamWriter(dst=dst, format=ext)
+        s = torchffmpeg.io.StreamWriter(dst=dst, format=ext)
         s.add_audio_stream(sample_rate=sample_rate, num_channels=num_channels)
         with s.open():
             s.write_audio_chunk(0, data)
 
         # Load data
-        s = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        s = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         s.add_audio_stream(-1)
         s.process_all_packets()
         (saved,) = s.pop_chunks()
@@ -401,14 +401,14 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
 
         # Write data
         dst = self.get_temp_path(filename)
-        writer = torchaudio.io.StreamWriter(dst=dst, format=ext)
+        writer = torchffmpeg.io.StreamWriter(dst=dst, format=ext)
         writer.add_video_stream(frame_rate=frame_rate, width=width, height=height)
 
         video = torch.randint(256, (90, 3, height, width), dtype=torch.uint8)
         with writer.open():
             writer.write_video_chunk(0, video)
         # Load data
-        reader = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        reader = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         assert reader.get_src_stream_info(0).frame_rate == frame_rate
 
     def test_video_pts_increment(self):
@@ -422,14 +422,14 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
 
         # Write data
         dst = self.get_temp_path(filename)
-        writer = torchaudio.io.StreamWriter(dst=dst, format=ext)
+        writer = torchffmpeg.io.StreamWriter(dst=dst, format=ext)
         writer.add_video_stream(frame_rate=frame_rate, width=width, height=height)
 
         video = torch.randint(256, (num_frames, 3, height, width), dtype=torch.uint8)
         with writer.open():
             writer.write_video_chunk(0, video)
 
-        reader = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        reader = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         reader.add_video_stream(1)
         pts = [chunk.pts for (chunk,) in reader.stream()]
         assert len(pts) == num_frames
@@ -448,7 +448,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
 
         # Write data
         dst = self.get_temp_path(filename)
-        writer = torchaudio.io.StreamWriter(dst=dst, format=ext)
+        writer = torchffmpeg.io.StreamWriter(dst=dst, format=ext)
         writer.add_audio_stream(sample_rate=sample_rate, num_channels=num_channels)
 
         audio = get_sinusoid(sample_rate=sample_rate, n_channels=num_channels, channels_first=False)
@@ -456,7 +456,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
         with writer.open():
             writer.write_audio_chunk(0, audio)
 
-        reader = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        reader = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         frames_per_chunk = sample_rate // 4
         reader.add_audio_stream(frames_per_chunk, -1)
 
@@ -495,7 +495,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
 
         # Write data
         dst = self.get_temp_path(filename)
-        writer = torchaudio.io.StreamWriter(dst=dst, format=ext)
+        writer = torchffmpeg.io.StreamWriter(dst=dst, format=ext)
         writer.add_video_stream(frame_rate=frame_rate, width=width, height=height)
 
         video = torch.zeros((1, 3, height, width), dtype=torch.uint8)
@@ -506,7 +506,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
                 reference_pts.append(pts)
                 writer.write_video_chunk(0, video, pts)
 
-        reader = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        reader = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         reader.add_video_stream(1)
         pts = [chunk.pts for (chunk,) in reader.stream()]
         assert len(pts) == len(reference_pts)
@@ -526,7 +526,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
 
         # Write data
         dst = self.get_temp_path(filename)
-        writer = torchaudio.io.StreamWriter(dst=dst, format=ext)
+        writer = torchffmpeg.io.StreamWriter(dst=dst, format=ext)
         codec_config = CodecConfig(bit_rate=198_000, compression_level=3)
         writer.add_audio_stream(sample_rate=sample_rate, num_channels=num_channels, codec_config=codec_config)
 
@@ -542,7 +542,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
         audio = torch.rand((8000, num_channels))
 
         def write_audio(buffer, bit_rate):
-            writer = torchaudio.io.StreamWriter(dst=buffer, format=ext)
+            writer = torchffmpeg.io.StreamWriter(dst=buffer, format=ext)
             writer.add_audio_stream(
                 sample_rate=sample_rate,
                 num_channels=num_channels,
@@ -578,7 +578,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
         with w.open():
             w.write_audio_chunk(0, original)
 
-        reader = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        reader = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         reader.add_audio_stream(-1)
         reader.process_all_packets()
         (output,) = reader.pop_chunks()
@@ -611,7 +611,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
         with w.open():
             w.write_video_chunk(0, original)
 
-        reader = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        reader = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         reader.add_video_stream(-1)
         reader.process_all_packets()
         (output,) = reader.pop_chunks()
@@ -661,7 +661,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
             w.write_audio_chunk(0, original)
 
         # check
-        reader = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        reader = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         i = reader.get_src_stream_info(0)
         self.assertEqual(i.sample_rate, enc_sr)
         self.assertEqual(i.num_channels, enc_num_channels)
@@ -698,7 +698,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
             w.write_audio_chunk(0, original)
 
         # check
-        reader = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        reader = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         i = reader.get_src_stream_info(0)
         self.assertEqual(i.sample_rate, expected_sr)
         self.assertEqual(i.num_channels, expected_num_channels)
@@ -738,7 +738,7 @@ class StreamWriterCorrectnessTest(TempDirMixin, TorchaudioTestCase):
             w.write_video_chunk(0, original)
 
         # check
-        reader = torchaudio.io.StreamReader(src=self.get_temp_path(filename))
+        reader = torchffmpeg.io.StreamReader(src=self.get_temp_path(filename))
         i = reader.get_src_stream_info(0)
         self.assertEqual(i.frame_rate, enc_rate)
         self.assertEqual(i.width, enc_width)

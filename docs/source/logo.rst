@@ -1,9 +1,9 @@
 TorchAudio Logo
 ===============
 
-If you make your project using TorchAudio and you want to mention TorchAudio, you can use TorchAudio logo. There are couple of variations. You can download them from `here <https://download.pytorch.org/torchaudio/logo/v1.zip>`__.
+If you make your project using TorchAudio and you want to mention TorchAudio, you can use TorchAudio logo. There are couple of variations. You can download them from `here <https://download.pytorch.org/torchffmpeg/logo/v1.zip>`__.
 
-Please follow `the guideline <https://download.pytorch.org/torchaudio/logo/v1/guidelines.pdf>`__ for the proper usage.
+Please follow `the guideline <https://download.pytorch.org/torchffmpeg/logo/v1/guidelines.pdf>`__ for the proper usage.
 
 .. warning::
 
@@ -12,18 +12,18 @@ Please follow `the guideline <https://download.pytorch.org/torchaudio/logo/v1/gu
 Icon
 ----
 
-.. image:: https://download.pytorch.org/torchaudio/logo/v1/icon.png
+.. image:: https://download.pytorch.org/torchffmpeg/logo/v1/icon.png
    :width: 400
 
 Horizontal
 ----------
 
-.. image:: https://download.pytorch.org/torchaudio/logo/v1/logo_horizontal_fullcolor.png
+.. image:: https://download.pytorch.org/torchffmpeg/logo/v1/logo_horizontal_fullcolor.png
    :width: 400
 
 |
 
-.. image:: https://download.pytorch.org/torchaudio/logo/v1/logo_horizontal_black.png
+.. image:: https://download.pytorch.org/torchffmpeg/logo/v1/logo_horizontal_black.png
    :width: 400
 
 |
@@ -31,18 +31,18 @@ Horizontal
 .. raw:: html
 
     <div style="background-color:black; width: 400px;">
-      <img src="https://download.pytorch.org/torchaudio/logo/v1/logo_horizontal_white.png" width="400"></img>
+      <img src="https://download.pytorch.org/torchffmpeg/logo/v1/logo_horizontal_white.png" width="400"></img>
     </div>
 
 Vertical
 --------
 
-.. image:: https://download.pytorch.org/torchaudio/logo/v1/logo_vertical_fullcolor.png
+.. image:: https://download.pytorch.org/torchffmpeg/logo/v1/logo_vertical_fullcolor.png
    :width: 400
 
 |
 
-.. image:: https://download.pytorch.org/torchaudio/logo/v1/logo_vertical_black.png
+.. image:: https://download.pytorch.org/torchffmpeg/logo/v1/logo_vertical_black.png
    :width: 400
 
 |
@@ -50,5 +50,5 @@ Vertical
 .. raw:: html
 
     <div style="background-color:black; width: 400px;">
-      <img src="https://download.pytorch.org/torchaudio/logo/v1/logo_vertical_white.png" width="400"></img>
+      <img src="https://download.pytorch.org/torchffmpeg/logo/v1/logo_vertical_white.png" width="400"></img>
     </div>

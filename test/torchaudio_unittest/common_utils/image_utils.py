@@ -1,5 +1,5 @@
 import torch
-from torchaudio._internal.module_utils import is_module_available
+from torchffmpeg._internal.module_utils import is_module_available
 
 if is_module_available("PIL"):
     from PIL import Image

@@ -4,10 +4,10 @@ import time
 
 import sentencepiece as spm
 import torch
-import torchaudio
+import torchffmpeg
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import DataLoader
-from torchaudio.models.decoder import ctc_decoder, cuda_ctc_decoder
+from torchffmpeg.models.decoder import ctc_decoder, cuda_ctc_decoder
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +48,7 @@ def run_inference(args):
             vocabs, nbest=args.nbest, beam_size=args.beam_size, blank_skip_threshold=blank_frame_skip_threshold
         )
 
-    dataset = torchaudio.datasets.LIBRISPEECH(args.librispeech_path, url=args.split, download=True)
+    dataset = torchffmpeg.datasets.LIBRISPEECH(args.librispeech_path, url=args.split, download=True)
 
     total_edit_distance, oracle_edit_distance, total_length = 0, 0, 0
 
@@ -60,7 +60,7 @@ def run_inference(args):
     for idx, batch in enumerate(data_loader):
         waveforms, transcripts = batch
         waveforms = [wave.to(device) for wave in waveforms]
-        features = [torchaudio.compliance.kaldi.fbank(wave, num_mel_bins=80, snip_edges=False) for wave in waveforms]
+        features = [torchffmpeg.compliance.kaldi.fbank(wave, num_mel_bins=80, snip_edges=False) for wave in waveforms]
         feature_lengths = [f.size(0) for f in features]
 
         features = pad_sequence(features, batch_first=True, padding_value=torch.log(torch.tensor(1e-10)))
@@ -92,9 +92,9 @@ def run_inference(args):
         decoding_duration += duration
 
         for transcript, nbest_pred in zip(transcripts, preds):
-            total_edit_distance += torchaudio.functional.edit_distance(transcript.split(), nbest_pred[0])
+            total_edit_distance += torchffmpeg.functional.edit_distance(transcript.split(), nbest_pred[0])
             oracle_edit_distance += min(
-                [torchaudio.functional.edit_distance(transcript.split(), nbest_pred[i]) for i in range(len(nbest_pred))]
+                [torchffmpeg.functional.edit_distance(transcript.split(), nbest_pred[i]) for i in range(len(nbest_pred))]
             )
             total_length += len(transcript.split())
 

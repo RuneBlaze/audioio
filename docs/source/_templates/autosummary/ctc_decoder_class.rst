@@ -43,7 +43,7 @@ Support Structures
 
 {{ item | underline("-") }}
 
-.. autoclass:: torchaudio.models.decoder.{{item}}
+.. autoclass:: torchffmpeg.models.decoder.{{item}}
    :members:
 
 {%- endfor %}

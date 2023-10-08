@@ -1,6 +1,6 @@
 import torch
-import torchaudio.compliance.kaldi as kaldi
-from torchaudio_unittest import common_utils
+import torchffmpeg.compliance.kaldi as kaldi
+from torchffmpeg_unittest import common_utils
 
 
 def extract_window(window, wave, f, frame_length, frame_shift, snip_edges):

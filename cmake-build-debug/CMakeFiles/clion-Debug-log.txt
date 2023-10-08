@@ -1,0 +1,26 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/lbq/goof/audioio -B /Users/lbq/goof/audioio/cmake-build-debug
+-- CLANG_VERSION_STRING:         Apple clang version 14.0.3 (clang-1403.0.22.14.1)
+Target: arm64-apple-darwin22.6.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+
+CMake Error at cmake/TorchAudioHelper.cmake:1 (find_package):
+  By not providing "FindTorch.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "Torch", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "Torch" with any of
+  the following names:
+
+    TorchConfig.cmake
+    torch-config.cmake
+
+  Add the installation prefix of "Torch" to CMAKE_PREFIX_PATH or set
+  "Torch_DIR" to a directory containing one of the above files.  If "Torch"
+  provides a separate development package or SDK, be sure it has been
+  installed.
+Call Stack (most recent call first):
+  CMakeLists.txt:85 (include)
+
+
+-- Configuring incomplete, errors occurred!

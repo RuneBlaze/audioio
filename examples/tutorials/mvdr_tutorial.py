@@ -19,22 +19,22 @@ Speech Enhancement with MVDR Beamforming
 #
 # -  Generate an ideal ratio mask (IRM) by dividing the clean/noise
 #    magnitude by the mixture magnitude.
-# -  Estimate power spectral density (PSD) matrices using :py:func:`torchaudio.transforms.PSD`.
+# -  Estimate power spectral density (PSD) matrices using :py:func:`torchffmpeg.transforms.PSD`.
 # -  Estimate enhanced speech using MVDR modules
-#    (:py:func:`torchaudio.transforms.SoudenMVDR` and
-#    :py:func:`torchaudio.transforms.RTFMVDR`).
+#    (:py:func:`torchffmpeg.transforms.SoudenMVDR` and
+#    :py:func:`torchffmpeg.transforms.RTFMVDR`).
 # -  Benchmark the two methods
-#    (:py:func:`torchaudio.functional.rtf_evd` and
-#    :py:func:`torchaudio.functional.rtf_power`) for computing the
+#    (:py:func:`torchffmpeg.functional.rtf_evd` and
+#    :py:func:`torchffmpeg.functional.rtf_power`) for computing the
 #    relative transfer function (RTF) matrix of the reference microphone.
 #
 
 import torch
-import torchaudio
-import torchaudio.functional as F
+import torchffmpeg
+import torchffmpeg.functional as F
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 
 ######################################################################
@@ -63,7 +63,7 @@ import mir_eval
 
 import matplotlib.pyplot as plt
 from IPython.display import Audio
-from torchaudio.utils import download_asset
+from torchffmpeg.utils import download_asset
 
 ######################################################################
 # 2.2. Download audio data
@@ -172,8 +172,8 @@ def evaluate(estimate, reference):
 # ~~~~~~~~~~~~~~~~~~~~
 #
 
-waveform_clean, sr = torchaudio.load(SAMPLE_CLEAN)
-waveform_noise, sr2 = torchaudio.load(SAMPLE_NOISE)
+waveform_clean, sr = torchffmpeg.load(SAMPLE_CLEAN)
+waveform_noise, sr2 = torchffmpeg.load(SAMPLE_NOISE)
 assert sr == sr2 == SAMPLE_RATE
 # The mixture waveform is a combination of clean and noise waveforms with a desired SNR.
 target_snr = 3
@@ -197,12 +197,12 @@ waveform_noise = waveform_noise.to(torch.double)
 
 N_FFT = 1024
 N_HOP = 256
-stft = torchaudio.transforms.Spectrogram(
+stft = torchffmpeg.transforms.Spectrogram(
     n_fft=N_FFT,
     hop_length=N_HOP,
     power=None,
 )
-istft = torchaudio.transforms.InverseSpectrogram(n_fft=N_FFT, hop_length=N_HOP)
+istft = torchffmpeg.transforms.InverseSpectrogram(n_fft=N_FFT, hop_length=N_HOP)
 
 stft_mix = stft(waveform_mix)
 stft_clean = stft(waveform_clean)
@@ -295,13 +295,13 @@ plot_mask(irm_noise, "IRM of the Noise")
 # 4. Compute PSD matrices
 # -----------------------
 #
-# :py:func:`torchaudio.transforms.PSD` computes the time-invariant PSD matrix given
+# :py:func:`torchffmpeg.transforms.PSD` computes the time-invariant PSD matrix given
 # the multi-channel complex-valued STFT coefficients  of the mixture speech
 # and the time-frequency mask.
 #
 # The shape of the PSD matrix is `(..., freq, channel, channel)`.
 
-psd_transform = torchaudio.transforms.PSD()
+psd_transform = torchffmpeg.transforms.PSD()
 
 psd_speech = psd_transform(stft_mix, irm_speech)
 psd_noise = psd_transform(stft_mix, irm_noise)
@@ -317,15 +317,15 @@ psd_noise = psd_transform(stft_mix, irm_noise)
 # 5.1. Apply beamforming
 # ~~~~~~~~~~~~~~~~~~~~~~
 #
-# :py:func:`torchaudio.transforms.SoudenMVDR` takes the multi-channel
+# :py:func:`torchffmpeg.transforms.SoudenMVDR` takes the multi-channel
 # complexed-valued STFT coefficients of the mixture speech, PSD matrices of
 # target speech and noise, and the reference channel inputs.
 #
 # The output is a single-channel complex-valued STFT coefficients of the enhanced speech.
 # We can then obtain the enhanced waveform by passing this output to the
-# :py:func:`torchaudio.transforms.InverseSpectrogram` module.
+# :py:func:`torchffmpeg.transforms.InverseSpectrogram` module.
 
-mvdr_transform = torchaudio.transforms.SoudenMVDR()
+mvdr_transform = torchffmpeg.transforms.SoudenMVDR()
 stft_souden = mvdr_transform(stft_mix, psd_speech, psd_noise, reference_channel=REFERENCE_CHANNEL)
 waveform_souden = istft(stft_souden, length=waveform_mix.shape[-1])
 
@@ -354,10 +354,10 @@ Audio(waveform_souden, rate=SAMPLE_RATE)
 # TorchAudio offers two methods for computing the RTF matrix of a
 # target speech:
 #
-# -  :py:func:`torchaudio.functional.rtf_evd`, which applies eigenvalue
+# -  :py:func:`torchffmpeg.functional.rtf_evd`, which applies eigenvalue
 #    decomposition to the PSD matrix of target speech to get the RTF matrix.
 #
-# -  :py:func:`torchaudio.functional.rtf_power`, which applies the power iteration
+# -  :py:func:`torchffmpeg.functional.rtf_power`, which applies the power iteration
 #    method. You can specify the number of iterations with argument ``n_iter``.
 #
 
@@ -369,15 +369,15 @@ rtf_power = F.rtf_power(psd_speech, psd_noise, reference_channel=REFERENCE_CHANN
 # 6.2. Apply beamforming
 # ~~~~~~~~~~~~~~~~~~~~~~
 #
-# :py:func:`torchaudio.transforms.RTFMVDR` takes the multi-channel
+# :py:func:`torchffmpeg.transforms.RTFMVDR` takes the multi-channel
 # complexed-valued STFT coefficients of the mixture speech, RTF matrix of target speech,
 # PSD matrix of noise, and the reference channel inputs.
 #
 # The output is a single-channel complex-valued STFT coefficients of the enhanced speech.
 # We can then obtain the enhanced waveform by passing this output to the
-# :py:func:`torchaudio.transforms.InverseSpectrogram` module.
+# :py:func:`torchffmpeg.transforms.InverseSpectrogram` module.
 
-mvdr_transform = torchaudio.transforms.RTFMVDR()
+mvdr_transform = torchffmpeg.transforms.RTFMVDR()
 
 # compute the enhanced speech based on F.rtf_evd
 stft_rtf_evd = mvdr_transform(stft_mix, rtf_evd, psd_noise, reference_channel=REFERENCE_CHANNEL)

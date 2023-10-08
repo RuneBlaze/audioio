@@ -9,10 +9,10 @@ import unittest
 from itertools import zip_longest
 
 import torch
-import torchaudio
+import torchffmpeg
 from torch.testing._internal.common_utils import TestCase as PytorchTestCase
-from torchaudio._internal.module_utils import is_module_available
-from torchaudio.utils.ffmpeg_utils import get_video_decoders, get_video_encoders
+from torchffmpeg._internal.module_utils import is_module_available
+from torchffmpeg.utils.ffmpeg_utils import get_video_decoders, get_video_encoders
 
 from .backend_utils import set_audio_backend
 
@@ -24,9 +24,9 @@ class TempDirMixin:
 
     @classmethod
     def get_base_temp_dir(cls):
-        # If TORCHAUDIO_TEST_TEMP_DIR is set, use it instead of temporary directory.
+        # If TORCHFFMPEG_TEST_TEMP_DIR is set, use it instead of temporary directory.
         # this is handy for debugging.
-        key = "TORCHAUDIO_TEST_TEMP_DIR"
+        key = "TORCHFFMPEG_TEST_TEMP_DIR"
         if key in os.environ:
             return os.environ[key]
         if cls.temp_dir_ is None:
@@ -112,7 +112,7 @@ class TorchaudioTestCase(TestBaseMixin, PytorchTestCase):
 
 
 def is_ffmpeg_available():
-    return torchaudio._extension._FFMPEG_INITIALIZED
+    return torchffmpeg._extension._FFMPEG_INITIALIZED
 
 
 _IS_CTC_DECODER_AVAILABLE = None
@@ -123,7 +123,7 @@ def is_ctc_decoder_available():
     global _IS_CTC_DECODER_AVAILABLE
     if _IS_CTC_DECODER_AVAILABLE is None:
         try:
-            from torchaudio.models.decoder import CTCDecoder  # noqa: F401
+            from torchffmpeg.models.decoder import CTCDecoder  # noqa: F401
 
             _IS_CTC_DECODER_AVAILABLE = True
         except Exception:
@@ -135,7 +135,7 @@ def is_cuda_ctc_decoder_available():
     global _IS_CUDA_CTC_DECODER_AVAILABLE
     if _IS_CUDA_CTC_DECODER_AVAILABLE is None:
         try:
-            from torchaudio.models.decoder import CUCTCDecoder  # noqa: F401
+            from torchffmpeg.models.decoder import CUCTCDecoder  # noqa: F401
 
             _IS_CUDA_CTC_DECODER_AVAILABLE = True
         except Exception:
@@ -194,7 +194,7 @@ def _skipIf(condition, reason, key):
 
     # In CI, default to fail, so as to prevent accidental skip.
     # In other env, default to skip
-    var = f"TORCHAUDIO_TEST_ALLOW_SKIP_IF_{key}"
+    var = f"TORCHFFMPEG_TEST_ALLOW_SKIP_IF_{key}"
     skip_allowed = _eval_env(var, default=not _IN_CI)
     if skip_allowed:
         return unittest.skip(reason)
@@ -230,17 +230,17 @@ skipIfCudaSmallMemory = _skipIf(
     key="CUDA_SMALL_MEMORY",
 )
 skipIfNoSox = _skipIf(
-    not torchaudio._extension._SOX_INITIALIZED,
+    not torchffmpeg._extension._SOX_INITIALIZED,
     reason="Sox features are not available.",
     key="NO_SOX",
 )
 skipIfNoKaldi = _skipIf(
-    not torchaudio._extension._IS_KALDI_AVAILABLE,
+    not torchffmpeg._extension._IS_KALDI_AVAILABLE,
     reason="Kaldi features are not available.",
     key="NO_KALDI",
 )
 skipIfNoRIR = _skipIf(
-    not torchaudio._extension._IS_RIR_AVAILABLE,
+    not torchffmpeg._extension._IS_RIR_AVAILABLE,
     reason="RIR features are not available.",
     key="NO_RIR",
 )
@@ -255,7 +255,7 @@ skipIfNoCuCtcDecoder = _skipIf(
     key="NO_CUCTC_DECODER",
 )
 skipIfRocm = _skipIf(
-    _eval_env("TORCHAUDIO_TEST_WITH_ROCM", default=False),
+    _eval_env("TORCHFFMPEG_TEST_WITH_ROCM", default=False),
     reason="The test doesn't currently work on the ROCm stack.",
     key="ON_ROCM",
 )
@@ -278,7 +278,7 @@ skipIfPy310 = _skipIf(
     key="ON_PYTHON_310",
 )
 skipIfNoAudioDevice = _skipIf(
-    not torchaudio.utils.ffmpeg_utils.get_output_devices(),
+    not torchffmpeg.utils.ffmpeg_utils.get_output_devices(),
     reason="No output audio device is available.",
     key="NO_AUDIO_OUT_DEVICE",
 )
@@ -295,7 +295,7 @@ def skipIfNoHWAccel(name):
         return _skipIf(True, reason="ffmpeg features are not available.", key=key)
     if not torch.cuda.is_available():
         return _skipIf(True, reason="CUDA is not available.", key=key)
-    if torchaudio._extension._check_cuda_version() is None:
+    if torchffmpeg._extension._check_cuda_version() is None:
         return _skipIf(True, "Torchaudio is not compiled with CUDA.", key=key)
     if name not in get_video_decoders() and name not in get_video_encoders():
         return _skipIf(True, f"{name} is not in the list of available decoders or encoders", key=key)

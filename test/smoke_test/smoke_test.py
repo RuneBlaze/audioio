@@ -2,19 +2,19 @@
 
 import argparse
 
-import torchaudio  # noqa: F401
-import torchaudio.compliance.kaldi  # noqa: F401
-import torchaudio.datasets  # noqa: F401
-import torchaudio.functional  # noqa: F401
-import torchaudio.models  # noqa: F401
-import torchaudio.pipelines  # noqa: F401
-import torchaudio.sox_effects  # noqa: F401
-import torchaudio.transforms  # noqa: F401
-import torchaudio.utils  # noqa: F401
+import torchffmpeg  # noqa: F401
+import torchffmpeg.compliance.kaldi  # noqa: F401
+import torchffmpeg.datasets  # noqa: F401
+import torchffmpeg.functional  # noqa: F401
+import torchffmpeg.models  # noqa: F401
+import torchffmpeg.pipelines  # noqa: F401
+import torchffmpeg.sox_effects  # noqa: F401
+import torchffmpeg.transforms  # noqa: F401
+import torchffmpeg.utils  # noqa: F401
 
 
 def ffmpeg_test():
-    from torchaudio.io import StreamReader  # noqa: F401
+    from torchffmpeg.io import StreamReader  # noqa: F401
 
 
 def main() -> None:

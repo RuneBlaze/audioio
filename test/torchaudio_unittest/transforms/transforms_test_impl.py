@@ -4,13 +4,13 @@ from unittest.mock import patch
 
 import numpy as np
 import torch
-import torchaudio.transforms as T
+import torchffmpeg.transforms as T
 from parameterized import param, parameterized
 from scipy import signal
-from torchaudio.functional import lfilter, preemphasis
-from torchaudio.functional.functional import _get_sinc_resample_kernel
-from torchaudio_unittest.common_utils import get_spectrogram, get_whitenoise, nested_params, TestBaseMixin
-from torchaudio_unittest.common_utils.psd_utils import psd_numpy
+from torchffmpeg.functional import lfilter, preemphasis
+from torchffmpeg.functional.functional import _get_sinc_resample_kernel
+from torchffmpeg_unittest.common_utils import get_spectrogram, get_whitenoise, nested_params, TestBaseMixin
+from torchffmpeg_unittest.common_utils.psd_utils import psd_numpy
 
 
 def _get_ratio(mat):

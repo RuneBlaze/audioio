@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=source
 set BUILDDIR=build
-set SPHINXPROJ=torchaudio
+set SPHINXPROJ=torchffmpeg
 
 if "%1" == "" goto help
 

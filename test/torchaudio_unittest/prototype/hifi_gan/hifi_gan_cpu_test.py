@@ -1,5 +1,5 @@
 import torch
-from torchaudio_unittest.common_utils import PytorchTestCase
+from torchffmpeg_unittest.common_utils import PytorchTestCase
 
 from .hifi_gan_test_impl import HiFiGANTestImpl
 

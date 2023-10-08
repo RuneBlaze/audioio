@@ -1,11 +1,11 @@
 import torch
 from parameterized import parameterized
-from torchaudio.prototype.models import (
+from torchffmpeg.prototype.models import (
     conformer_wav2vec2_base,
     conformer_wav2vec2_pretrain_base,
     conformer_wav2vec2_pretrain_large,
 )
-from torchaudio_unittest.common_utils import nested_params, skipIfNoCuda, torch_script, TorchaudioTestCase
+from torchffmpeg_unittest.common_utils import nested_params, skipIfNoCuda, torch_script, TorchaudioTestCase
 
 
 class TestConformerWav2Vec2(TorchaudioTestCase):

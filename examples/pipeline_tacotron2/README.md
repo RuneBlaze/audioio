@@ -198,7 +198,7 @@ python inference.py --checkpoint-path ${model_path} \
     --output-path "./outputs.wav"
 ```
 
-To use torchaudio pretrained models, please see the following example command.
+To use torchffmpeg pretrained models, please see the following example command.
 For Tacotron2, we use the checkpoint named `"tacotron2_english_phonemes_1500_epochs_wavernn_ljspeech"`, and
 for WaveRNN, we use the checkpoint named `"wavernn_10k_epochs_8bits_ljspeech"`.
 See https://pytorch.org/audio/stable/models.html for more checkpoint options for Tacotron2 and WaveRNN.

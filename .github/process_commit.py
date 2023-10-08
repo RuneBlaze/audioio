@@ -2,7 +2,7 @@
 This script finds the person responsible for labeling a PR by a commit SHA. It is used by the workflow in
 '.github/workflows/pr-labels.yml'.
 Note: we only ping the person who pulls the pr, not the reviewers, as the reviewers can sometimes be external
-to torchaudio with no labeling responsibility, so we don't want to bother them.
+to torchffmpeg with no labeling responsibility, so we don't want to bother them.
 """
 
 import json
@@ -42,16 +42,16 @@ SECONDARY_LABELS = {
 }
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 REQUEST_HEADERS = {"Accept": "application/vnd.github.v3+json", "Authorization": f"token {GITHUB_TOKEN}"}
-TORCHAUDIO_REPO = "https://api.github.com/repos/pytorch/audio"
+TORCHFFMPEG_REPO = "https://api.github.com/repos/pytorch/audio"
 
 
-def query_torchaudio(cmd: str) -> Any:
-    response = requests.get(f"{TORCHAUDIO_REPO}/{cmd}", headers=REQUEST_HEADERS)
+def query_torchffmpeg(cmd: str) -> Any:
+    response = requests.get(f"{TORCHFFMPEG_REPO}/{cmd}", headers=REQUEST_HEADERS)
     return response.json()
 
 
 def get_pr_merger_and_number(commit_hash: str) -> Optional[str]:
-    data = query_torchaudio(f"commits/{commit_hash}")
+    data = query_torchffmpeg(f"commits/{commit_hash}")
     commit_message = data["commit"]["message"]
 
     pulled_by = commit_message.split("Pulled By: ")
@@ -64,7 +64,7 @@ def get_pr_merger_and_number(commit_hash: str) -> Optional[str]:
 
 
 def get_labels(pr_number: int) -> Set[str]:
-    data = query_torchaudio(f"pulls/{pr_number}")
+    data = query_torchffmpeg(f"pulls/{pr_number}")
     labels = {label["name"] for label in data["labels"]}
     return labels
 
@@ -80,8 +80,8 @@ You merged this PR, but labels were not properly added. Please add a primary and
 
 ## Some guidance:
 
-Use 'module: ops' for operations under 'torchaudio/{transforms, functional}', \
-and ML-related components under 'torchaudio/csrc' (e.g. RNN-T loss).
+Use 'module: ops' for operations under 'torchffmpeg/{transforms, functional}', \
+and ML-related components under 'torchffmpeg/csrc' (e.g. RNN-T loss).
 
 Things in "examples" directory:
 - 'recipe' is applicable to training recipes under the 'examples' folder,  
@@ -109,7 +109,7 @@ except when it impacts users. For example:
     }
 
     response = requests.post(
-        f"{TORCHAUDIO_REPO}/issues/{pr_number}/comments", json.dumps(message), headers=REQUEST_HEADERS
+        f"{TORCHFFMPEG_REPO}/issues/{pr_number}/comments", json.dumps(message), headers=REQUEST_HEADERS
     )
     return response.json()
 

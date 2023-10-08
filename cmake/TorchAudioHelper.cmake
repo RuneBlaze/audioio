@@ -1,6 +1,6 @@
 find_package(Torch REQUIRED)
 
-function (torchaudio_library name source include_dirs link_libraries compile_defs)
+function (torchffmpeg_library name source include_dirs link_libraries compile_defs)
   add_library(${name} SHARED ${source})
   target_include_directories(${name} PRIVATE "${PROJECT_SOURCE_DIR};${include_dirs}")
   target_link_libraries(${name} ${link_libraries})
@@ -17,7 +17,7 @@ function (torchaudio_library name source include_dirs link_libraries compile_def
 endfunction()
 
 
-if (BUILD_TORCHAUDIO_PYTHON_EXTENSION)
+if (BUILD_TORCHFFMPEG_PYTHON_EXTENSION)
   # See https://github.com/pytorch/pytorch/issues/38122
   find_library(TORCH_PYTHON_LIBRARY torch_python PATHS "${TORCH_INSTALL_PREFIX}/lib")
 
@@ -25,7 +25,7 @@ if (BUILD_TORCHAUDIO_PYTHON_EXTENSION)
     find_package(Python3 ${PYTHON_VERSION} EXACT COMPONENTS Development)
     set(ADDITIONAL_ITEMS Python3::Python)
   endif()
-  function(torchaudio_extension name sources include_dirs libraries definitions)
+  function(torchffmpeg_extension name sources include_dirs libraries definitions)
     add_library(${name} SHARED ${sources})
     target_compile_definitions(${name} PRIVATE "${definitions}")
     target_include_directories(
