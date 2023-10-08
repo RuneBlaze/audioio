@@ -52,12 +52,12 @@ endif()
 
 
 # Options
-option(BUILD_SOX "Build libsox statically" ON)
-option(BUILD_KALDI "Build kaldi statically" ON)
-option(BUILD_RIR "Enable RIR simulation" ON)
-option(BUILD_RNNT "Enable RNN transducer" ON)
-option(BUILD_CTC_DECODER "Build Flashlight CTC decoder" ON)
-option(BUILD_TORCHFFMPEG_PYTHON_EXTENSION "Build Python extension" OFF)
+option(BUILD_SOX "Build libsox statically" OFF)
+option(BUILD_KALDI "Build kaldi statically" OFF)
+option(BUILD_RIR "Enable RIR simulation" OFF)
+option(BUILD_RNNT "Enable RNN transducer" OFF)
+option(BUILD_CTC_DECODER "Build Flashlight CTC decoder" OFF)
+option(BUILD_TORCHFFMPEG_PYTHON_EXTENSION "Build Python extension" ON)
 option(USE_CUDA "Enable CUDA support" OFF)
 option(USE_ROCM "Enable ROCM support" OFF)
 option(USE_OPENMP "Enable OpenMP support" OFF)

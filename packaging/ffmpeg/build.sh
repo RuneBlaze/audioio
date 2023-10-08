@@ -65,7 +65,7 @@ tar -xf ffmpeg.tar.gz --strip-components 1
     --enable-avformat \
     --enable-avutil ${args}
 
-make -j install
+make -j1 install
 ls ${prefix}/*
 )
 
