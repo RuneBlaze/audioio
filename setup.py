@@ -145,14 +145,14 @@ def _main():
     _fetch_third_party_libraries()
 
     setup(
-        name="torchffmpeg",
-        version=version,
-        description="An audio package for PyTorch",
-        url="https://github.com/pytorch/audio",
+        name="acme-timemachine",
+        version="0.0.1",
+        description="Porting torchaudio 2.0.1 to the future",
+        # url="https://github.com/pytorch/audio",
         author="Soumith Chintala, David Pollack, Sean Naren, Peter Goldsborough, Moto Hira, Caroline Chen, Jeff Hwang, Zhaoheng Ni, Xiaohui Zhang",
         author_email="soumith@pytorch.org",
-        maintainer="Moto Hira, Caroline Chen, Jeff Hwang, Zhaoheng Ni, Xiaohui Zhang",
-        maintainer_email="moto@meta.com",
+        # maintainer="Moto Hira, Caroline Chen, Jeff Hwang, Zhaoheng Ni, Xiaohui Zhang",
+        # maintainer_email="moto@meta.com",
         classifiers=[
             "Environment :: Plugins",
             "Intended Audience :: Developers",
