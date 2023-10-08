@@ -3,9 +3,9 @@ from typing import Tuple
 import torch
 from parameterized import parameterized
 from torch import Tensor
-from torchaudio.models import Tacotron2
-from torchaudio.models.tacotron2 import _Decoder, _Encoder
-from torchaudio_unittest.common_utils import skipIfPy310, TestBaseMixin, torch_script
+from torchffmpeg.models import Tacotron2
+from torchffmpeg.models.tacotron2 import _Decoder, _Encoder
+from torchffmpeg_unittest.common_utils import skipIfPy310, TestBaseMixin, torch_script
 
 
 class Tacotron2InferenceWrapper(torch.nn.Module):

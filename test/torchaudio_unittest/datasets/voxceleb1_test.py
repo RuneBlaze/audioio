@@ -1,7 +1,7 @@
 import os
 
-from torchaudio.datasets import voxceleb1
-from torchaudio_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import voxceleb1
+from torchffmpeg_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
 
 
 _NUM_SPEAKERS = 3

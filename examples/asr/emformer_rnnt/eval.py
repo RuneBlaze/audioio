@@ -10,7 +10,7 @@ import pathlib
 from argparse import ArgumentParser, RawTextHelpFormatter
 
 import torch
-import torchaudio
+import torchffmpeg
 from common import MODEL_TYPE_LIBRISPEECH, MODEL_TYPE_MUSTC, MODEL_TYPE_TEDLIUM3
 from librispeech.lightning import LibriSpeechRNNTModule
 from mustc.lightning import MuSTCRNNTModule
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 def compute_word_level_distance(seq1, seq2):
-    return torchaudio.functional.edit_distance(seq1.lower().split(), seq2.lower().split())
+    return torchffmpeg.functional.edit_distance(seq1.lower().split(), seq2.lower().split())
 
 
 def run_eval_subset(model, dataloader, subset):

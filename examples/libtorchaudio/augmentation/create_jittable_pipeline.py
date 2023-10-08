@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Create a data preprocess pipeline that can be run with libtorchaudio
+Create a data preprocess pipeline that can be run with libtorchffmpeg
 """
 import argparse
 import os
 
 import torch
-import torchaudio
+import torchffmpeg
 
 
 class Pipeline(torch.nn.Module):
@@ -17,22 +17,22 @@ class Pipeline(torch.nn.Module):
 
     def __init__(self, rir_path: str):
         super().__init__()
-        rir, sample_rate = torchaudio.load(rir_path)
+        rir, sample_rate = torchffmpeg.load(rir_path)
         self.register_buffer("rir", rir)
         self.rir_sample_rate: int = sample_rate
 
     def forward(self, input_path: str, output_path: str):
-        torchaudio.sox_effects.init_sox_effects()
+        torchffmpeg.sox_effects.init_sox_effects()
 
         # 1. load audio
-        waveform, sample_rate = torchaudio.load(input_path)
+        waveform, sample_rate = torchffmpeg.load(input_path)
 
         # 2. Add background noise
         alpha = 0.01
         waveform = alpha * torch.randn_like(waveform) + (1 - alpha) * waveform
 
         # 3. Reample the RIR filter to much the audio sample rate
-        rir, _ = torchaudio.sox_effects.apply_effects_tensor(
+        rir, _ = torchffmpeg.sox_effects.apply_effects_tensor(
             self.rir, self.rir_sample_rate, effects=[["rate", str(sample_rate)]]
         )
         rir = rir / torch.norm(rir, p=2)
@@ -43,7 +43,7 @@ class Pipeline(torch.nn.Module):
         waveform = torch.nn.functional.conv1d(waveform[None, ...], rir[None, ...])[0]
 
         # Save
-        torchaudio.save(output_path, waveform, sample_rate)
+        torchffmpeg.save(output_path, waveform, sample_rate)
 
 
 def _create_jit_pipeline(rir_path, output_path):

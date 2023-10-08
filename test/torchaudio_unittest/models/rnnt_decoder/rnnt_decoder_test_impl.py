@@ -1,6 +1,6 @@
 import torch
-from torchaudio.models import emformer_rnnt_model, RNNTBeamSearch
-from torchaudio_unittest.common_utils import TestBaseMixin, torch_script
+from torchffmpeg.models import emformer_rnnt_model, RNNTBeamSearch
+from torchffmpeg_unittest.common_utils import TestBaseMixin, torch_script
 
 
 class RNNTBeamSearchTestImpl(TestBaseMixin):

@@ -1,7 +1,7 @@
 import torch
-import torchaudio.functional as F
+import torchffmpeg.functional as F
 from parameterized import parameterized
-from torchaudio_unittest.common_utils import (
+from torchffmpeg_unittest.common_utils import (
     get_sinusoid,
     load_params,
     save_wav,
@@ -9,7 +9,7 @@ from torchaudio_unittest.common_utils import (
     TempDirMixin,
     TestBaseMixin,
 )
-from torchaudio_unittest.common_utils.kaldi_utils import convert_args, run_kaldi
+from torchffmpeg_unittest.common_utils.kaldi_utils import convert_args, run_kaldi
 
 
 class Kaldi(TempDirMixin, TestBaseMixin):

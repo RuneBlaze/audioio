@@ -2,9 +2,9 @@ import itertools
 from typing import Optional
 
 import torch
-import torchaudio
+import torchffmpeg
 from parameterized import parameterized
-from torchaudio_unittest.common_utils import (
+from torchffmpeg_unittest.common_utils import (
     get_wav_data,
     load_wav,
     save_wav,
@@ -19,12 +19,12 @@ from torchaudio_unittest.common_utils import (
 from .common import get_enc_params, name_func
 
 
-def py_info_func(filepath: str) -> torchaudio.backend.sox_io_backend.AudioMetaData:
-    return torchaudio.info(filepath)
+def py_info_func(filepath: str) -> torchffmpeg.backend.sox_io_backend.AudioMetaData:
+    return torchffmpeg.info(filepath)
 
 
 def py_load_func(filepath: str, normalize: bool, channels_first: bool):
-    return torchaudio.load(filepath, normalize=normalize, channels_first=channels_first)
+    return torchffmpeg.load(filepath, normalize=normalize, channels_first=channels_first)
 
 
 def py_save_func(
@@ -36,7 +36,7 @@ def py_save_func(
     encoding: Optional[str] = None,
     bits_per_sample: Optional[int] = None,
 ):
-    torchaudio.save(filepath, tensor, sample_rate, channels_first, compression, None, encoding, bits_per_sample)
+    torchffmpeg.save(filepath, tensor, sample_rate, channels_first, compression, None, encoding, bits_per_sample)
 
 
 @skipIfNoExec("sox")

@@ -2,8 +2,8 @@ import io
 import itertools
 
 from parameterized import parameterized
-from torchaudio.backend import sox_io_backend
-from torchaudio_unittest.common_utils import get_wav_data, skipIfNoSox, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.backend import sox_io_backend
+from torchffmpeg_unittest.common_utils import get_wav_data, skipIfNoSox, TempDirMixin, TorchaudioTestCase
 
 from .common import name_func
 

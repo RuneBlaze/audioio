@@ -3,8 +3,8 @@ import os
 
 import torch
 from parameterized import parameterized
-from torchaudio import transforms as T
-from torchaudio_unittest import common_utils
+from torchffmpeg import transforms as T
+from torchffmpeg_unittest import common_utils
 
 
 class TestTransforms(common_utils.TorchaudioTestCase):

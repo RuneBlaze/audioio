@@ -6,11 +6,11 @@ from functools import partial
 
 import torch
 from parameterized import parameterized
-from torchaudio._backend.utils import get_save_func
-from torchaudio.io._compat import _get_encoder, _get_encoder_format
+from torchffmpeg._backend.utils import get_save_func
+from torchffmpeg.io._compat import _get_encoder, _get_encoder_format
 
-from torchaudio_unittest.backend.dispatcher.sox.common import get_enc_params, name_func
-from torchaudio_unittest.common_utils import (
+from torchffmpeg_unittest.backend.dispatcher.sox.common import get_enc_params, name_func
+from torchffmpeg_unittest.common_utils import (
     get_wav_data,
     load_wav,
     nested_params,
@@ -71,7 +71,7 @@ class SaveTestBase(TempDirMixin, TorchaudioTestCase):
          |                                   |
          | 2.1. load with scipy              | 3.1. Convert to the target
          |   then save it into the target    |      format depth with ffmpeg
-         |   format with torchaudio          |
+         |   format with torchffmpeg          |
          v                                   v
         target format                       target format
          |                                   |
@@ -87,7 +87,7 @@ class SaveTestBase(TempDirMixin, TorchaudioTestCase):
 
         """
         src_path = self.get_temp_path("1.source.wav")
-        tgt_path = self.get_temp_path(f"2.1.torchaudio.{format}")
+        tgt_path = self.get_temp_path(f"2.1.torchffmpeg.{format}")
         tst_path = self.get_temp_path("2.2.result.wav")
         sox_path = self.get_temp_path(f"3.1.ffmpeg.{format}")
         ref_path = self.get_temp_path("3.2.ref.wav")
@@ -96,7 +96,7 @@ class SaveTestBase(TempDirMixin, TorchaudioTestCase):
         data = get_wav_data(src_dtype, num_channels, normalize=False, num_frames=num_frames)
         save_wav(src_path, data, sample_rate)
 
-        # 2.1. Convert the original wav to target format with torchaudio
+        # 2.1. Convert the original wav to target format with torchffmpeg
         data = load_wav(src_path, normalize=False)[0]
         if test_mode == "path":
             self._save(tgt_path, data, sample_rate, encoding=encoding, bits_per_sample=bits_per_sample)

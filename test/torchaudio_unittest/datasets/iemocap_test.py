@@ -1,8 +1,8 @@
 import os
 import random
 
-from torchaudio.datasets import iemocap
-from torchaudio_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import iemocap
+from torchffmpeg_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
 
 LABELS = ["neu", "hap", "ang", "sad", "exc", "fru", "xxx"]
 SAMPLE_RATE = 16000

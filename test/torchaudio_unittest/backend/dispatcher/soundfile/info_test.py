@@ -4,10 +4,10 @@ from functools import partial
 from unittest.mock import patch
 
 import torch
-from torchaudio._backend.utils import get_info_func
-from torchaudio._internal import module_utils as _mod_utils
-from torchaudio_unittest.backend.common import get_bits_per_sample, get_encoding
-from torchaudio_unittest.common_utils import (
+from torchffmpeg._backend.utils import get_info_func
+from torchffmpeg._internal import module_utils as _mod_utils
+from torchffmpeg_unittest.backend.common import get_bits_per_sample, get_encoding
+from torchffmpeg_unittest.common_utils import (
     get_wav_data,
     nested_params,
     PytorchTestCase,

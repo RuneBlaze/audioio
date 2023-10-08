@@ -1,10 +1,10 @@
 import math
 
 import torch
-import torchaudio.prototype.functional as F
+import torchffmpeg.prototype.functional as F
 from parameterized import parameterized
 from torch.autograd import gradcheck
-from torchaudio_unittest.common_utils import TestBaseMixin
+from torchffmpeg_unittest.common_utils import TestBaseMixin
 
 
 class AutogradTestImpl(TestBaseMixin):

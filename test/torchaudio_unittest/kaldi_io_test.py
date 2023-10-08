@@ -1,6 +1,6 @@
 import torch
-import torchaudio.kaldi_io as kio
-from torchaudio_unittest import common_utils
+import torchffmpeg.kaldi_io as kio
+from torchffmpeg_unittest import common_utils
 
 
 class Test_KaldiIO(common_utils.TorchaudioTestCase):

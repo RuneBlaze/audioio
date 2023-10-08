@@ -1,10 +1,10 @@
 import math
 
 import torch
-import torchaudio
-import torchaudio.functional as F
-import torchaudio.transforms as transforms
-from torchaudio_unittest import common_utils
+import torchffmpeg
+import torchffmpeg.functional as F
+import torchffmpeg.transforms as transforms
+from torchffmpeg_unittest import common_utils
 
 
 class Tester(common_utils.TorchaudioTestCase):
@@ -137,7 +137,7 @@ class Tester(common_utils.TorchaudioTestCase):
         audio = common_utils.get_whitenoise(sample_rate=sample_rate)
 
         n_mfcc = 40
-        mfcc_transform = torchaudio.transforms.MFCC(sample_rate=sample_rate, n_mfcc=n_mfcc, norm="ortho")
+        mfcc_transform = torchffmpeg.transforms.MFCC(sample_rate=sample_rate, n_mfcc=n_mfcc, norm="ortho")
         torch_mfcc = mfcc_transform(audio)  # (1, 40, 81)
         self.assertEqual(torch_mfcc.dim(), 3)
         self.assertEqual(torch_mfcc.shape[1], n_mfcc)
@@ -150,7 +150,7 @@ class Tester(common_utils.TorchaudioTestCase):
 
         n_mfcc = 40
         melkwargs = {"win_length": 200}
-        mfcc_transform = torchaudio.transforms.MFCC(
+        mfcc_transform = torchffmpeg.transforms.MFCC(
             sample_rate=sample_rate, n_mfcc=n_mfcc, norm="ortho", melkwargs=melkwargs
         )
         torch_mfcc = mfcc_transform(audio)  # (1, 40, 161)
@@ -163,9 +163,9 @@ class Tester(common_utils.TorchaudioTestCase):
 
         n_mfcc = 40
         n_mels = 128
-        mfcc_transform = torchaudio.transforms.MFCC(sample_rate=sample_rate, n_mfcc=n_mfcc, norm="ortho")
+        mfcc_transform = torchffmpeg.transforms.MFCC(sample_rate=sample_rate, n_mfcc=n_mfcc, norm="ortho")
         # check norms work correctly
-        mfcc_transform_norm_none = torchaudio.transforms.MFCC(sample_rate=sample_rate, n_mfcc=n_mfcc, norm=None)
+        mfcc_transform_norm_none = torchffmpeg.transforms.MFCC(sample_rate=sample_rate, n_mfcc=n_mfcc, norm=None)
         torch_mfcc_norm_none = mfcc_transform_norm_none(audio)  # (1, 40, 81)
 
         norm_check = mfcc_transform(audio)
@@ -181,7 +181,7 @@ class Tester(common_utils.TorchaudioTestCase):
 
         n_lfcc = 40
         n_filter = 128
-        lfcc_transform = torchaudio.transforms.LFCC(
+        lfcc_transform = torchffmpeg.transforms.LFCC(
             sample_rate=sample_rate, n_filter=n_filter, n_lfcc=n_lfcc, norm="ortho"
         )
         torch_lfcc = lfcc_transform(audio)  # (1, 40, 81)
@@ -197,7 +197,7 @@ class Tester(common_utils.TorchaudioTestCase):
         n_lfcc = 40
         n_filter = 128
         speckwargs = {"win_length": 200}
-        lfcc_transform = torchaudio.transforms.LFCC(
+        lfcc_transform = torchffmpeg.transforms.LFCC(
             sample_rate=sample_rate, n_filter=n_filter, n_lfcc=n_lfcc, norm="ortho", speckwargs=speckwargs
         )
         torch_lfcc = lfcc_transform(audio)  # (1, 40, 161)
@@ -210,11 +210,11 @@ class Tester(common_utils.TorchaudioTestCase):
 
         n_lfcc = 40
         n_filter = 128
-        lfcc_transform = torchaudio.transforms.LFCC(
+        lfcc_transform = torchffmpeg.transforms.LFCC(
             sample_rate=sample_rate, n_filter=n_filter, n_lfcc=n_lfcc, norm="ortho"
         )
 
-        lfcc_transform_norm_none = torchaudio.transforms.LFCC(
+        lfcc_transform_norm_none = torchffmpeg.transforms.LFCC(
             sample_rate=sample_rate, n_filter=n_filter, n_lfcc=n_lfcc, norm=None
         )
         torch_lfcc_norm_none = lfcc_transform_norm_none(audio)  # (1, 40, 161)
@@ -234,9 +234,9 @@ class Tester(common_utils.TorchaudioTestCase):
         invalid_resampling_method = "foo"
 
         with self.assertRaises(ValueError):
-            torchaudio.transforms.Resample(sample_rate, upsample_rate, resampling_method=invalid_resampling_method)
+            torchffmpeg.transforms.Resample(sample_rate, upsample_rate, resampling_method=invalid_resampling_method)
 
-        upsample_resample = torchaudio.transforms.Resample(
+        upsample_resample = torchffmpeg.transforms.Resample(
             sample_rate, upsample_rate, resampling_method="sinc_interp_hann"
         )
         up_sampled = upsample_resample(waveform)
@@ -244,7 +244,7 @@ class Tester(common_utils.TorchaudioTestCase):
         # we expect the upsampled signal to have twice as many samples
         self.assertTrue(up_sampled.size(-1) == waveform.size(-1) * 2)
 
-        downsample_resample = torchaudio.transforms.Resample(
+        downsample_resample = torchffmpeg.transforms.Resample(
             sample_rate, downsample_rate, resampling_method="sinc_interp_hann"
         )
         down_sampled = downsample_resample(waveform)

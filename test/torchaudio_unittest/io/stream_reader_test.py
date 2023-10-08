@@ -1,9 +1,9 @@
 import io
 
 import torch
-import torchaudio
+import torchffmpeg
 from parameterized import parameterized, parameterized_class
-from torchaudio_unittest.common_utils import (
+from torchffmpeg_unittest.common_utils import (
     get_asset_path,
     get_image,
     get_wav_data,
@@ -19,8 +19,8 @@ from torchaudio_unittest.common_utils import (
 )
 
 if is_ffmpeg_available():
-    from torchaudio.io import StreamReader, StreamWriter
-    from torchaudio.io._stream_reader import ChunkTensor, SourceAudioStream, SourceStream, SourceVideoStream
+    from torchffmpeg.io import StreamReader, StreamWriter
+    from torchffmpeg.io._stream_reader import ChunkTensor, SourceAudioStream, SourceStream, SourceVideoStream
 
 
 @skipIfNoFFmpeg
@@ -136,7 +136,7 @@ class StreamReaderInterfaceTest(_MediaSourceMixin, TempDirMixin, TorchaudioTestC
         # Note:
         # Starting from FFmpeg 4.4, audio/video stream metadata
         # include "vendor_id"
-        ver = torchaudio.utils.ffmpeg_utils.get_versions()["libavutil"]
+        ver = torchffmpeg.utils.ffmpeg_utils.get_versions()["libavutil"]
         print(ver)
         major, minor, _ = ver
         if major >= 57 or (major == 56 and minor >= 70):

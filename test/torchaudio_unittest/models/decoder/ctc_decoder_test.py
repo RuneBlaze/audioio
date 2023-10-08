@@ -2,7 +2,7 @@ import itertools
 
 import torch
 from parameterized import parameterized
-from torchaudio_unittest.common_utils import get_asset_path, skipIfNoCtcDecoder, TempDirMixin, TorchaudioTestCase
+from torchffmpeg_unittest.common_utils import get_asset_path, skipIfNoCtcDecoder, TempDirMixin, TorchaudioTestCase
 
 NUM_TOKENS = 8
 
@@ -24,7 +24,7 @@ class CTCDecoderTest(TempDirMixin, TorchaudioTestCase):
         return biased_lm
 
     def _get_decoder(self, tokens=None, lm=None, use_lexicon=True, **kwargs):
-        from torchaudio.models.decoder import ctc_decoder
+        from torchffmpeg.models.decoder import ctc_decoder
 
         lexicon_file = get_asset_path("decoder/lexicon.txt") if use_lexicon else None
         if tokens is None:

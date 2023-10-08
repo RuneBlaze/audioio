@@ -14,8 +14,8 @@
 #   PYTORCH_VERSION_SUFFIX (e.g., +cpu)
 #   WHEEL_DIR (e.g., cu100/)
 #   CUDA_HOME (e.g., /usr/local/cuda-9.2, respected by torch.utils.cpp_extension)
-#   USE_CUDA (respected by torchaudio setup.py)
-#   NVCC_FLAGS (respected by torchaudio setup.py)
+#   USE_CUDA (respected by torchffmpeg setup.py)
+#   NVCC_FLAGS (respected by torchffmpeg setup.py)
 #
 # Precondition: CUDA versions are installed in their conventional locations in
 # /usr/local/cuda-*
@@ -23,7 +23,7 @@
 # NOTE: Why VERSION_SUFFIX versus PYTORCH_VERSION_SUFFIX?  If you're building
 # a package with CUDA on a platform we support CUDA on, VERSION_SUFFIX ==
 # PYTORCH_VERSION_SUFFIX and everyone is happy.  However, if you are building a
-# package with only CPU bits (e.g., torchaudio), then VERSION_SUFFIX is always
+# package with only CPU bits (e.g., torchffmpeg), then VERSION_SUFFIX is always
 # empty, but PYTORCH_VERSION_SUFFIX is +cpu (because that's how you get a CPU
 # version of a Python package.  But that doesn't apply if you're on OS X,
 # since the default CU_VERSION on OS X is cpu.
@@ -273,6 +273,6 @@ setup_visual_studio_constraint() {
       export VSTOOLCHAIN_PACKAGE=vs2019
       export VSDEVCMD_ARGS=''
       conda build $CONDA_CHANNEL_FLAGS --no-anaconda-upload packaging/$VSTOOLCHAIN_PACKAGE
-      cp packaging/$VSTOOLCHAIN_PACKAGE/conda_build_config.yaml packaging/torchaudio/conda_build_config.yaml
+      cp packaging/$VSTOOLCHAIN_PACKAGE/conda_build_config.yaml packaging/torchffmpeg/conda_build_config.yaml
   fi
 }

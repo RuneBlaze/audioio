@@ -4,24 +4,24 @@ import pathlib
 from argparse import ArgumentParser, RawTextHelpFormatter
 
 import torch
-import torchaudio
-from torchaudio.prototype.pipelines import EMFORMER_RNNT_BASE_TEDLIUM3
+import torchffmpeg
+from torchffmpeg.prototype.pipelines import EMFORMER_RNNT_BASE_TEDLIUM3
 
 
 logger = logging.getLogger(__name__)
 
 
 def compute_word_level_distance(seq1, seq2):
-    return torchaudio.functional.edit_distance(seq1.lower().split(), seq2.lower().split())
+    return torchffmpeg.functional.edit_distance(seq1.lower().split(), seq2.lower().split())
 
 
 def _eval_subset(tedlium_path, subset, feature_extractor, decoder, token_processor, use_cuda):
     total_edit_distance = 0
     total_length = 0
     if subset == "dev":
-        dataset = torchaudio.datasets.TEDLIUM(tedlium_path, release="release3", subset="dev")
+        dataset = torchffmpeg.datasets.TEDLIUM(tedlium_path, release="release3", subset="dev")
     elif subset == "test":
-        dataset = torchaudio.datasets.TEDLIUM(tedlium_path, release="release3", subset="test")
+        dataset = torchffmpeg.datasets.TEDLIUM(tedlium_path, release="release3", subset="test")
     with torch.no_grad():
         for idx in range(len(dataset)):
             sample = dataset[idx]

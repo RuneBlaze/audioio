@@ -4,7 +4,7 @@ StreamWriter Basic Usage
 
 **Author**: `Moto Hira <moto@meta.com>`__
 
-This tutorial shows how to use :py:class:`torchaudio.io.StreamWriter` to
+This tutorial shows how to use :py:class:`torchffmpeg.io.StreamWriter` to
 encode and save audio/video data into various formats/destinations.
 
 """
@@ -13,9 +13,9 @@ encode and save audio/video data into various formats/destinations.
 #
 # .. note::
 #
-#    This tutorial requires torchaudio nightly build and FFmpeg libraries (>=4.1, <4.4).
+#    This tutorial requires torchffmpeg nightly build and FFmpeg libraries (>=4.1, <4.4).
 #
-#    To install torchaudio nightly build, please refer to
+#    To install torchffmpeg nightly build, please refer to
 #    https://pytorch.org/get-started/locally/ .
 #
 #    There are multiple ways to install FFmpeg libraries.
@@ -46,16 +46,16 @@ encode and save audio/video data into various formats/destinations.
 # -----------
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 #
 
 try:
-    from torchaudio.io import StreamWriter
+    from torchffmpeg.io import StreamWriter
 except ImportError:
     try:
         import google.colab
@@ -63,10 +63,10 @@ except ImportError:
         print(
             """
             To enable running this notebook in Google Colab, install nightly
-            torch and torchaudio builds by adding the following code block to the top
+            torch and torchffmpeg builds by adding the following code block to the top
             of the notebook before running it:
-            !pip3 uninstall -y torch torchvision torchaudio
-            !pip3 install --pre torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cpu
+            !pip3 uninstall -y torch torchvision torchffmpeg
+            !pip3 install --pre torch torchvision torchffmpeg --extra-index-url https://download.pytorch.org/whl/nightly/cpu
             """
         )
     except ModuleNotFoundError:
@@ -74,7 +74,7 @@ except ImportError:
     raise
 
 print("FFmpeg library versions")
-for k, v in torchaudio.utils.ffmpeg_utils.get_versions().items():
+for k, v in torchffmpeg.utils.ffmpeg_utils.get_versions().items():
     print(f"  {k}: {v}")
 
 ######################################################################
@@ -84,11 +84,11 @@ import io
 import os
 import tempfile
 
-from torchaudio.utils import download_asset
+from torchffmpeg.utils import download_asset
 from IPython.display import Audio, Video
 
 SAMPLE_PATH = download_asset("tutorial-assets/Lab41-SRI-VOiCES-src-sp0307-ch127535-sg0042.wav")
-WAVEFORM, SAMPLE_RATE = torchaudio.load(SAMPLE_PATH, channels_first=False)
+WAVEFORM, SAMPLE_RATE = torchffmpeg.load(SAMPLE_PATH, channels_first=False)
 NUM_FRAMES, NUM_CHANNELS = WAVEFORM.shape
 
 _BASE_DIR = tempfile.TemporaryDirectory()
@@ -234,7 +234,7 @@ Audio(path)
 # ~~~~~~~~~~~~
 #
 # An audio stream can be added with
-# :py:meth:`~torchaudio.io.StreamWriter.add_audio_stream` method.
+# :py:meth:`~torchffmpeg.io.StreamWriter.add_audio_stream` method.
 #
 # For writing regular audio files, at minimum ``sample_rate`` and ``num_channels``
 # are required.
@@ -281,7 +281,7 @@ Audio(path)
 # The following figure illustrates how ``format`` and ``encoder_format`` options work
 # for audio streams.
 #
-# .. image:: https://download.pytorch.org/torchaudio/tutorial-assets/streamwriter-format-audio.png
+# .. image:: https://download.pytorch.org/torchffmpeg/tutorial-assets/streamwriter-format-audio.png
 #
 
 ######################################################################
@@ -289,7 +289,7 @@ Audio(path)
 # ~~~~~~~~~~~~
 #
 # To add a still image or a video stream, you can use
-# :py:meth:`~torchaudio.io.StreamWriter.add_video_stream` method.
+# :py:meth:`~torchffmpeg.io.StreamWriter.add_video_stream` method.
 #
 # At minimum, ``frame_rate``, ``height`` and ``width`` are required.
 #
@@ -348,7 +348,7 @@ Audio(path)
 # The following figure illustrates how ``format`` and ``encoder_format`` options work for
 # video streams.
 #
-# .. image:: https://download.pytorch.org/torchaudio/tutorial-assets/streamwriter-format-video.png
+# .. image:: https://download.pytorch.org/torchffmpeg/tutorial-assets/streamwriter-format-video.png
 #
 
 ######################################################################
@@ -359,9 +359,9 @@ Audio(path)
 # Once streams are configured, the next step is to open the output location
 # and start writing data.
 #
-# Use :py:meth:`~torchaudio.io.StreamWriter.open` method to open the
-# destination, and then write data with :py:meth:`~torchaudio.io.StreamWriter.write_audio_chunk`
-# and/or :py:meth:`~torchaudio.io.StreamWriter.write_video_chunk`.
+# Use :py:meth:`~torchffmpeg.io.StreamWriter.open` method to open the
+# destination, and then write data with :py:meth:`~torchffmpeg.io.StreamWriter.write_audio_chunk`
+# and/or :py:meth:`~torchffmpeg.io.StreamWriter.write_video_chunk`.
 #
 # Audio tensors are expected to have the shape of `(time, channels)`,
 # and video/image tensors are expected to have the shape of `(time, channels, height, width)`.
@@ -554,11 +554,11 @@ Audio(test_slice(audio_encoder="libmp3lame", slice_size=512, ext="mp3"))
 # of audio and save it as a video file.
 #
 # To create spectrum visualization, we use
-# :py:class:`torchaudio.transforms.Spectrogram`, to get spectrum presentation
+# :py:class:`torchffmpeg.transforms.Spectrogram`, to get spectrum presentation
 # of audio, generate raster images of its visualization using matplotplib,
 # then use StreamWriter to convert them to video with the original audio.
 
-import torchaudio.transforms as T
+import torchffmpeg.transforms as T
 import matplotlib.pyplot as plt
 
 ######################################################################
@@ -567,7 +567,7 @@ import matplotlib.pyplot as plt
 # ~~~~~~~~~~~~
 #
 # First, we prepare the spectrogram data.
-# We use :py:class:`~torchaudio.transforms.Spectrogram`.
+# We use :py:class:`~torchffmpeg.transforms.Spectrogram`.
 #
 # We adjust ``hop_length`` so that one frame of the spectrogram corresponds
 # to one video frame.
@@ -620,7 +620,7 @@ def _plot(data):
     ax.set_ylim([-1, 1])
     ax.text(
         xlim, 0.95,
-        f"Created with TorchAudio\n{torchaudio.__version__}",
+        f"Created with TorchAudio\n{torchffmpeg.__version__}",
         color="white", ha="right", va="top", backgroundcolor="black")
     fig.canvas.draw()
     frame = torch.frombuffer(fig.canvas.tostring_rgb(), dtype=torch.uint8)
@@ -675,5 +675,5 @@ Video(get_path("example.mp4"), embed=True)
 
 ######################################################################
 #
-# Tag: :obj:`torchaudio.io`
+# Tag: :obj:`torchffmpeg.io`
 #

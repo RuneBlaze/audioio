@@ -1,5 +1,5 @@
 import pytest
-from torchaudio.pipelines import (
+from torchffmpeg.pipelines import (
     TACOTRON2_GRIFFINLIM_CHAR_LJSPEECH,
     TACOTRON2_GRIFFINLIM_PHONE_LJSPEECH,
     TACOTRON2_WAVERNN_CHAR_LJSPEECH,

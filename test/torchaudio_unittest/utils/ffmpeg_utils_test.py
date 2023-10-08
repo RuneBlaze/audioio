@@ -1,5 +1,5 @@
-from torchaudio.utils import ffmpeg_utils
-from torchaudio_unittest.common_utils import PytorchTestCase, skipIfNoFFmpeg
+from torchffmpeg.utils import ffmpeg_utils
+from torchffmpeg_unittest.common_utils import PytorchTestCase, skipIfNoFFmpeg
 
 
 @skipIfNoFFmpeg

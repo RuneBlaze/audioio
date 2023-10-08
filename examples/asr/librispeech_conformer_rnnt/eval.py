@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 import sentencepiece as spm
 
 import torch
-import torchaudio
+import torchffmpeg
 from lightning import ConformerRNNTModule
 from transforms import get_data_module
 
@@ -14,7 +14,7 @@ logger = logging.getLogger()
 
 
 def compute_word_level_distance(seq1, seq2):
-    return torchaudio.functional.edit_distance(seq1.lower().split(), seq2.lower().split())
+    return torchffmpeg.functional.edit_distance(seq1.lower().split(), seq2.lower().split())
 
 
 def run_eval(args):

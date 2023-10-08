@@ -3,7 +3,7 @@ from typing import List
 
 import sentencepiece as spm
 import torch
-import torchaudio
+import torchffmpeg
 from common import (
     Batch,
     batch_by_token_count,
@@ -15,7 +15,7 @@ from common import (
     WarmupLR,
 )
 from pytorch_lightning import LightningModule
-from torchaudio.models import emformer_rnnt_base, RNNTBeamSearch
+from torchffmpeg.models import emformer_rnnt_base, RNNTBeamSearch
 
 from .dataset import MUSTC
 
@@ -50,7 +50,7 @@ class MuSTCRNNTModule(LightningModule):
         super().__init__()
 
         self.model = emformer_rnnt_base(num_symbols=501)
-        self.loss = torchaudio.transforms.RNNTLoss(reduction="mean", clamp=1.0)
+        self.loss = torchffmpeg.transforms.RNNTLoss(reduction="mean", clamp=1.0)
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=5e-4, betas=(0.9, 0.999), eps=1e-8)
         self.warmup_lr_scheduler = WarmupLR(self.optimizer, 10000)
 
@@ -58,10 +58,10 @@ class MuSTCRNNTModule(LightningModule):
             FunctionalModule(piecewise_linear_log),
             GlobalStatsNormalization(global_stats_path),
             FunctionalModule(partial(torch.transpose, dim0=1, dim1=2)),
-            torchaudio.transforms.FrequencyMasking(27),
-            torchaudio.transforms.FrequencyMasking(27),
-            torchaudio.transforms.TimeMasking(100, p=0.2),
-            torchaudio.transforms.TimeMasking(100, p=0.2),
+            torchffmpeg.transforms.FrequencyMasking(27),
+            torchffmpeg.transforms.FrequencyMasking(27),
+            torchffmpeg.transforms.TimeMasking(100, p=0.2),
+            torchffmpeg.transforms.TimeMasking(100, p=0.2),
             FunctionalModule(partial(torch.nn.functional.pad, pad=(0, 4))),
             FunctionalModule(partial(torch.transpose, dim0=1, dim1=2)),
         )

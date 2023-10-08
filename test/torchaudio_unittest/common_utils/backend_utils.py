@@ -1,11 +1,11 @@
 import unittest
 
-import torchaudio
+import torchffmpeg
 
 
 def set_audio_backend(backend):
     """Allow additional backend value, 'default'"""
-    backends = torchaudio.list_audio_backends()
+    backends = torchffmpeg.list_audio_backends()
     if backend == "soundfile":
         be = "soundfile"
     elif backend == "default":
@@ -18,4 +18,4 @@ def set_audio_backend(backend):
     else:
         be = backend
 
-    torchaudio.set_audio_backend(be)
+    torchffmpeg.set_audio_backend(be)

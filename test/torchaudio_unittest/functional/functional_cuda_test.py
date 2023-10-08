@@ -1,7 +1,7 @@
 import unittest
 
 import torch
-from torchaudio_unittest.common_utils import PytorchTestCase, skipIfNoCuda
+from torchffmpeg_unittest.common_utils import PytorchTestCase, skipIfNoCuda
 
 from .functional_impl import Functional
 

@@ -30,7 +30,7 @@ from typing import Callable, List, Tuple
 import torch
 from torch import Tensor
 from torch.utils.data.dataset import random_split
-from torchaudio.datasets import LJSPEECH
+from torchffmpeg.datasets import LJSPEECH
 
 
 class SpectralNormalization(torch.nn.Module):

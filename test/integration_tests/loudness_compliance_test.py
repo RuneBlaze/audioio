@@ -4,8 +4,8 @@ import zipfile
 import pytest
 
 import torch
-import torchaudio
-import torchaudio.functional as F
+import torchffmpeg
+import torchffmpeg.functional as F
 
 
 # Test files linked in https://www.itu.int/dms_pub/itu-r/opb/rep/R-REP-BS.2217-2-2016-PDF-E.pdf
@@ -40,7 +40,7 @@ def test_loudness(tmp_path, filename, url, expected):
     with zipfile.ZipFile(zippath) as file:
         file.extractall(zippath.parent)
 
-    waveform, sample_rate = torchaudio.load(zippath.with_suffix(".wav"))
+    waveform, sample_rate = torchffmpeg.load(zippath.with_suffix(".wav"))
     loudness = F.loudness(waveform, sample_rate)
     expected = torch.tensor(expected, dtype=loudness.dtype, device=loudness.device)
     assert torch.allclose(loudness, expected, rtol=0.01, atol=0.1)

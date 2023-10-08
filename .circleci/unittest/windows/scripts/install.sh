@@ -48,8 +48,8 @@ if [ ! -z "${CUDA_VERSION:-}" ] ; then
     fi
 fi
 
-# 2. Install torchaudio
-printf "* Installing torchaudio\n"
+# 2. Install torchffmpeg
+printf "* Installing torchffmpeg\n"
 "$root_dir/packaging/vc_env_helper.bat" python setup.py install
 
 # 3. Install Test tools

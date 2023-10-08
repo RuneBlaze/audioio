@@ -10,11 +10,11 @@ fi
 datestr="$(date "+%Y%m%d")"
 if [ "$1" = "cpu" ]; then
     base_image="ubuntu:18.04"
-    image="pytorch/torchaudio_unittest_base:manylinux-${datestr}"
+    image="pytorch/torchffmpeg_unittest_base:manylinux-${datestr}"
 else
     base_image="nvidia/cuda:$1-devel-ubuntu18.04"
     docker pull "${base_image}"
-    image="pytorch/torchaudio_unittest_base:manylinux-cuda$1-${datestr}"
+    image="pytorch/torchffmpeg_unittest_base:manylinux-cuda$1-${datestr}"
 fi
 
 cd "$( dirname "${BASH_SOURCE[0]}" )"

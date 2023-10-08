@@ -1,9 +1,9 @@
 import math
 
 import torch
-import torchaudio
-from torchaudio.prototype.functional import oscillator_bank
-from torchaudio.prototype.pipelines import HIFIGAN_VOCODER_V3_LJSPEECH
+import torchffmpeg
+from torchffmpeg.prototype.functional import oscillator_bank
+from torchffmpeg.prototype.pipelines import HIFIGAN_VOCODER_V3_LJSPEECH
 
 
 def test_hifi_gan_pretrained_weights():
@@ -34,7 +34,7 @@ def test_hifi_gan_pretrained_weights():
     # metrics like Si-SNR. It might be that HiFiGAN introduces non-uniform shifts to the reconstructed waveforms.
     # So to evaluate the recontruction error we compute mel spectrograms of the reference and recontructed waveforms,
     # and compare relative mean squared error of their logarithms.
-    final_spec = torchaudio.transforms.MelSpectrogram(sample_rate=bundle.sample_rate, normalized=True)
+    final_spec = torchffmpeg.transforms.MelSpectrogram(sample_rate=bundle.sample_rate, normalized=True)
     # Log mel spectrogram of the estimated waveform
     estimated_spectorogram = final_spec(estimated_waveform)
     estimated_spectorogram = torch.log(torch.clamp(estimated_spectorogram, min=1e-5))

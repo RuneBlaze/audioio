@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 # --------
 #
 # This tutorial shows how to build text-to-speech pipeline, using the
-# pretrained Tacotron2 in torchaudio.
+# pretrained Tacotron2 in torchffmpeg.
 #
 # The text-to-speech pipeline goes as follows:
 #
@@ -35,16 +35,16 @@ import matplotlib.pyplot as plt
 #    The last step is converting the spectrogram into the waveform. The
 #    process to generate speech from spectrogram is also called Vocoder.
 #    In this tutorial, three different vocoders are used,
-#    :py:class:`~torchaudio.models.WaveRNN`,
-#    :py:class:`~torchaudio.transforms.GriffinLim`, and
+#    :py:class:`~torchffmpeg.models.WaveRNN`,
+#    :py:class:`~torchffmpeg.transforms.GriffinLim`, and
 #    `Nvidia's WaveGlow <https://pytorch.org/hub/nvidia_deeplearningexamples_tacotron2/>`__.
 #
 #
 # The following figure illustrates the whole process.
 #
-# .. image:: https://download.pytorch.org/torchaudio/tutorial-assets/tacotron2_tts_pipeline.png
+# .. image:: https://download.pytorch.org/torchffmpeg/tutorial-assets/tacotron2_tts_pipeline.png
 #
-# All the related components are bundled in :py:class:`torchaudio.pipelines.Tacotron2TTSBundle`,
+# All the related components are bundled in :py:class:`torchffmpeg.pipelines.Tacotron2TTSBundle`,
 # but this tutorial will also cover the process under the hood.
 
 ######################################################################
@@ -52,7 +52,7 @@ import matplotlib.pyplot as plt
 # -----------
 #
 # First, we install the necessary dependencies. In addition to
-# ``torchaudio``, ``DeepPhonemizer`` is required to perform phoneme-based
+# ``torchffmpeg``, ``DeepPhonemizer`` is required to perform phoneme-based
 # encoding.
 #
 
@@ -63,7 +63,7 @@ import matplotlib.pyplot as plt
 #      pip3 install deep_phonemizer
 
 import torch
-import torchaudio
+import torchffmpeg
 
 matplotlib.rcParams["figure.figsize"] = [16.0, 4.8]
 
@@ -71,7 +71,7 @@ torch.random.manual_seed(0)
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 print(device)
 
 
@@ -89,7 +89,7 @@ print(device)
 # works.
 #
 # Since the pre-trained Tacotron2 model expects specific set of symbol
-# tables, the same functionalities available in ``torchaudio``. This
+# tables, the same functionalities available in ``torchffmpeg``. This
 # section is more for the explanation of the basis of encoding.
 #
 # Firstly, we define the set of symbols. For example, we can use
@@ -117,12 +117,12 @@ print(text_to_sequence(text))
 
 ######################################################################
 # As mentioned in the above, the symbol table and indices must match
-# what the pretrained Tacotron2 model expects. ``torchaudio`` provides the
+# what the pretrained Tacotron2 model expects. ``torchffmpeg`` provides the
 # transform along with the pretrained model. For example, you can
 # instantiate and use such transform as follow.
 #
 
-processor = torchaudio.pipelines.TACOTRON2_WAVERNN_CHAR_LJSPEECH.get_text_processor()
+processor = torchffmpeg.pipelines.TACOTRON2_WAVERNN_CHAR_LJSPEECH.get_text_processor()
 
 text = "Hello world! Text to speech!"
 processed, lengths = processor(text)
@@ -156,7 +156,7 @@ print([processor.tokens[i] for i in processed[0, : lengths[0]]])
 #
 # Similar to the case of character-based encoding, the encoding process is
 # expected to match what a pretrained Tacotron2 model is trained on.
-# ``torchaudio`` has an interface to create the process.
+# ``torchffmpeg`` has an interface to create the process.
 #
 # The following code illustrates how to make and use the process. Behind
 # the scene, a G2P model is created using ``DeepPhonemizer`` package, and
@@ -164,7 +164,7 @@ print([processor.tokens[i] for i in processed[0, : lengths[0]]])
 # fetched.
 #
 
-bundle = torchaudio.pipelines.TACOTRON2_WAVERNN_PHONE_LJSPEECH
+bundle = torchffmpeg.pipelines.TACOTRON2_WAVERNN_PHONE_LJSPEECH
 
 processor = bundle.get_text_processor()
 
@@ -198,14 +198,14 @@ print([processor.tokens[i] for i in processed[0, : lengths[0]]])
 # however, note that the input to Tacotron2 models need to be processed
 # by the matching text processor.
 #
-# :py:class:`torchaudio.pipelines.Tacotron2TTSBundle` bundles the matching
+# :py:class:`torchffmpeg.pipelines.Tacotron2TTSBundle` bundles the matching
 # models and processors together so that it is easy to create the pipeline.
 #
 # For the available bundles, and its usage, please refer to
-# :py:class:`~torchaudio.pipelines.Tacotron2TTSBundle`.
+# :py:class:`~torchffmpeg.pipelines.Tacotron2TTSBundle`.
 #
 
-bundle = torchaudio.pipelines.TACOTRON2_WAVERNN_PHONE_LJSPEECH
+bundle = torchffmpeg.pipelines.TACOTRON2_WAVERNN_PHONE_LJSPEECH
 processor = bundle.get_text_processor()
 tacotron2 = bundle.get_tacotron2().to(device)
 
@@ -242,7 +242,7 @@ plt.show()
 # Once the spectrogram is generated, the last process is to recover the
 # waveform from the spectrogram.
 #
-# ``torchaudio`` provides vocoders based on ``GriffinLim`` and
+# ``torchffmpeg`` provides vocoders based on ``GriffinLim`` and
 # ``WaveRNN``.
 #
 
@@ -255,7 +255,7 @@ plt.show()
 # WaveRNN model from the same bundle.
 #
 
-bundle = torchaudio.pipelines.TACOTRON2_WAVERNN_PHONE_LJSPEECH
+bundle = torchffmpeg.pipelines.TACOTRON2_WAVERNN_PHONE_LJSPEECH
 
 processor = bundle.get_text_processor()
 tacotron2 = bundle.get_tacotron2().to(device)
@@ -283,11 +283,11 @@ IPython.display.Audio(waveforms[0:1].cpu(), rate=vocoder.sample_rate)
 #
 # Using the Griffin-Lim vocoder is same as WaveRNN. You can instantiate
 # the vocode object with
-# :py:func:`~torchaudio.pipelines.Tacotron2TTSBundle.get_vocoder`
+# :py:func:`~torchffmpeg.pipelines.Tacotron2TTSBundle.get_vocoder`
 # method and pass the spectrogram.
 #
 
-bundle = torchaudio.pipelines.TACOTRON2_GRIFFINLIM_PHONE_LJSPEECH
+bundle = torchffmpeg.pipelines.TACOTRON2_GRIFFINLIM_PHONE_LJSPEECH
 
 processor = bundle.get_text_processor()
 tacotron2 = bundle.get_tacotron2().to(device)

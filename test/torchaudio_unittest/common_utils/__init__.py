@@ -19,7 +19,7 @@ from .case_utils import (
     skipIfRocm,
     TempDirMixin,
     TestBaseMixin,
-    TorchaudioTestCase,
+    torchffmpegTestCase,
     zip_equal,
 )
 from .data_utils import get_asset_path, get_sinusoid, get_spectrogram, get_whitenoise
@@ -38,7 +38,7 @@ __all__ = [
     "HttpServerMixin",
     "TestBaseMixin",
     "PytorchTestCase",
-    "TorchaudioTestCase",
+    "torchffmpegTestCase",
     "is_ffmpeg_available",
     "skipIfNoAudioDevice",
     "skipIfNoCtcDecoder",

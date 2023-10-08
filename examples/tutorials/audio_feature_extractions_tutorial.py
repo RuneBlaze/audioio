@@ -5,9 +5,9 @@ Audio Feature Extractions
 
 **Author**: `Moto Hira <moto@meta.com>`__
 
-``torchaudio`` implements feature extractions commonly used in the audio
-domain. They are available in ``torchaudio.functional`` and
-``torchaudio.transforms``.
+``torchffmpeg`` implements feature extractions commonly used in the audio
+domain. They are available in ``torchffmpeg.functional`` and
+``torchffmpeg.transforms``.
 
 ``functional`` implements features as standalone functions.
 They are stateless.
@@ -18,12 +18,12 @@ They can be serialized using TorchScript.
 """
 
 import torch
-import torchaudio
-import torchaudio.functional as F
-import torchaudio.transforms as T
+import torchffmpeg
+import torchffmpeg.functional as F
+import torchffmpeg.transforms as T
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 # Preparation
@@ -40,7 +40,7 @@ print(torchaudio.__version__)
 from IPython.display import Audio
 import librosa
 import matplotlib.pyplot as plt
-from torchaudio.utils import download_asset
+from torchffmpeg.utils import download_asset
 
 torch.random.manual_seed(0)
 
@@ -84,9 +84,9 @@ def plot_fbank(fbank, title=None):
 # --------------------------
 #
 # The following diagram shows the relationship between common audio features
-# and torchaudio APIs to generate them.
+# and torchffmpeg APIs to generate them.
 #
-# .. image:: https://download.pytorch.org/torchaudio/tutorial-assets/torchaudio_feature_extractions.png
+# .. image:: https://download.pytorch.org/torchffmpeg/tutorial-assets/torchffmpeg_feature_extractions.png
 #
 # For the complete list of available features, please refer to the
 # documentation.
@@ -98,10 +98,10 @@ def plot_fbank(fbank, title=None):
 # -----------
 #
 # To get the frequency make-up of an audio signal as it varies with time,
-# you can use :py:func:`torchaudio.transforms.Spectrogram`.
+# you can use :py:func:`torchffmpeg.transforms.Spectrogram`.
 #
 
-SPEECH_WAVEFORM, SAMPLE_RATE = torchaudio.load(SAMPLE_SPEECH)
+SPEECH_WAVEFORM, SAMPLE_RATE = torchffmpeg.load(SAMPLE_SPEECH)
 
 plot_waveform(SPEECH_WAVEFORM, SAMPLE_RATE, title="Original waveform")
 Audio(SPEECH_WAVEFORM.numpy(), rate=SAMPLE_RATE)
@@ -133,7 +133,7 @@ spec = spectrogram(SPEECH_WAVEFORM)
 ######################################################################
 #
 
-plot_spectrogram(spec[0], title="torchaudio")
+plot_spectrogram(spec[0], title="torchffmpeg")
 
 ######################################################################
 # GriffinLim
@@ -178,11 +178,11 @@ Audio(reconstructed_waveform, rate=SAMPLE_RATE)
 # Mel Filter Bank
 # ---------------
 #
-# :py:func:`torchaudio.functional.melscale_fbanks` generates the filter bank
+# :py:func:`torchffmpeg.functional.melscale_fbanks` generates the filter bank
 # for converting frequency bins to mel-scale bins.
 #
 # Since this function does not require input audio/features, there is no
-# equivalent transform in :py:func:`torchaudio.transforms`.
+# equivalent transform in :py:func:`torchffmpeg.transforms`.
 #
 
 n_fft = 256
@@ -201,7 +201,7 @@ mel_filters = F.melscale_fbanks(
 ######################################################################
 #
 
-plot_fbank(mel_filters, "Mel Filter Bank - torchaudio")
+plot_fbank(mel_filters, "Mel Filter Bank - torchffmpeg")
 
 ######################################################################
 # Comparison against librosa
@@ -234,8 +234,8 @@ print("Mean Square Difference: ", mse)
 # --------------
 #
 # Generating a mel-scale spectrogram involves generating a spectrogram
-# and performing mel-scale conversion. In ``torchaudio``,
-# :py:func:`torchaudio.transforms.MelSpectrogram` provides
+# and performing mel-scale conversion. In ``torchffmpeg``,
+# :py:func:`torchffmpeg.transforms.MelSpectrogram` provides
 # this functionality.
 #
 
@@ -263,7 +263,7 @@ melspec = mel_spectrogram(SPEECH_WAVEFORM)
 ######################################################################
 #
 
-plot_spectrogram(melspec[0], title="MelSpectrogram - torchaudio", ylabel="mel freq")
+plot_spectrogram(melspec[0], title="MelSpectrogram - torchffmpeg", ylabel="mel freq")
 
 ######################################################################
 # Comparison against librosa
@@ -412,8 +412,8 @@ plot_pitch(SPEECH_WAVEFORM, SAMPLE_RATE, pitch)
 # ------------------
 #
 # Kaldi Pitch feature [1] is a pitch detection mechanism tuned for automatic
-# speech recognition (ASR) applications. This is a beta feature in ``torchaudio``,
-# and it is available as :py:func:`torchaudio.functional.compute_kaldi_pitch`.
+# speech recognition (ASR) applications. This is a beta feature in ``torchffmpeg``,
+# and it is available as :py:func:`torchffmpeg.functional.compute_kaldi_pitch`.
 #
 # 1. A pitch extraction algorithm tuned for automatic speech recognition
 #

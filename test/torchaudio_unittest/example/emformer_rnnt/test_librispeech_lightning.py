@@ -4,8 +4,8 @@ from unittest.mock import patch
 
 import torch
 from parameterized import parameterized
-from torchaudio._internal.module_utils import is_module_available
-from torchaudio_unittest.common_utils import skipIfNoModule, TorchaudioTestCase
+from torchffmpeg._internal.module_utils import is_module_available
+from torchffmpeg_unittest.common_utils import skipIfNoModule, TorchaudioTestCase
 
 from .utils import MockCustomDataset, MockDataloader, MockSentencePieceProcessor
 
@@ -36,7 +36,7 @@ def get_lightning_module():
     with patch(
         "sentencepiece.SentencePieceProcessor", new=partial(MockSentencePieceProcessor, num_symbols=4096)
     ), patch("asr.emformer_rnnt.librispeech.lightning.GlobalStatsNormalization", new=torch.nn.Identity), patch(
-        "torchaudio.datasets.LIBRISPEECH", new=MockLIBRISPEECH
+        "torchffmpeg.datasets.LIBRISPEECH", new=MockLIBRISPEECH
     ), patch(
         "asr.emformer_rnnt.librispeech.lightning.CustomDataset", new=MockCustomDataset
     ), patch(

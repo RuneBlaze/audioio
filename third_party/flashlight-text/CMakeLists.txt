@@ -33,7 +33,7 @@ set(
   submodule/flashlight/lib/text/dictionary/Dictionary.cpp
   )
 
-torchaudio_library(
+torchffmpeg_library(
   libflashlight-text
   "${libflashlight_src}"
   "${CMAKE_CURRENT_SOURCE_DIR}/submodule"
@@ -41,21 +41,21 @@ torchaudio_library(
   FL_TEXT_USE_KENLM
   )
 
-# TODO: update torchaudio_library to handle private links
+# TODO: update torchffmpeg_library to handle private links
 target_link_libraries(
   libflashlight-text
   PRIVATE
   kenlm)
 
-if (BUILD_TORCHAUDIO_PYTHON_EXTENSION)
-  torchaudio_extension(
+if (BUILD_TORCHFFMPEG_PYTHON_EXTENSION)
+  torchffmpeg_extension(
     flashlight_lib_text_dictionary
     submodule/bindings/python/flashlight/lib/text/_dictionary.cpp
     submodule
     libflashlight-text
     ""
     )
-  torchaudio_extension(
+  torchffmpeg_extension(
     flashlight_lib_text_decoder
     submodule/bindings/python/flashlight/lib/text/_decoder.cpp
     submodule

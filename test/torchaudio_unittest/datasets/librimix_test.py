@@ -2,8 +2,8 @@ import os
 
 from parameterized import parameterized
 
-from torchaudio.datasets import LibriMix
-from torchaudio_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import LibriMix
+from torchffmpeg_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
 
 _SAMPLE_RATE = 8000
 _TASKS_TO_MIXTURE = {

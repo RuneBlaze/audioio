@@ -12,11 +12,11 @@ from functools import partial
 from typing import Callable
 
 import torch
-import torchaudio
+import torchffmpeg
 from common import MODEL_TYPE_LIBRISPEECH, MODEL_TYPE_MUSTC, MODEL_TYPE_TEDLIUM3
 from mustc.dataset import MUSTC
-from torchaudio.pipelines import EMFORMER_RNNT_BASE_LIBRISPEECH, RNNTBundle
-from torchaudio.prototype.pipelines import EMFORMER_RNNT_BASE_MUSTC, EMFORMER_RNNT_BASE_TEDLIUM3
+from torchffmpeg.pipelines import EMFORMER_RNNT_BASE_LIBRISPEECH, RNNTBundle
+from torchffmpeg.prototype.pipelines import EMFORMER_RNNT_BASE_MUSTC, EMFORMER_RNNT_BASE_TEDLIUM3
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +29,7 @@ class Config:
 
 _CONFIGS = {
     MODEL_TYPE_LIBRISPEECH: Config(
-        partial(torchaudio.datasets.LIBRISPEECH, url="test-clean"),
+        partial(torchffmpeg.datasets.LIBRISPEECH, url="test-clean"),
         EMFORMER_RNNT_BASE_LIBRISPEECH,
     ),
     MODEL_TYPE_MUSTC: Config(
@@ -37,7 +37,7 @@ _CONFIGS = {
         EMFORMER_RNNT_BASE_MUSTC,
     ),
     MODEL_TYPE_TEDLIUM3: Config(
-        partial(torchaudio.datasets.TEDLIUM, release="release3", subset="test"),
+        partial(torchffmpeg.datasets.TEDLIUM, release="release3", subset="test"),
         EMFORMER_RNNT_BASE_TEDLIUM3,
     ),
 }

@@ -1,6 +1,6 @@
 import torch
-from torchaudio.models import Conformer
-from torchaudio_unittest.common_utils import TestBaseMixin, torch_script
+from torchffmpeg.models import Conformer
+from torchffmpeg_unittest.common_utils import TestBaseMixin, torch_script
 
 
 class ConformerTestImpl(TestBaseMixin):

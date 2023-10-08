@@ -1,6 +1,6 @@
 {% set build_variant = environ.get('CONDA_BUILD_VARIANT', 'cpu') %}
 package:
-  name: torchaudio
+  name: torchffmpeg
   version: "{{ environ.get('BUILD_VERSION', '0.0.0') }}"
 
 source:
@@ -54,12 +54,12 @@ build:
 
 test:
   imports:
-    - torchaudio
-    - torchaudio.io
-    - torchaudio.datasets
-    - torchaudio.kaldi_io
-    - torchaudio.sox_effects
-    - torchaudio.transforms
+    - torchffmpeg
+    - torchffmpeg.io
+    - torchffmpeg.datasets
+    - torchffmpeg.kaldi_io
+    - torchffmpeg.sox_effects
+    - torchffmpeg.transforms
 
   source_files:
     - test

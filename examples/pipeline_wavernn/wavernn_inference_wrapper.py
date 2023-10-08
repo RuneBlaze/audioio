@@ -22,10 +22,10 @@
 
 
 import torch
-import torchaudio
+import torchffmpeg
 from processing import normalized_waveform_to_bits
 from torch import Tensor
-from torchaudio.models.wavernn import WaveRNN
+from torchffmpeg.models.wavernn import WaveRNN
 
 
 def _fold_with_overlap(x: Tensor, timesteps: int, overlap: int) -> Tensor:
@@ -166,7 +166,7 @@ class WaveRNNInferenceWrapper(torch.nn.Module):
 
         if mulaw:
             output = normalized_waveform_to_bits(output, self.wavernn_model.n_bits)
-            output = torchaudio.functional.mu_law_decoding(output, self.wavernn_model.n_classes)
+            output = torchffmpeg.functional.mu_law_decoding(output, self.wavernn_model.n_classes)
 
         if batched:
             output = _xfade_and_unfold(output, overlap)

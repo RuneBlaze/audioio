@@ -7,7 +7,7 @@ StreamReader Advanced Usages
 This tutorial is the continuation of
 `StreamReader Basic Usages <./streamreader_basic_tutorial.html>`__.
 
-This shows how to use :py:class:`~torchaudio.io.StreamReader` for
+This shows how to use :py:class:`~torchffmpeg.io.StreamReader` for
 
 - Device inputs, such as microphone, webcam and screen recording
 - Generating synthetic audio / video
@@ -15,16 +15,16 @@ This shows how to use :py:class:`~torchaudio.io.StreamReader` for
 """
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 #
 
 try:
-    from torchaudio.io import StreamReader
+    from torchffmpeg.io import StreamReader
 except ModuleNotFoundError:
     try:
         import google.colab
@@ -45,7 +45,7 @@ except ModuleNotFoundError:
 import IPython
 import matplotlib.pyplot as plt
 
-base_url = "https://download.pytorch.org/torchaudio/tutorial-assets"
+base_url = "https://download.pytorch.org/torchffmpeg/tutorial-assets"
 AUDIO_URL = f"{base_url}/Lab41-SRI-VOiCES-src-sp0307-ch127535-sg0042.wav"
 VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Observatory_Requires_Precision-MP4.mp4"
 
@@ -153,10 +153,10 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # .. raw:: html
 #
 #    <audio controls>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/sine.wav">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/sine.wav">
 #    </audio>
 #    <img
-#     src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/sine.png"
+#     src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/sine.png"
 #     class="sphx-glr-single-img" style="width:80%">
 #
 
@@ -181,10 +181,10 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # .. raw:: html
 #
 #    <audio controls>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/aevalsrc.wav">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/aevalsrc.wav">
 #    </audio>
 #    <img
-#     src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/aevalsrc.png"
+#     src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/aevalsrc.png"
 #     class="sphx-glr-single-img" style="width:80%">
 #
 
@@ -200,10 +200,10 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # .. raw:: html
 #
 #    <audio controls>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/anoisesrc.wav">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/anoisesrc.wav">
 #    </audio>
 #    <img
-#     src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/anoisesrc.png"
+#     src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/anoisesrc.png"
 #     class="sphx-glr-single-img" style="width:80%">
 #
 
@@ -224,7 +224,7 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # .. raw:: html
 #
 #    <video controls autoplay loop muted>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/cellauto.mp4">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/cellauto.mp4">
 #    </video>
 #
 
@@ -240,7 +240,7 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # .. raw:: html
 #
 #    <video controls autoplay loop muted>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/mandelbrot.mp4">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/mandelbrot.mp4">
 #    </video>
 #
 
@@ -256,7 +256,7 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # .. raw:: html
 #
 #    <video controls autoplay loop muted width=192 height=192>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/mptestsrc.mp4">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/mptestsrc.mp4">
 #    </video>
 #
 
@@ -272,7 +272,7 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # .. raw:: html
 #
 #    <video controls autoplay loop muted>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/life.mp4">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/life.mp4">
 #    </video>
 #
 
@@ -288,7 +288,7 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # .. raw:: html
 #
 #    <video controls autoplay loop muted>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/stream-api/sierpinski.mp4">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/stream-api/sierpinski.mp4">
 #    </video>
 #
 
@@ -297,8 +297,8 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # --------------
 #
 # When defining an output stream, you can use
-# :py:meth:`~torchaudio.io.StreamReader.add_audio_stream` and
-# :py:meth:`~torchaudio.io.StreamReader.add_video_stream` methods.
+# :py:meth:`~torchffmpeg.io.StreamReader.add_audio_stream` and
+# :py:meth:`~torchffmpeg.io.StreamReader.add_video_stream` methods.
 #
 # These methods take ``filter_desc`` argument, which is a string
 # formatted according to ffmpeg's
@@ -313,7 +313,7 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # .. note::
 #
 #    - When applying custom filters, the client code must convert
-#      the audio/video stream to one of the formats that torchaudio
+#      the audio/video stream to one of the formats that torchffmpeg
 #      can convert to tensor format.
 #      This can be achieved, for example, by applying
 #      ``format=pix_fmts=rgb24`` to video stream and
@@ -492,4 +492,4 @@ _display(4)
 
 ######################################################################
 #
-# Tag: :obj:`torchaudio.io`
+# Tag: :obj:`torchffmpeg.io`

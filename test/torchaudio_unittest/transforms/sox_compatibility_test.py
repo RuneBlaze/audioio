@@ -1,9 +1,9 @@
 import warnings
 
 import torch
-import torchaudio.transforms as T
+import torchffmpeg.transforms as T
 from parameterized import parameterized
-from torchaudio_unittest.common_utils import (
+from torchffmpeg_unittest.common_utils import (
     get_asset_path,
     get_whitenoise,
     load_wav,

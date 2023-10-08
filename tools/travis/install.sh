@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
  # Install the following only if running tests
 if [[ "$SKIP_INSTALL" != "true" ]]; then
-     # TorchAudio CPP Extensions
+     # torchffmpeg CPP Extensions
     python setup.py install
 fi
 

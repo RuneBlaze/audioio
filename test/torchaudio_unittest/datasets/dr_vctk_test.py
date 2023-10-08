@@ -1,8 +1,8 @@
 from pathlib import Path
 
 import pytest
-from torchaudio.datasets import dr_vctk
-from torchaudio_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import dr_vctk
+from torchffmpeg_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
 
 
 _SUBSETS = ["train", "test"]

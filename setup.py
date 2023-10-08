@@ -33,7 +33,7 @@ def _get_version(sha):
 
 def _make_version_file(version, sha):
     sha = "Unknown" if sha is None else sha
-    version_path = ROOT_DIR / "torchaudio" / "version.py"
+    version_path = ROOT_DIR / "torchffmpeg" / "version.py"
     with open(version_path, "w") as f:
         f.write(f"__version__ = '{version}'\n")
         f.write(f"git_version = '{sha}'\n")
@@ -50,8 +50,8 @@ class clean(distutils.command.clean.clean):
         # Run default behavior first
         distutils.command.clean.clean.run(self)
 
-        # Remove torchaudio extension
-        for path in (ROOT_DIR / "torchaudio").glob("**/*.so"):
+        # Remove torchffmpeg extension
+        for path in (ROOT_DIR / "torchffmpeg").glob("**/*.so"):
             print(f"removing '{path}'")
             path.unlink()
         # Remove build directory
@@ -68,7 +68,7 @@ def _get_packages(branch_name, tag):
     exclude = [
         "build*",
         "test*",
-        "torchaudio.csrc*",
+        "torchffmpeg.csrc*",
         "third_party*",
         "tools*",
     ]
@@ -78,8 +78,8 @@ def _get_packages(branch_name, tag):
     if tag is not None and re.match(r"v[\d.]+(-rc\d+)?", tag):
         exclude_prototype = True
     if exclude_prototype:
-        print("Excluding torchaudio.prototype from the package.")
-        exclude.append("torchaudio.prototype*")
+        print("Excluding torchffmpeg.prototype from the package.")
+        exclude.append("torchffmpeg.prototype*")
     return find_packages(exclude=exclude)
 
 
@@ -145,7 +145,7 @@ def _main():
     _fetch_third_party_libraries()
 
     setup(
-        name="torchaudio",
+        name="torchffmpeg",
         version=version,
         description="An audio package for PyTorch",
         url="https://github.com/pytorch/audio",

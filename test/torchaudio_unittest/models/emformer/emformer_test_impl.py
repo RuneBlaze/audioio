@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 
 import torch
-from torchaudio.models import Emformer
-from torchaudio_unittest.common_utils import TestBaseMixin, torch_script
+from torchffmpeg.models import Emformer
+from torchffmpeg_unittest.common_utils import TestBaseMixin, torch_script
 
 
 class EmformerTestMixin(ABC):

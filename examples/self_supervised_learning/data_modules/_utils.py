@@ -5,7 +5,7 @@ from typing import Dict, Iterator, List, Optional, Tuple, Union
 import numpy as np
 import torch
 import torch.distributed as dist
-import torchaudio
+import torchffmpeg
 from torch import Tensor
 from torch.utils.data import BatchSampler, Dataset, DistributedSampler
 
@@ -295,7 +295,7 @@ class HuBERTDataSet(Dataset):
             (Tensor): The corresponding waveform Tensor.
         """
         wav_path = self.f_list[index]
-        waveform, sample_rate = torchaudio.load(wav_path)
+        waveform, sample_rate = torchffmpeg.load(wav_path)
         assert waveform.shape[1] == self.len_list[index]
         return waveform
 

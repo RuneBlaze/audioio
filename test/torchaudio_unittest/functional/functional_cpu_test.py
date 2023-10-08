@@ -1,9 +1,9 @@
 import unittest
 
 import torch
-import torchaudio.functional as F
+import torchffmpeg.functional as F
 from parameterized import parameterized
-from torchaudio_unittest.common_utils import PytorchTestCase, skipIfNoSox, TorchaudioTestCase
+from torchffmpeg_unittest.common_utils import PytorchTestCase, skipIfNoSox, TorchaudioTestCase
 
 from .functional_impl import Functional, FunctionalCPUOnly
 

@@ -4,12 +4,12 @@ import tarfile
 from functools import partial
 
 from parameterized import parameterized
-from torchaudio._backend.utils import get_load_func
-from torchaudio._internal import module_utils as _mod_utils
-from torchaudio.io._compat import _get_encoder
+from torchffmpeg._backend.utils import get_load_func
+from torchffmpeg._internal import module_utils as _mod_utils
+from torchffmpeg.io._compat import _get_encoder
 
-from torchaudio_unittest.backend.dispatcher.sox.common import name_func
-from torchaudio_unittest.common_utils import (
+from torchffmpeg_unittest.backend.dispatcher.sox.common import name_func
+from torchffmpeg_unittest.common_utils import (
     get_asset_path,
     get_wav_data,
     HttpServerMixin,
@@ -58,7 +58,7 @@ class LoadTestBase(TempDirMixin, PytorchTestCase):
          v    3. Convert to wav with FFmpeg
         given format ----------------------> wav
          |                                   |
-         |    2. Load with torchaudio        | 4. Load with scipy
+         |    2. Load with torchffmpeg        | 4. Load with scipy
          |                                   |
          v                                   v
         tensor ----------> x <----------- tensor
@@ -69,7 +69,7 @@ class LoadTestBase(TempDirMixin, PytorchTestCase):
         ii. Loading wav file with scipy is correct.
 
         By combining i & ii, step 2. and 4. allow for loading reference given format
-        data without using torchaudio
+        data without using torchffmpeg
         """
 
         path = self.get_temp_path(f"1.original.{format}")
@@ -85,7 +85,7 @@ class LoadTestBase(TempDirMixin, PytorchTestCase):
             bit_depth=bit_depth,
             duration=duration,
         )
-        # 2. Load the given format with torchaudio
+        # 2. Load the given format with torchffmpeg
         data, sr = self._load(path, normalize=normalize)
 
         # 3. Convert to wav with ffmpeg

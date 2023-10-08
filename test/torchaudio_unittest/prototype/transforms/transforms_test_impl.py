@@ -1,6 +1,6 @@
 import torch
-import torchaudio.prototype.transforms as T
-from torchaudio_unittest.common_utils import get_spectrogram, get_whitenoise, TestBaseMixin
+import torchffmpeg.prototype.transforms as T
+from torchffmpeg_unittest.common_utils import get_spectrogram, get_whitenoise, TestBaseMixin
 
 
 def _get_ratio(mat):

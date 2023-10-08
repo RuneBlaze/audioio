@@ -2,7 +2,7 @@ import json
 
 import torch
 from parameterized import parameterized
-from torchaudio.models.wav2vec2 import (
+from torchffmpeg.models.wav2vec2 import (
     hubert_base,
     hubert_large,
     hubert_xlarge,
@@ -13,8 +13,8 @@ from torchaudio.models.wav2vec2 import (
     wav2vec2_xlsr_2b,
     wav2vec2_xlsr_300m,
 )
-from torchaudio.models.wav2vec2.utils import import_fairseq_model
-from torchaudio_unittest.common_utils import get_asset_path, skipIfCudaSmallMemory, skipIfNoModule, TorchaudioTestCase
+from torchffmpeg.models.wav2vec2.utils import import_fairseq_model
+from torchffmpeg_unittest.common_utils import get_asset_path, skipIfCudaSmallMemory, skipIfNoModule, TorchaudioTestCase
 
 
 def _load_config(*paths):

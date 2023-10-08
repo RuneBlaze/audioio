@@ -5,7 +5,7 @@ from typing import Tuple
 import torch
 import torch.nn.functional as F
 from parameterized import parameterized
-from torchaudio.models.wav2vec2 import (
+from torchffmpeg.models.wav2vec2 import (
     hubert_base,
     hubert_large,
     hubert_pretrain_base,
@@ -18,7 +18,7 @@ from torchaudio.models.wav2vec2 import (
     wavlm_base,
     wavlm_large,
 )
-from torchaudio_unittest.common_utils import skipIfNoCuda, skipIfNoQengine, torch_script, TorchaudioTestCase
+from torchffmpeg_unittest.common_utils import skipIfNoCuda, skipIfNoQengine, torch_script, TorchaudioTestCase
 
 TORCH_VERSION: Tuple[int, ...] = tuple(int(x) for x in torch.__version__.split(".")[:2])
 if TORCH_VERSION >= (1, 10):

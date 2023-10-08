@@ -6,15 +6,15 @@ from datetime import datetime
 from time import time
 
 import torch
-import torchaudio
+import torchffmpeg
 from ctc_decoders import GreedyDecoder
 from datasets import collate_factory, split_process_librispeech
 from languagemodels import LanguageModel
 from torch.optim import Adadelta, Adam, AdamW, SGD
 from torch.optim.lr_scheduler import ExponentialLR, ReduceLROnPlateau
 from torch.utils.data import DataLoader
-from torchaudio.functional import edit_distance
-from torchaudio.models.wav2letter import Wav2Letter
+from torchffmpeg.functional import edit_distance
+from torchffmpeg.models.wav2letter import Wav2Letter
 from transforms import Normalize, UnsqueezeFirst
 from utils import count_parameters, MetricLogger, save_checkpoint
 
@@ -360,7 +360,7 @@ def main(rank, args):
     torch.cuda.empty_cache()
 
     # Change backend for flac files
-    torchaudio.set_audio_backend("soundfile")
+    torchffmpeg.set_audio_backend("soundfile")
 
     # Transforms
 
@@ -374,7 +374,7 @@ def main(rank, args):
 
     if args.type == "mfcc":
         transforms = torch.nn.Sequential(
-            torchaudio.transforms.MFCC(
+            torchffmpeg.transforms.MFCC(
                 sample_rate=sample_rate_original,
                 n_mfcc=args.n_bins,
                 melkwargs=melkwargs,
@@ -394,12 +394,12 @@ def main(rank, args):
     if args.freq_mask:
         augmentations = torch.nn.Sequential(
             augmentations,
-            torchaudio.transforms.FrequencyMasking(freq_mask_param=args.freq_mask),
+            torchffmpeg.transforms.FrequencyMasking(freq_mask_param=args.freq_mask),
         )
     if args.time_mask:
         augmentations = torch.nn.Sequential(
             augmentations,
-            torchaudio.transforms.TimeMasking(time_mask_param=args.time_mask),
+            torchffmpeg.transforms.TimeMasking(time_mask_param=args.time_mask),
         )
 
     # Text preprocessing

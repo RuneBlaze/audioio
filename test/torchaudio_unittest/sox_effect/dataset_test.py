@@ -7,8 +7,8 @@ from unittest import skipIf
 
 import numpy as np
 import torch
-import torchaudio
-from torchaudio_unittest.common_utils import get_whitenoise, PytorchTestCase, save_wav, skipIfNoSox, TempDirMixin
+import torchffmpeg
+from torchffmpeg_unittest.common_utils import get_whitenoise, PytorchTestCase, save_wav, skipIfNoSox, TempDirMixin
 
 
 class RandomPerturbationFile(torch.utils.data.Dataset):
@@ -29,7 +29,7 @@ class RandomPerturbationFile(torch.utils.data.Dataset):
             ["pad", "0", "1.5"],  # add 1.5 seconds silence at the end
             ["trim", "0", "2"],  # get the first 2 seconds
         ]
-        data, _ = torchaudio.sox_effects.apply_effects_file(self.flist[index], effects)
+        data, _ = torchffmpeg.sox_effects.apply_effects_file(self.flist[index], effects)
         return data
 
     def __len__(self):
@@ -55,7 +55,7 @@ class RandomPerturbationTensor(torch.utils.data.Dataset):
             ["trim", "0", "2"],  # get the first 2 seconds
         ]
         tensor, sample_rate = self.signals[index]
-        data, _ = torchaudio.sox_effects.apply_effects_tensor(tensor, sample_rate, effects)
+        data, _ = torchffmpeg.sox_effects.apply_effects_tensor(tensor, sample_rate, effects)
         return data
 
     def __len__(self):
@@ -123,12 +123,12 @@ class TestSoxEffectsDataset(TempDirMixin, PytorchTestCase):
 
 
 def speed(path):
-    wav, sample_rate = torchaudio.backend.sox_io_backend.load(path)
+    wav, sample_rate = torchffmpeg.backend.sox_io_backend.load(path)
     effects = [
         ["speed", "1.03756523535464655"],
         ["rate", f"{sample_rate}"],
     ]
-    return torchaudio.sox_effects.apply_effects_tensor(wav, sample_rate, effects)[0]
+    return torchffmpeg.sox_effects.apply_effects_tensor(wav, sample_rate, effects)[0]
 
 
 @skipIfNoSox

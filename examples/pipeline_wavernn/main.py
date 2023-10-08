@@ -7,13 +7,13 @@ from time import time
 from typing import List
 
 import torch
-import torchaudio
+import torchffmpeg
 from datasets import collate_factory, split_process_dataset
 from losses import LongCrossEntropyLoss, MoLLoss
 from processing import NormalizeDB
 from torch.optim import Adam
 from torch.utils.data import DataLoader
-from torchaudio.models.wavernn import WaveRNN
+from torchffmpeg.models.wavernn import WaveRNN
 from utils import count_parameters, MetricLogger, save_checkpoint
 
 
@@ -294,7 +294,7 @@ def main(args):
     }
 
     transforms = torch.nn.Sequential(
-        torchaudio.transforms.MelSpectrogram(
+        torchffmpeg.transforms.MelSpectrogram(
             sample_rate=args.sample_rate,
             n_mels=args.n_freq,
             f_min=args.f_min,

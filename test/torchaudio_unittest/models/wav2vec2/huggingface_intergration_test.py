@@ -2,7 +2,7 @@ import json
 
 import torch
 from parameterized import parameterized
-from torchaudio.models.wav2vec2 import (
+from torchffmpeg.models.wav2vec2 import (
     wav2vec2_base,
     wav2vec2_large,
     wav2vec2_large_lv60k,
@@ -12,8 +12,8 @@ from torchaudio.models.wav2vec2 import (
     wavlm_base,
     wavlm_large,
 )
-from torchaudio.models.wav2vec2.utils import import_huggingface_model
-from torchaudio_unittest.common_utils import (
+from torchffmpeg.models.wav2vec2.utils import import_huggingface_model
+from torchffmpeg_unittest.common_utils import (
     get_asset_path,
     skipIfCudaSmallMemory,
     skipIfNoModule,

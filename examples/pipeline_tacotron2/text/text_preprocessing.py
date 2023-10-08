@@ -27,7 +27,7 @@ Modified from https://github.com/keithito/tacotron
 import re
 from typing import List, Optional, Union
 
-from torchaudio.datasets import CMUDict
+from torchffmpeg.datasets import CMUDict
 from unidecode import unidecode
 
 from .numbers import normalize_numbers

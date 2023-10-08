@@ -1,7 +1,7 @@
 import torch
 from parameterized import parameterized
-from torchaudio.prototype.models import squim_objective_base
-from torchaudio_unittest.common_utils import skipIfNoCuda, torch_script, TorchaudioTestCase
+from torchffmpeg.prototype.models import squim_objective_base
+from torchffmpeg_unittest.common_utils import skipIfNoCuda, torch_script, TorchaudioTestCase
 
 
 class TestSQUIM(TorchaudioTestCase):

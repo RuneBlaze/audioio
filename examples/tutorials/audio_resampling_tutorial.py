@@ -5,16 +5,16 @@ Audio Resampling
 
 **Author**: `Caroline Chen <carolinechen@meta.com>`__, `Moto Hira <moto@meta.com>`__
 
-This tutorial shows how to use torchaudio's resampling API.
+This tutorial shows how to use torchffmpeg's resampling API.
 """
 
 import torch
-import torchaudio
-import torchaudio.functional as F
-import torchaudio.transforms as T
+import torchffmpeg
+import torchffmpeg.functional as F
+import torchffmpeg.transforms as T
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 # Preparation
@@ -113,11 +113,11 @@ def plot_sweep(
 # -------------------
 #
 # To resample an audio waveform from one freqeuncy to another, you can use
-# :py:class:`torchaudio.transforms.Resample` or
-# :py:func:`torchaudio.functional.resample`.
+# :py:class:`torchffmpeg.transforms.Resample` or
+# :py:func:`torchffmpeg.functional.resample`.
 # ``transforms.Resample`` precomputes and caches the kernel used for resampling,
 # while ``functional.resample`` computes it on the fly, so using
-# ``torchaudio.transforms.Resample`` will result in a speedup when resampling
+# ``torchffmpeg.transforms.Resample`` will result in a speedup when resampling
 # multiple waveforms using the same parameters (see Benchmarking section).
 #
 # Both resampling methods use `bandlimited sinc
@@ -228,7 +228,7 @@ plot_sweep(resampled_waveform, resample_rate, title="rolloff=0.8")
 # Window function
 # ~~~~~~~~~~~~~~~
 #
-# By default, ``torchaudio``’s resample uses the Hann window filter, which is
+# By default, ``torchffmpeg``’s resample uses the Hann window filter, which is
 # a weighted cosine function. It additionally supports the Kaiser window,
 # which is a near optimal window function that contains an additional
 # ``beta`` parameter that allows for the design of the smoothness of the
@@ -254,7 +254,7 @@ plot_sweep(resampled_waveform, resample_rate, title="Kaiser Window Default")
 # Comparison against librosa
 # --------------------------
 #
-# ``torchaudio``’s resample function can be used to produce results similar to
+# ``torchffmpeg``’s resample function can be used to produce results similar to
 # that of librosa (resampy)’s kaiser window resampling, with some noise
 #
 
@@ -274,7 +274,7 @@ resampled_waveform = F.resample(
     resampling_method="sinc_interp_kaiser",
     beta=14.769656459379492,
 )
-plot_sweep(resampled_waveform, resample_rate, title="Kaiser Window Best (torchaudio)")
+plot_sweep(resampled_waveform, resample_rate, title="Kaiser Window Best (torchffmpeg)")
 
 ######################################################################
 #
@@ -288,7 +288,7 @@ plot_sweep(librosa_resampled_waveform, resample_rate, title="Kaiser Window Best 
 #
 
 mse = torch.square(resampled_waveform - librosa_resampled_waveform).mean().item()
-print("torchaudio and librosa kaiser best MSE:", mse)
+print("torchffmpeg and librosa kaiser best MSE:", mse)
 
 ######################################################################
 # kaiser_fast
@@ -303,7 +303,7 @@ resampled_waveform = F.resample(
     resampling_method="sinc_interp_kaiser",
     beta=8.555504641634386,
 )
-plot_sweep(resampled_waveform, resample_rate, title="Kaiser Window Fast (torchaudio)")
+plot_sweep(resampled_waveform, resample_rate, title="Kaiser Window Fast (torchffmpeg)")
 
 ######################################################################
 #
@@ -317,7 +317,7 @@ plot_sweep(librosa_resampled_waveform, resample_rate, title="Kaiser Window Fast 
 #
 
 mse = torch.square(resampled_waveform - librosa_resampled_waveform).mean().item()
-print("torchaudio and librosa kaiser fast MSE:", mse)
+print("torchffmpeg and librosa kaiser fast MSE:", mse)
 
 ######################################################################
 # Performance Benchmarking
@@ -328,10 +328,10 @@ print("torchaudio and librosa kaiser fast MSE:", mse)
 # that the ``lowpass_filter_wdith``, window type, and sample rates can
 # have. Additionally, we provide a comparison against ``librosa``\ ’s
 # ``kaiser_best`` and ``kaiser_fast`` using their corresponding parameters
-# in ``torchaudio``.
+# in ``torchffmpeg``.
 #
 
-print(f"torchaudio: {torchaudio.__version__}")
+print(f"torchffmpeg: {torchffmpeg.__version__}")
 print(f"librosa: {librosa.__version__}")
 print(f"resampy: {resampy.__version__}")
 
@@ -350,7 +350,7 @@ def benchmark_resample_functional(
 ):
     return timeit.timeit(
         stmt='''
-torchaudio.functional.resample(
+torchffmpeg.functional.resample(
     waveform,
     sample_rate,
     resample_rate,
@@ -360,7 +360,7 @@ torchaudio.functional.resample(
     beta=beta,
 )
         ''',
-        setup='import torchaudio',
+        setup='import torchffmpeg',
         number=iters,
         globals=locals(),
     ) * 1000 / iters
@@ -382,9 +382,9 @@ def benchmark_resample_transforms(
     return timeit.timeit(
         stmt='resampler(waveform)',
         setup='''
-import torchaudio
+import torchffmpeg
 
-resampler = torchaudio.transforms.Resample(
+resampler = torchffmpeg.transforms.Resample(
     sample_rate,
     resample_rate,
     lowpass_filter_width=lowpass_filter_width,

@@ -21,10 +21,10 @@ Subtractive synthesis creates timbre by applying filters to source waveform.
 """
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 # Overview
@@ -33,7 +33,7 @@ print(torchaudio.__version__)
 #
 
 try:
-    from torchaudio.prototype.functional import (
+    from torchffmpeg.prototype.functional import (
         sinc_impulse_response,
         frequency_impulse_response,
         filter_waveform,
@@ -41,7 +41,7 @@ try:
 except ModuleNotFoundError:
     print(
         "Failed to import prototype DSP features. "
-        "Please install torchaudio nightly builds. "
+        "Please install torchffmpeg nightly builds. "
         "Please refer to https://pytorch.org/get-started/locally "
         "for instructions to install a nightly build.")
     raise
@@ -92,7 +92,7 @@ plot_input()
 # Sweeping cutoff frequency
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# We use :py:func:`~torchaudio.prototype.functional.sinc_impulse_response` to
+# We use :py:func:`~torchffmpeg.prototype.functional.sinc_impulse_response` to
 # create series of low pass filters, while changing the  cut-off
 # frequency from zero to Nyquist frequency.
 #
@@ -106,7 +106,7 @@ kernel = sinc_impulse_response(f_cutoff , window_size)
 ######################################################################
 #
 # To apply time-varying filter, we use
-# :py:func:`~torchaudio.prototype.functional.filter_waveform`
+# :py:func:`~torchffmpeg.prototype.functional.filter_waveform`
 #
 
 filtered = filter_waveform(noise, kernel)
@@ -195,7 +195,7 @@ plot_sinc_ir(filtered, f_cutoff, SAMPLE_RATE)
 # ----------------------------
 #
 # By using
-# :py:func:`~torchaudio.prototype.functinal.frequency_impulse_response`,
+# :py:func:`~torchffmpeg.prototype.functinal.frequency_impulse_response`,
 # one can directly control the power distribution over frequency.
 #
 

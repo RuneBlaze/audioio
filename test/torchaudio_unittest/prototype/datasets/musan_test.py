@@ -2,8 +2,8 @@ import os
 from collections import defaultdict
 
 from parameterized import parameterized
-from torchaudio.prototype.datasets import Musan
-from torchaudio_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.prototype.datasets import Musan
+from torchffmpeg_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
 
 
 _SUBSET_TO_SUBDIRS = {

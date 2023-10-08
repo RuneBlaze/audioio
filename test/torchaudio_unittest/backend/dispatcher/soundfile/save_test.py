@@ -2,10 +2,10 @@ import io
 from functools import partial
 from unittest.mock import patch
 
-from torchaudio._backend.utils import get_save_func
+from torchffmpeg._backend.utils import get_save_func
 
-from torchaudio._internal import module_utils as _mod_utils
-from torchaudio_unittest.common_utils import (
+from torchffmpeg._internal import module_utils as _mod_utils
+from torchffmpeg_unittest.common_utils import (
     get_wav_data,
     load_wav,
     nested_params,

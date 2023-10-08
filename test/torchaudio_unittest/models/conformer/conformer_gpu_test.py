@@ -1,6 +1,6 @@
 import torch
-from torchaudio_unittest.common_utils import PytorchTestCase, skipIfNoCuda
-from torchaudio_unittest.models.conformer.conformer_test_impl import ConformerTestImpl
+from torchffmpeg_unittest.common_utils import PytorchTestCase, skipIfNoCuda
+from torchffmpeg_unittest.models.conformer.conformer_test_impl import ConformerTestImpl
 
 
 @skipIfNoCuda

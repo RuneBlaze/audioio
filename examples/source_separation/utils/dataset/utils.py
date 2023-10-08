@@ -3,7 +3,7 @@ from functools import partial
 from typing import List
 
 import torch
-from torchaudio.datasets import LibriMix
+from torchffmpeg.datasets import LibriMix
 
 from . import wsj0mix
 

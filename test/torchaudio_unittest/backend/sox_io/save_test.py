@@ -3,8 +3,8 @@ import os
 
 import torch
 from parameterized import parameterized
-from torchaudio.backend import sox_io_backend
-from torchaudio_unittest.common_utils import (
+from torchffmpeg.backend import sox_io_backend
+from torchffmpeg_unittest.common_utils import (
     get_wav_data,
     load_wav,
     nested_params,
@@ -67,7 +67,7 @@ class SaveTestBase(TempDirMixin, TorchaudioTestCase):
          |                                   |
          | 2.1. load with scipy              | 3.1. Convert to the target
          |   then save it into the target    |      format depth with sox
-         |   format with torchaudio          |
+         |   format with torchffmpeg          |
          v                                   v
         target format                       target format
          |                                   |
@@ -86,7 +86,7 @@ class SaveTestBase(TempDirMixin, TorchaudioTestCase):
         cmp_bit_depth = 32
 
         src_path = self.get_temp_path("1.source.wav")
-        tgt_path = self.get_temp_path(f"2.1.torchaudio.{format}")
+        tgt_path = self.get_temp_path(f"2.1.torchffmpeg.{format}")
         tst_path = self.get_temp_path("2.2.result.wav")
         sox_path = self.get_temp_path(f"3.1.sox.{format}")
         ref_path = self.get_temp_path("3.2.ref.wav")
@@ -95,7 +95,7 @@ class SaveTestBase(TempDirMixin, TorchaudioTestCase):
         data = get_wav_data(src_dtype, num_channels, normalize=False, num_frames=num_frames)
         save_wav(src_path, data, sample_rate)
 
-        # 2.1. Convert the original wav to target format with torchaudio
+        # 2.1. Convert the original wav to target format with torchffmpeg
         data = load_wav(src_path, normalize=False)[0]
         if test_mode == "path":
             sox_io_backend.save(

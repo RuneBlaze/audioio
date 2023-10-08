@@ -3,8 +3,8 @@ import os
 import random
 import string
 
-from torchaudio.datasets import fluentcommands
-from torchaudio_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
+from torchffmpeg.datasets import fluentcommands
+from torchffmpeg_unittest.common_utils import get_whitenoise, save_wav, TempDirMixin, TorchaudioTestCase
 
 HEADER = ["", "path", "speakerId", "transcription", "action", "object", "location"]
 SLOTS = ["action", "object", "location"]

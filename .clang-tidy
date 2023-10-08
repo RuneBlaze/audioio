@@ -32,7 +32,7 @@ modernize-*,
 -modernize-use-using,
 performance-unnecessary-value-param,
 '
-HeaderFilterRegex: 'torchaudio/.*'
+HeaderFilterRegex: 'torchffmpeg/.*'
 AnalyzeTemporaryDtors: false
 CheckOptions:
 ...

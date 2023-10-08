@@ -1,6 +1,6 @@
 import torch
-import torchaudio.functional as F
-from torchaudio_unittest.common_utils import (
+import torchffmpeg.functional as F
+from torchffmpeg_unittest.common_utils import (
     get_asset_path,
     get_whitenoise,
     load_wav,

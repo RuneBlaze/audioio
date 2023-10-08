@@ -1,5 +1,5 @@
 import torch
-from torchaudio_unittest import common_utils
+from torchffmpeg_unittest import common_utils
 
 from .kaldi_compatibility_impl import Kaldi
 

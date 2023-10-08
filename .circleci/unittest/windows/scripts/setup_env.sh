@@ -3,7 +3,7 @@
 # This script is for setting up environment in which unit test is ran.
 # To speed up the CI time, the resulting environment is cached.
 #
-# Do not install PyTorch and torchaudio here, otherwise they also get cached.
+# Do not install PyTorch and torchffmpeg here, otherwise they also get cached.
 
 set -e
 

@@ -46,7 +46,7 @@ on laptop.
 #
 # Firstly, we need to check the devices that Streaming API can access,
 # and figure out the arguments (``src`` and ``format``) we need to pass
-# to :py:func:`~torchaudio.io.StreamReader` class.
+# to :py:func:`~torchffmpeg.io.StreamReader` class.
 #
 # We use ``ffmpeg`` command for this. ``ffmpeg`` abstracts away the
 # difference of underlying hardware implementations, but the expected
@@ -121,7 +121,7 @@ on laptop.
 #
 
 import torch
-import torchaudio
+import torchffmpeg
 
 
 # The data acquisition process will stop after this number of steps.
@@ -131,7 +131,7 @@ NUM_ITER = 100
 
 
 def stream(q, format, src, segment_length, sample_rate):
-    from torchaudio.io import StreamReader
+    from torchffmpeg.io import StreamReader
 
     print("Building StreamReader...")
     streamer = StreamReader(src, format=format)
@@ -167,7 +167,7 @@ def stream(q, format, src, segment_length, sample_rate):
 #
 # For the detail of ``timeout`` and ``backoff`` parameters, please refer
 # to the documentation of
-# :py:meth:`~torchaudio.io.StreamReader.stream` method.
+# :py:meth:`~torchffmpeg.io.StreamReader.stream` method.
 #
 # .. note::
 #
@@ -196,11 +196,11 @@ class Pipeline:
     """Build inference pipeline from RNNTBundle.
 
     Args:
-        bundle (torchaudio.pipelines.RNNTBundle): Bundle object
+        bundle (torchffmpeg.pipelines.RNNTBundle): Bundle object
         beam_width (int): Beam size of beam search decoder.
     """
 
-    def __init__(self, bundle: torchaudio.pipelines.RNNTBundle, beam_width: int = 10):
+    def __init__(self, bundle: torchffmpeg.pipelines.RNNTBundle, beam_width: int = 10):
         self.bundle = bundle
         self.feature_extractor = bundle.get_streaming_feature_extractor()
         self.decoder = bundle.get_decoder()
@@ -273,7 +273,7 @@ class ContextCacher:
 
 def main(device, src, bundle):
     print(torch.__version__)
-    print(torchaudio.__version__)
+    print(torchffmpeg.__version__)
 
     print("Building pipeline...")
     pipeline = Pipeline(bundle)
@@ -310,7 +310,7 @@ if __name__ == "__main__":
     main(
         device="avfoundation",
         src=":1",
-        bundle=torchaudio.pipelines.EMFORMER_RNNT_BASE_LIBRISPEECH,
+        bundle=torchffmpeg.pipelines.EMFORMER_RNNT_BASE_LIBRISPEECH,
     )
 
 ######################################################################
@@ -331,5 +331,5 @@ if __name__ == "__main__":
 
 ######################################################################
 #
-# Tag: :obj:`torchaudio.io`
+# Tag: :obj:`torchffmpeg.io`
 #

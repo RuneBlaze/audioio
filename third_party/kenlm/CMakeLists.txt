@@ -1,5 +1,5 @@
 # kenlm uses std::binary_function, which had BC breaking change in C++17.
-# On Windows + GPU, torchaudio is compiled with C++ 17 globally.
+# On Windows + GPU, torchffmpeg is compiled with C++ 17 globally.
 # We use C++ 14 for KenLM
 set(CMAKE_CXX_STANDARD 14)
 

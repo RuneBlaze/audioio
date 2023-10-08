@@ -92,13 +92,13 @@ def _main(args):
     import json
 
     import torch
-    import torchaudio
-    from torchaudio.models.wav2vec2.utils.import_fairseq import _convert_state_dict as _convert
+    import torchffmpeg
+    from torchffmpeg.models.wav2vec2.utils.import_fairseq import _convert_state_dict as _convert
 
     cfg, state_dict = _load(args.input_file)
     params = _parse_model_param(cfg, state_dict)
     print(json.dumps(params, indent=4))
-    model = torchaudio.models.wav2vec2_model(**params)
+    model = torchffmpeg.models.wav2vec2_model(**params)
     model.load_state_dict(_convert(state_dict))
     torch.save(model.state_dict(), args.output_file)
 

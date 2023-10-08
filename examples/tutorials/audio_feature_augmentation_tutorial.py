@@ -9,14 +9,14 @@ Audio Feature Augmentation
 
 # When running this tutorial in Google Colab, install the required packages
 # with the following.
-# !pip install torchaudio librosa
+# !pip install torchffmpeg librosa
 
 import torch
-import torchaudio
-import torchaudio.transforms as T
+import torchffmpeg
+import torchffmpeg.transforms as T
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 # Preparing data and utility functions (skip this section)
@@ -36,7 +36,7 @@ print(torchaudio.__version__)
 # -------------------------------------------------------------------------------
 import librosa
 import matplotlib.pyplot as plt
-from torchaudio.utils import download_asset
+from torchffmpeg.utils import download_asset
 
 SAMPLE_WAV_SPEECH_PATH = download_asset("tutorial-assets/Lab41-SRI-VOiCES-src-sp0307-ch127535-sg0042.wav")
 
@@ -50,7 +50,7 @@ def _get_sample(path, resample=None):
                 ["rate", f"{resample}"],
             ]
         )
-    return torchaudio.sox_effects.apply_effects_file(path, effects=effects)
+    return torchffmpeg.sox_effects.apply_effects_file(path, effects=effects)
 
 
 def get_speech_sample(*, resample=None):
@@ -94,9 +94,9 @@ def plot_spectrogram(spec, title=None, ylabel="freq_bin", aspect="auto", xmax=No
 # `SpecAugment <https://ai.googleblog.com/2019/04/specaugment-new-data-augmentation.html>`__
 # is a popular spectrogram augmentation technique.
 #
-# ``torchaudio`` implements :py:func:`torchaudio.transforms.TimeStretch`,
-# :py:func:`torchaudio.transforms.TimeMasking` and
-# :py:func:`torchaudio.transforms.FrequencyMasking`.
+# ``torchffmpeg`` implements :py:func:`torchffmpeg.transforms.TimeStretch`,
+# :py:func:`torchffmpeg.transforms.TimeMasking` and
+# :py:func:`torchffmpeg.transforms.FrequencyMasking`.
 #
 
 ######################################################################

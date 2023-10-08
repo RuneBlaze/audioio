@@ -1,8 +1,8 @@
 import torch
 from dataset.hubert_dataset import _crop_audio_label
 from parameterized import parameterized
-from torchaudio.models import hubert_base
-from torchaudio_unittest.common_utils import get_whitenoise, TorchaudioTestCase
+from torchffmpeg.models import hubert_base
+from torchffmpeg_unittest.common_utils import get_whitenoise, TorchaudioTestCase
 
 
 class TestCropAudioLabel(TorchaudioTestCase):

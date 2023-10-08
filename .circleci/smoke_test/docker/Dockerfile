@@ -1,7 +1,7 @@
-# this Dockerfile is for torchaudio smoke test, it will be created periodically via CI system
+# this Dockerfile is for torchffmpeg smoke test, it will be created periodically via CI system
 # if you need to do it locally, follow below steps once you have Docker installed
 # assuming you're within the directory where this Dockerfile located
-# to test the build use : docker build . -t torchaudio/smoketest
+# to test the build use : docker build . -t torchffmpeg/smoketest
 # to upload the Dockerfile use build_and_push.sh script
 
 FROM ubuntu:latest

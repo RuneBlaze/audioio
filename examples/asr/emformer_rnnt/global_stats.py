@@ -11,7 +11,7 @@ import pathlib
 from argparse import ArgumentParser, RawTextHelpFormatter
 
 import torch
-import torchaudio
+import torchffmpeg
 from common import (
     MODEL_TYPE_LIBRISPEECH,
     MODEL_TYPE_MUSTC,
@@ -72,13 +72,13 @@ def get_dataset(args):
     if args.model_type == MODEL_TYPE_LIBRISPEECH:
         return torch.utils.data.ConcatDataset(
             [
-                torchaudio.datasets.LIBRISPEECH(args.dataset_path, url="train-clean-360"),
-                torchaudio.datasets.LIBRISPEECH(args.dataset_path, url="train-clean-100"),
-                torchaudio.datasets.LIBRISPEECH(args.dataset_path, url="train-other-500"),
+                torchffmpeg.datasets.LIBRISPEECH(args.dataset_path, url="train-clean-360"),
+                torchffmpeg.datasets.LIBRISPEECH(args.dataset_path, url="train-clean-100"),
+                torchffmpeg.datasets.LIBRISPEECH(args.dataset_path, url="train-other-500"),
             ]
         )
     elif args.model_type == MODEL_TYPE_TEDLIUM3:
-        return torchaudio.datasets.TEDLIUM(args.dataset_path, release="release3", subset="train")
+        return torchffmpeg.datasets.TEDLIUM(args.dataset_path, release="release3", subset="train")
     elif args.model_type == MODEL_TYPE_MUSTC:
         return MUSTC(args.dataset_path, subset="train")
     else:

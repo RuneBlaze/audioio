@@ -4,7 +4,7 @@ StreamReader Basic Usages
 
 **Author**: `Moto Hira <moto@meta.com>`__
 
-This tutorial shows how to use :py:class:`torchaudio.io.StreamReader` to
+This tutorial shows how to use :py:class:`torchffmpeg.io.StreamReader` to
 fetch and decode audio/video data and apply preprocessings that
 libavfilter provides.
 
@@ -60,16 +60,16 @@ libavfilter provides.
 #
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 #
 
 try:
-    from torchaudio.io import StreamReader
+    from torchffmpeg.io import StreamReader
 except ModuleNotFoundError:
     try:
         import google.colab
@@ -89,7 +89,7 @@ except ModuleNotFoundError:
 
 import matplotlib.pyplot as plt
 
-base_url = "https://download.pytorch.org/torchaudio/tutorial-assets"
+base_url = "https://download.pytorch.org/torchffmpeg/tutorial-assets"
 AUDIO_URL = f"{base_url}/Lab41-SRI-VOiCES-src-sp0307-ch127535-sg0042.wav"
 VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Observatory_Requires_Precision-MP4.mp4"
 
@@ -244,23 +244,23 @@ VIDEO_URL = f"{base_url}/stream-api/NASAs_Most_Scientifically_Complex_Space_Obse
 # the output streams.
 #
 # You can check the number of source streams with
-# :py:attr:`~torchaudio.io.StreamReader.num_src_streams`.
+# :py:attr:`~torchffmpeg.io.StreamReader.num_src_streams`.
 #
 # .. note::
 #    The number of streams is NOT the number of channels.
 #    Each audio stream can contain an arbitrary number of channels.
 #
 # To check the metadata of source stream you can use
-# :py:meth:`~torchaudio.io.StreamReader.get_src_stream_info`
+# :py:meth:`~torchffmpeg.io.StreamReader.get_src_stream_info`
 # method and provide the index of the source stream.
 #
 # This method returns
-# :py:class:`~torchaudio.io.StreamReader.SourceStream`. If a source
+# :py:class:`~torchffmpeg.io.StreamReader.SourceStream`. If a source
 # stream is audio type, then the return type is
-# :py:class:`~torchaudio.io.StreamReader.SourceAudioStream`, which is
+# :py:class:`~torchffmpeg.io.StreamReader.SourceAudioStream`, which is
 # a subclass of `SourceStream`, with additional audio-specific attributes.
 # Similarly, if a source stream is video type, then the return type is
-# :py:class:`~torchaudio.io.StreamReader.SourceVideoStream`.
+# :py:class:`~torchffmpeg.io.StreamReader.SourceVideoStream`.
 
 ######################################################################
 # For regular audio formats and still image formats, such as `WAV`
@@ -302,8 +302,8 @@ for i in range(streamer.num_src_streams):
 # FFmpeg implements some heuristics to determine the default stream.
 # The resulting stream index is exposed via
 #
-# :py:attr:`~torchaudio.io.StreamReader.default_audio_stream` and
-# :py:attr:`~torchaudio.io.StreamReader.default_video_stream`.
+# :py:attr:`~torchffmpeg.io.StreamReader.default_audio_stream` and
+# :py:attr:`~torchffmpeg.io.StreamReader.default_video_stream`.
 #
 
 ######################################################################
@@ -312,8 +312,8 @@ for i in range(streamer.num_src_streams):
 #
 # Once you know which source stream you want to use, then you can
 # configure output streams with
-# :py:meth:`~torchaudio.io.StreamReader.add_basic_audio_stream` and
-# :py:meth:`~torchaudio.io.StreamReader.add_basic_video_stream`.
+# :py:meth:`~torchffmpeg.io.StreamReader.add_basic_audio_stream` and
+# :py:meth:`~torchffmpeg.io.StreamReader.add_basic_video_stream`.
 #
 # These methods provide a simple way to change the basic property of
 # media to match the application's requirements.
@@ -402,9 +402,9 @@ for i in range(streamer.num_src_streams):
 #
 # You can check the resulting output streams in a similar manner as
 # checking the source streams.
-# :py:attr:`~torchaudio.io.StreamReader.num_out_streams` reports
+# :py:attr:`~torchffmpeg.io.StreamReader.num_out_streams` reports
 # the number of configured output streams, and
-# :py:meth:`~torchaudio.io.StreamReader.get_out_stream_info`
+# :py:meth:`~torchffmpeg.io.StreamReader.get_out_stream_info`
 # fetches the information about the output streams.
 #
 # .. code::
@@ -416,7 +416,7 @@ for i in range(streamer.num_src_streams):
 ######################################################################
 #
 # If you want to remove an output stream, you can do so with
-# :py:meth:`~torchaudio.io.StreamReader.remove_stream` method.
+# :py:meth:`~torchffmpeg.io.StreamReader.remove_stream` method.
 #
 # .. code::
 #
@@ -433,9 +433,9 @@ for i in range(streamer.num_src_streams):
 # audio / video data to client code.
 #
 # There are low-level methods that performs these operations.
-# :py:meth:`~torchaudio.io.StreamReader.is_buffer_ready`,
-# :py:meth:`~torchaudio.io.StreamReader.process_packet` and
-# :py:meth:`~torchaudio.io.StreamReader.pop_chunks`.
+# :py:meth:`~torchffmpeg.io.StreamReader.is_buffer_ready`,
+# :py:meth:`~torchffmpeg.io.StreamReader.process_packet` and
+# :py:meth:`~torchffmpeg.io.StreamReader.pop_chunks`.
 #
 # In this tutorial, we will use the high-level API, iterator protocol.
 # It is as simple as a ``for`` loop.
@@ -617,4 +617,4 @@ plt.show(block=False)
 
 ######################################################################
 #
-# Tag: :obj:`torchaudio.io`
+# Tag: :obj:`torchffmpeg.io`

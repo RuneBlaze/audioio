@@ -5,17 +5,17 @@ Forced Alignment with Wav2Vec2
 **Author**: `Moto Hira <moto@meta.com>`__
 
 This tutorial shows how to align transcript to speech with
-``torchaudio``, using CTC segmentation algorithm described in
+``torchffmpeg``, using CTC segmentation algorithm described in
 `CTC-Segmentation of Large Corpora for German End-to-end Speech
 Recognition <https://arxiv.org/abs/2007.09127>`__.
 
 """
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -33,7 +33,7 @@ print(device)
 #    labels aligned at time step.
 # 3. Find the most likely path from the trellis matrix.
 #
-# In this example, we use ``torchaudio``\ ’s ``Wav2Vec2`` model for
+# In this example, we use ``torchffmpeg``\ ’s ``Wav2Vec2`` model for
 # acoustic feature extraction.
 #
 
@@ -57,7 +57,7 @@ matplotlib.rcParams["figure.figsize"] = [16.0, 4.8]
 
 torch.random.manual_seed(0)
 
-SPEECH_FILE = torchaudio.utils.download_asset("tutorial-assets/Lab41-SRI-VOiCES-src-sp0307-ch127535-sg0042.wav")
+SPEECH_FILE = torchffmpeg.utils.download_asset("tutorial-assets/Lab41-SRI-VOiCES-src-sp0307-ch127535-sg0042.wav")
 
 
 ######################################################################
@@ -66,9 +66,9 @@ SPEECH_FILE = torchaudio.utils.download_asset("tutorial-assets/Lab41-SRI-VOiCES-
 #
 # The first step is to generate the label class porbability of each aduio
 # frame. We can use a Wav2Vec2 model that is trained for ASR. Here we use
-# :py:func:`torchaudio.pipelines.WAV2VEC2_ASR_BASE_960H`.
+# :py:func:`torchffmpeg.pipelines.WAV2VEC2_ASR_BASE_960H`.
 #
-# ``torchaudio`` provides easy access to pretrained models with associated
+# ``torchffmpeg`` provides easy access to pretrained models with associated
 # labels.
 #
 # .. note::
@@ -78,11 +78,11 @@ SPEECH_FILE = torchaudio.utils.download_asset("tutorial-assets/Lab41-SRI-VOiCES-
 #    normalize the ``emission`` with :py:func:`torch.log_softmax`.
 #
 
-bundle = torchaudio.pipelines.WAV2VEC2_ASR_BASE_960H
+bundle = torchffmpeg.pipelines.WAV2VEC2_ASR_BASE_960H
 model = bundle.get_model().to(device)
 labels = bundle.get_labels()
 with torch.inference_mode():
-    waveform, _ = torchaudio.load(SPEECH_FILE)
+    waveform, _ = torchffmpeg.load(SPEECH_FILE)
     emissions, _ = model(waveform.to(device))
     emissions = torch.log_softmax(emissions, dim=-1)
 
@@ -124,7 +124,7 @@ plt.show()
 #
 # The follwoing diagram illustrates this transition.
 #
-# .. image:: https://download.pytorch.org/torchaudio/tutorial-assets/ctc-forward.png
+# .. image:: https://download.pytorch.org/torchffmpeg/tutorial-assets/ctc-forward.png
 #
 # Since we are looking for the most likely transitions, we take the more
 # likely path for the value of :math:`k_{(t+1, j+1)}`, that is
@@ -523,6 +523,6 @@ display_segment(8)
 # Conclusion
 # ----------
 #
-# In this tutorial, we looked how to use torchaudio’s Wav2Vec2 model to
+# In this tutorial, we looked how to use torchffmpeg’s Wav2Vec2 model to
 # perform CTC segmentation for forced alignment.
 #

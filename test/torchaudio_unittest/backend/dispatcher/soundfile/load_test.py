@@ -5,9 +5,9 @@ from unittest.mock import patch
 
 import torch
 from parameterized import parameterized
-from torchaudio._backend.utils import get_load_func
-from torchaudio._internal import module_utils as _mod_utils
-from torchaudio_unittest.common_utils import (
+from torchffmpeg._backend.utils import get_load_func
+from torchffmpeg._internal import module_utils as _mod_utils
+from torchffmpeg_unittest.common_utils import (
     get_wav_data,
     load_wav,
     normalize_wav,

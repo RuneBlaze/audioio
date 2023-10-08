@@ -4,7 +4,7 @@ StreamWriter Advanced Usage
 
 **Author**: `Moto Hira <moto@meta.com>`__
 
-This tutorial shows how to use :py:class:`torchaudio.io.StreamWriter` to
+This tutorial shows how to use :py:class:`torchffmpeg.io.StreamWriter` to
 play audio and video.
 
 """
@@ -23,9 +23,9 @@ play audio and video.
 #
 # .. note::
 #
-#    This tutorial requires torchaudio nightly build and FFmpeg libraries (>=4.1, <4.4).
+#    This tutorial requires torchffmpeg nightly build and FFmpeg libraries (>=4.1, <4.4).
 #
-#    To install torchaudio nightly build, please refer to
+#    To install torchffmpeg nightly build, please refer to
 #    https://pytorch.org/get-started/locally/ .
 #
 #
@@ -61,17 +61,17 @@ play audio and video.
 # -----------
 
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
-from torchaudio.io import StreamWriter
+from torchffmpeg.io import StreamWriter
 
 ######################################################################
 #
 
-from torchaudio.utils import download_asset
+from torchffmpeg.utils import download_asset
 
 AUDIO_PATH = download_asset("tutorial-assets/Lab41-SRI-VOiCES-src-sp0307-ch127535-sg0042.wav")
 VIDEO_PATH = download_asset("tutorial-assets/stream-api/NASAs_Most_Scientifically_Complex_Space_Observatory_Requires_Precision-MP4_small.mp4")
@@ -124,7 +124,7 @@ VIDEO_PATH = download_asset("tutorial-assets/stream-api/NASAs_Most_Scientificall
 #
 
 # Prepare sample audio
-waveform, sample_rate = torchaudio.load(AUDIO_PATH, channels_first=False, normalize=False)
+waveform, sample_rate = torchffmpeg.load(AUDIO_PATH, channels_first=False, normalize=False)
 num_frames, num_channels = waveform.shape
 
 ######################################################################
@@ -188,7 +188,7 @@ width, height = 640, 360
 running = True
 def video_streamer(path, frames_per_chunk):
     import queue, threading
-    from torchaudio.io import StreamReader
+    from torchffmpeg.io import StreamReader
 
     q = queue.Queue()
 
@@ -243,10 +243,10 @@ with s.open():
 # .. raw:: html
 #
 #    <video width="490px" controls autoplay loop muted>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/torchaudio-sdl-demo.mp4">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/torchffmpeg-sdl-demo.mp4">
 #    </video>
 #
-# [`code <https://download.pytorch.org/torchaudio/tutorial-assets/sdl.py>`_]
+# [`code <https://download.pytorch.org/torchffmpeg/tutorial-assets/sdl.py>`_]
 #
 
 ######################################################################
@@ -289,10 +289,10 @@ with s.open():
 # .. raw:: html
 #
 #    <video width="490px" controls autoplay loop muted>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/torchaudio-rtmp-demo.mp4">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/torchffmpeg-rtmp-demo.mp4">
 #    </video>
 #
-# [`code <https://download.pytorch.org/torchaudio/tutorial-assets/rtmp.py>`_]
+# [`code <https://download.pytorch.org/torchffmpeg/tutorial-assets/rtmp.py>`_]
 #
 
 
@@ -321,12 +321,12 @@ with s.open():
 # .. raw:: html
 #
 #    <video width="490px" controls autoplay loop muted>
-#        <source src="https://download.pytorch.org/torchaudio/tutorial-assets/torchaudio-udp-demo.mp4">
+#        <source src="https://download.pytorch.org/torchffmpeg/tutorial-assets/torchffmpeg-udp-demo.mp4">
 #    </video>
 #
-# [`code <https://download.pytorch.org/torchaudio/tutorial-assets/udp.py>`_]
+# [`code <https://download.pytorch.org/torchffmpeg/tutorial-assets/udp.py>`_]
 #
 
 ######################################################################
 #
-# Tag: :obj:`torchaudio.io`
+# Tag: :obj:`torchffmpeg.io`

@@ -22,14 +22,14 @@ windowed-sinc kernels, and frequency sampling method.
 ######################################################################
 #
 import torch
-import torchaudio
+import torchffmpeg
 
 print(torch.__version__)
-print(torchaudio.__version__)
+print(torchffmpeg.__version__)
 
 ######################################################################
 #
-from torchaudio.prototype.functional import (
+from torchffmpeg.prototype.functional import (
     sinc_impulse_response,
     frequency_impulse_response,
 )
@@ -56,7 +56,7 @@ import matplotlib.pyplot as plt
 # applying a window, such as Hamming window, to reduce the
 # artifacts introduced from the truncation.
 #
-# :py:func:`~torchaudio.prototype.functional.sinc_impulse_response`
+# :py:func:`~torchffmpeg.prototype.functional.sinc_impulse_response`
 # generates windowed-sinc impulse response for given cutoff
 # frequencies.
 #
@@ -72,7 +72,7 @@ import matplotlib.pyplot as plt
 # ^^^^^^^^^^^^^^^^
 #
 # Creating sinc IR is as easy as passing cutoff frequency values to
-# :py:func:`~torchaudio.prototype.functional.sinc_impulse_response`.
+# :py:func:`~torchffmpeg.prototype.functional.sinc_impulse_response`.
 #
 
 cutoff = torch.linspace(0., 1., 9)
@@ -162,7 +162,7 @@ plot_sinc_fr(frs, cutoff)
 # impulse response from the Dirac delta function.
 #
 # Passing ``high_pass=True`` to
-# :py:func:`~torchaudio.prototype.functional.sinc_impulse_response`
+# :py:func:`~torchffmpeg.prototype.functional.sinc_impulse_response`
 # will change the returned filter kernel to high pass filter.
 #
 
@@ -228,7 +228,7 @@ plot_sinc_fr(frs, coff, band=True)
 # The next method we look into starts from a desired frequency response
 # and obtain impulse response by applying inverse Fourier transform.
 #
-# :py:func:`~torchaudio.prototype.functional.frequency_impulse_response`
+# :py:func:`~torchffmpeg.prototype.functional.frequency_impulse_response`
 # takes (unnormalized) magnitude distribution of frequencies and
 # construct impulse response from it.
 #
